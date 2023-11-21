@@ -30,3 +30,152 @@ hr{
     border-radius: 5px;
     background: #fff;
 }
+
+#navbar {
+    background-color: #ffffff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+#navigation {
+    background-color: #ffffff;
+    color: #F1F1F2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#title h1{
+    position: absolute;
+    margin-top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    padding: 15px 25px;
+    font-size: 80px;
+    text-decoration: none;
+}
+
+#title p{
+    position: absolute;
+    margin-top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    padding: 15px 25px;
+    font-size: 20px;
+    text-decoration: none;
+    text-shadow: 2px 2px 4px #242424;
+}
+
+#unique-logo {
+    width: 50px;
+    height: auto;
+}
+
+#logo-title {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10%;
+}
+
+#logo-title h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+#unique-logo {
+    margin-right: 10px; 
+}
+
+#navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-right: 3rem;
+}
+#navigation li {
+    display: inline;
+    margin-right: 40px;
+}
+#navigation a {
+    
+    font-size: 20px;
+    text-decoration: none;
+    color: #073066;
+}
+
+.n-events h1 {
+text-align: center;
+}
+
+.n-events img {
+    width: 300px;
+    height: auto;
+}
+
+.continueButton {
+    position: absolute;
+    margin-top: 50%;
+    left: 44%;
+    transform: translate(-50%, -50%);
+    background-color: none;
+    color: #ffffff;
+    padding: 10px 30px;
+    border: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+/* footer */
+
+#footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+#foot-img{
+    display: flex;
+
+}
+
+#footer-container{
+    height: auto;
+    padding: 5rem;
+
+}
+
+#footer-icon{
+    height: 20rem;
+    width: 20rem;
+    float: left;
+    margin-right: 50px;
+    top: 20px;
+}
+
+#contentFooter p{
+    color: #fff;
+}
+#contentFooter h3{
+    text-align: right;
+    color: #fff;
+    font-size: 30px;
+}
+
+#info{
+   text-align: right; 
+}
+
+#info p{
+    color: #ffffff;
+    font-size: 20px;
+    text-align: left;
+    padding-top: 10px;
+}
