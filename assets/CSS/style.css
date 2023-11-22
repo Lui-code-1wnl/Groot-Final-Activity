@@ -170,6 +170,8 @@ text-align: center;
 }
 
 #footer_backg {
+    position: absolute;
+    bottom: 0;
     background-image: url('../images/triangles.png');
     z-index: -1;
     width: 100%;
