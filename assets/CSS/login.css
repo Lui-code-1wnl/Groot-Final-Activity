@@ -1,0 +1,73 @@
+body{
+    margin: 0 auto;
+    padding: 0;
+    background-color: #ffffff;
+    background-image: url('../images/Transparent.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+}
+h1, h2 {
+    margin: 0;
+}
+
+
+
+form {
+    margin: 0 auto;
+    text-align: left;
+    font-size: 20px;
+    color: white;
+    height: 50vh;
+    width: 25%;
+}
+
+label {
+
+}
+
+input {
+    border: 0;
+    padding-left: 30px;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    color: white;
+    background-color: rgb(255,255,255,0.5);
+}
+
+hr {
+    width: 50%;
+}
+
+#banner {
+    margin: 0 auto;
+    text-align: center;
+
+    color: white;
+}
+
+#slu {
+    float: left;
+    width: 50px;
+}
+
+#ograa {
+    float: right;
+    width: 50px;
+
+}
+
+#login-btn {
+    font-size: 20px;
+    border: 0;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #1985E5;
+    color: white;
+}
