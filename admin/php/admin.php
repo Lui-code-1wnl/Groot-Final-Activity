@@ -1,6 +1,6 @@
 <?php
-        include("");
-        include("");
+        include("includes/db.php");
+        include("includes/banner.html");
         
         $query ="";
 
