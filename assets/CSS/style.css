@@ -39,6 +39,13 @@ h2 {
     align-items: center;
 }
 
+#main img {
+    position: absolute;
+    height: 45rem;
+    width: 45rem;
+    margin-left: 12%;
+    margin-top: 5%;
+}
 
 #title h1{
     position: absolute;
@@ -117,15 +124,15 @@ text-align: center;
 
 .continueButton {
     position: absolute;
-    margin-top: 33%;
-    left: 64%;
+    margin-top: 32%;
+    left: 62%;
     transform: translate(-50%, -50%);
     background-color: none;
     color: #ffffff;
     border: 5px;
     border-radius: 15px;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 23px;
     text-decoration: none;
 }
 
@@ -154,8 +161,8 @@ text-align: center;
 }
 
 #footer-icon{
-    height: 15rem;
-    width: 15rem;
+    height: 10rem;
+    width: 10rem;
     float: left;
     margin-right: 50px;
     top: 20px;
@@ -163,7 +170,7 @@ text-align: center;
 
 #contentFooter p{
     color: #fff;
-    font-size: 18px;
+    font-size: 13px;
 }
 
 #info p{
