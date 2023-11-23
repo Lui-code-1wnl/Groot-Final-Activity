@@ -98,7 +98,8 @@ class Document {
     private $dataReviewed;
     private $status;
 
-    public function __construct($documentID, $documentTitle, $documentType, $numberOfPages, $documentPath, $comment, $dataReceived, $dataReviewed, $status) {
+    public function __construct($documentID, $documentTitle, $documentType, $numberOfPages, $documentPath, 
+                                $comment, $dataReceived, $dataReviewed, $status) {
         $this->documentID = $documentID;
         $this->documentTitle = $documentTitle;
         $this->documentType = $documentType;

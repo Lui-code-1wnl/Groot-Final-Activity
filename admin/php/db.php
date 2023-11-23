@@ -1,5 +1,5 @@
 <?php
-$host = 'localhost'; // (jdbc:mysql://localhost:3306/wordy_db) not sure if need all of this
+$host = 'localhost'; // (jdbc:mysql://localhost:3306/groot_final) not sure if need all of this
 $dbname = 'groot_final';
 $username = 'root';
 $password = '';
