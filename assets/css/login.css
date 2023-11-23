@@ -1,0 +1,93 @@
+body{
+    margin: 0 auto;
+    padding: 0;
+    background-color: #ffffff;
+    background-image: url('../images/Transparent.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+}
+h1, h2 {
+    margin: 0;
+}
+
+label {
+    margin-bottom: 5px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 25%;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    align-items: center;
+}
+
+input {
+    font-size: 20px;
+    border: 0;
+    padding-left: 40px;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    color: white;
+    background-color: rgb(255,255,255,0.5);
+
+}
+
+hr {
+    width: 70%;
+
+}
+
+#content-holder {
+    margin-top: 60px;
+    align-items: center;
+}
+
+#banner {
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+
+#title {
+    margin-right: 22%;
+    margin-left: 22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group img{
+    width: 7px;
+}
+
+
+#slu {
+    float: left;
+    width: 150px;
+}
+
+#ograa {
+    float: right;
+    width: 150px;
+}
+
+#login-btn {
+    font-size: 20px;
+    border: 0;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #1985E5;
+    color: white;
+    cursor: pointer;
+}
