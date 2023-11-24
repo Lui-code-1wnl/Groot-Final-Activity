@@ -43,8 +43,8 @@ h2 {
     position: absolute;
     height: 45rem;
     width: 45rem;
-    margin-left: 12%;
-    margin-top: 5%;
+    margin-left: 14%;
+    margin-top: 9%;
 }
 
 #title h1{
@@ -179,7 +179,6 @@ text-align: center;
     background-image: url('../images/triangles.png');
     z-index: -1;
     width: 100%;
-    margin-top: 30%;
     border-top: 2px solid white;
 }
 
