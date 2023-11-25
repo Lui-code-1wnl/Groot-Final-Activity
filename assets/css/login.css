@@ -40,6 +40,7 @@ input {
     background-color: rgb(255,255,255,0.5);
 }
 
+
 hr {
     width: 70%;
 
@@ -64,8 +65,26 @@ hr {
     align-items: center;
 }
 
-.input-group img{
-    width: 7px;
+.input-container {
+
+    position: relative;
+}
+
+.input-container input {
+    padding-left: 50px;
+}
+
+.input-container .fa-input {
+
+    position: absolute;
+    left: 20px;
+    top: 65%;
+    transform: translateY(-50%);
+}
+
+.input-container .fa-input i {
+    font-size: 16px;
+    color: white;
 }
 
 
