@@ -14,9 +14,12 @@
             echo "<div class='err'>ERROR: The file that you have attached is larger than 65KB.</div>";
         }else {
 
+            $stmt->execute();
+
+            $stmt->close();
+            header('Location: admin.php');
+
         }
-        
     }
 
     ?>
-    
