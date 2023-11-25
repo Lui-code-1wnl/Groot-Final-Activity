@@ -39,12 +39,19 @@ h2 {
     align-items: center;
 }
 
-#main img {
+#ograa-logo {
     position: absolute;
     height: 600px;
     width: 600px;
     margin-left: 18%;
     margin-top: 10%;
+}
+
+@media screen and (max-width: 700px){
+    #ograa-logo{
+        display: flex;
+        width: 100%;
+    }
 }
 
 #title h1{
@@ -141,6 +148,12 @@ text-align: center;
     cursor: pointer;
     font-size: 23px;
     text-decoration: none;
+}
+@media screen and (max-width:700px) {
+    .continueButton{
+        position: relative;
+    }
+    
 }
 
 /* footer */
