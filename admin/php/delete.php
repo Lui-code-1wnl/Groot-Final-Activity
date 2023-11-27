@@ -1,5 +1,5 @@
 <?php
-    include("includes/db.php");
+    include("admin/php/db.php");
     $id = $_GET['id'];
     $query = "DELETE FROM users where userID ='$id'";
     if($db->query($query)=== TRUE){

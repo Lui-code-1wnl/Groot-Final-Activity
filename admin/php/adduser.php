@@ -1,5 +1,5 @@
 <?php
-    include("includes/db.php");
+    include("admin/php/db.php");
     include("includes/banner.html");
     include("includes/adduser.html");
 

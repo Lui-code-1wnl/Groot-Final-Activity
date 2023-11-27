@@ -2,7 +2,9 @@
 <?php
         include("includes/db.php");
         include("includes/banner.html");
-        echo "<a href = 
+        echo "<a href = 'adduser.php'><input type = ' button ' class='btn1' name= 'update-btn' value= 'Add new user'/></a>
+        <br>
+        <br>
         
         $query ="";
 
@@ -16,6 +18,7 @@
         $=[];
 
         while ($stmt->fetch()) {
+                
         }
         $stmt->close();
 

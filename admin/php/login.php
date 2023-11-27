@@ -1,6 +1,6 @@
 <?php
-    require('includes/db.php');
-    include "includes/dataclasses.php";
+    require('admin/php/db.php');
+    include "admin/php/dataclasses.php";
     session_start();
 
     if (isset($_POST['userName'])){
