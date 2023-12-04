@@ -17,3 +17,4 @@ app.use(bodyParser.json());
 app.use(session({secret: 'somesecretkey', resave: true, saveUninitialized: true}));
 
 app.listen(portNumber, hostIP)
+console.log('Server running at port ${portNumber}');
