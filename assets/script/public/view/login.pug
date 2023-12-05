@@ -16,6 +16,7 @@ html(lang="en")
             h2 Office of Global Relations and Alumni Affairs
           img#ograa(src='/images/ograa.png', alt='ograa-logo')
       form(action='login', method='POST')
+        p.error-message #{error_msg}
         .input-container
           label(for="username") Username
           input#username(type='text', name='username', required)

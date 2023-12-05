@@ -32,8 +32,14 @@ app.get('/', (request, response) => {
 });
 
 app.get('/login', (request, response) => {
-    var username = request.session.username;
-    response.render('login', { username: username });
+    const error_msg = request.session.error_msg;
+    const username = request.session.username;
+
+    if (error_msg !== null) {
+        response.render('login', { username, error_msg });
+    } else {
+        response.render('login', { username });
+    }
 });
 
 app.post('/login', (request, response) => {
@@ -73,8 +79,30 @@ app.post('/login', (request, response) => {
 
                         request.session.userData = uData;
 
-                        response.redirect('/welcome-page'); // Redirect after successful login
-                        console.log('Logged in successfully.');
+                        connection.query('SELECT status FROM user WHERE username = ?', [username], function(err, result, fields) {
+                            if (err) {
+                                console.error(err);
+                                // Handle the error
+                            } else {
+                                if (result.length > 0) {
+                                    const userStatus = result[0].status;
+                                    if (userStatus === 'online') {
+                                        const error_msg = `${firstName} ${lastName} is currently online.`;
+                                        request.session.error_msg = error_msg;
+                                        response.redirect('/login'); // Redirect after successful login
+                                        console.log('User is online');
+                                    } else {
+                                        response.redirect('/welcome-page'); // Redirect after successful login
+                                        console.log('Logged in successfully.');
+                                        console.log('User is not online');
+                                    }
+                                } else {
+                                    // No user found with the provided username
+                                    console.log('User not found');
+                                }
+                            }
+                        });
+
                     } else {
                         console.log("Login failed.");
                         response.redirect('/login'); // Redirect if login fails
@@ -87,9 +115,16 @@ app.post('/login', (request, response) => {
     }
 });
 
+
+
 app.get('/', (request, response) => {
-    var username =request.session.username
-    response.render('login',{username:username});
+    const error_msg = request.session.error_msg;
+    var username = request.session.username;
+    if(error_msg === null) {
+        response.render('login', {error_msg});
+    } else {
+        response.render('login', { username: username });
+    }
 });
 
 app.get('/welcome-page', (request, response) => {
@@ -100,6 +135,31 @@ app.get('/welcome-page', (request, response) => {
 
 app.post('/welcome-page', (request, response) => {
     const userData = request.session.userData;
-    const fname = user.firstName;
     response.render('welcome-page', {userData: userData});
+
+});
+
+app.get('/logout', (request, response) => {
+    const userData = request.session.userData;
+    request.session.destroy((err) => {
+        if (err) {
+            console.error(err);
+
+        } else {
+            connection.query(
+                'UPDATE user SET status = ? WHERE username = ?',
+                ['offline', userData.username],
+                (updateErr) => {
+                    if (updateErr) {
+                        console.error(updateErr);
+                        response.redirect('/login');
+                    } else {
+                        console.log(`${userData.username} is offline.`);
+                        // Continue with your session handling or redirects here
+                    }
+                }
+            );
+            response.redirect('/login');
+        }
+    });
 });
