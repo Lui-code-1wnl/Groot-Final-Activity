@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    background-image: url('../images/transparent.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: white;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#content-holder {
+    margin-top: 60px;
+    align-items: center;
+}
+#banner {
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+#title {
+    margin-right: 22%;
+    margin-left: 22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#slu, #ograa {
+    float: left;
+    width: 150px;
+}
+h1 {
+    font-size: 58px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+p {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.input-container label {
+    margin-bottom: 5px;
+    text-align: left;
+}
+#welcome {
+    font-size: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+#welcome-container {
+    margin-top: 50px;
+    text-align: center;
+}
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+.continueButton, .logoutButton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.continueButton {
+    display: inline-block;
+    padding: 5px 80px;
+    margin: 5px 10px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 24px;
+    background-color: #007bff;
+    color: #fff;
+    width: auto;
+}
+.logoutButton {
+    text-decoration: underline;
+}
