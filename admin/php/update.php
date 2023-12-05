@@ -40,7 +40,7 @@
         mysqli_stmt_bind_result($stmt, $currentPassword);
         mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
-
+    }
     ?>
     <!-- // <form method="post" action="">
     //     <label for="new_password">New Password:</label>

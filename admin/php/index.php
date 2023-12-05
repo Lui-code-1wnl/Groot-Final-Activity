@@ -1,4 +1,5 @@
-<?php
+
+<?php // not sure if this is needed
     session_start();
 
     include "includes/header.php";
