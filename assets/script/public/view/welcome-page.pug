@@ -3,20 +3,20 @@ html(lang="en")
     head
         meta(charset="UTF-8")
         title Welcome Page
-        link(rel="stylesheet", href="../assets/script/public/css/welcome-banner.css")
-        link(rel="icon", type="image/x-icon", href="../assets/script/public/images/ograa.png")
+        link(rel="stylesheet", href="/css/welcome-banner.css")
+        link(rel="icon", type="image/x-icon", href="/images/ograa.png")
     body
         #content-holder
             #banner
                 #title
-                    img#slu(src="../assets/script/public/images/slu-logo.png", alt="slu-logo")
+                    img#slu(src="/images/slu-logo.png", alt="slu-logo")
                     div#title-header
                         h1 Saint Louis University
                         h2 Office of Global Relations and Alumni Affairs
-                    img#ograa(src="../assets/script/public/images/ograa.png", alt="ograa-logo")
+                    img#ograa(src="/images/ograa.png", alt="ograa-logo")
                 #ograa-logo
             #welcome-container
-                h1#welcome WELCOME, AMORE
+                h1#welcome WELCOME, #{userData.firstName}!
                 p A site that will help you track documents
                 button#continue-btn
                     b Continue

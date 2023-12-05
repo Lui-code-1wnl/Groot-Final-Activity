@@ -50,7 +50,12 @@ app.post('/login', (request, response) => {
                 } else {
                     if (result.length > 0) {
                         const user = result[0];
+
+                        const firstName = user.firstName;
+
                         const role = user.userRole;
+                        const lastName = user.lastName;
+                        const status = user.status;
 
                         if (role === 'user') {
                             console.log(`${username} is a ${role}`);
@@ -58,10 +63,17 @@ app.post('/login', (request, response) => {
                             console.log(`${username} is a ${role}`);
                         }
 
-                        request.session.username = username;
-                        request.session.role = role;
-                        request.session.shcart = [];
-                        response.redirect('/'); // Redirect after successful login
+                        let uData =  {
+                            username: username,
+                            role: role,
+                            firstName: firstName,
+                            lastName: lastName,
+                            status: status
+                        };
+
+                        request.session.userData = uData;
+
+                        response.redirect('/welcome-page'); // Redirect after successful login
                         console.log('Logged in successfully.');
                     } else {
                         console.log("Login failed.");
@@ -77,5 +89,17 @@ app.post('/login', (request, response) => {
 
 app.get('/', (request, response) => {
     var username =request.session.username
-    response.render('login',{username:username})
+    response.render('login',{username:username});
+});
+
+app.get('/welcome-page', (request, response) => {
+    var userData = request.session.userData;
+    response.render('welcome-page', {userData: userData});
+});
+
+
+app.post('/welcome-page', (request, response) => {
+    const userData = request.session.userData;
+    const fname = user.firstName;
+    response.render('welcome-page', {userData: userData});
 });
