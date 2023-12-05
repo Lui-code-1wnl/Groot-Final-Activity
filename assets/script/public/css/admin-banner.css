@@ -35,7 +35,7 @@ a {
     width: 150px;
 }
 h1 {
-    font-size: 58px;
+    font-size: 40px;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -56,6 +56,14 @@ p {
 #welcome-container {
     margin-top: 50px;
     text-align: center;
+}
+
+#main {
+    margin-top: 140px;
+}
+
+#main h1 {
+    font-size: 80px;
 }
 .button {
     display: flex;
