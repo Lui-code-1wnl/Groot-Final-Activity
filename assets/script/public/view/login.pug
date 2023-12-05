@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title SLU Document Tracker
+    link(rel='stylesheet', href='/css/login.css')
+    link(rel='icon', type='image/x-icon', href='../images/ograa.png')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', rel='stylesheet')
+  body
+    #content-holder
+      #banner
+        #title
+          img#slu(src='/images/slu-logo.png', alt='slu-logo')
+          #title-header
+            h1 Saint Louis University
+            h2 Office of Global Relations and Alumni Affairs
+          img#ograa(src='/images/ograa.png', alt='ograa-logo')
+      form(action='login', method='POST')
+        .input-container
+          label(for="username") Username
+          input#username(type='text', name='username', required)
+          span.fa-input
+            i.fas.fa-user
+        br
+        br
+        .input-container
+          label(for='password') Password
+          input#password(type='password', name='password', required)
+          span.fa-input
+            i.fas.fa-lock
+        br
+        br
+        input#login-btn(type='submit', value ='Log in')
+        br
+        hr
+        p Don't have an account yet?
+          u Contact the Admin
