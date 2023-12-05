@@ -108,7 +108,7 @@ h1, h2 {
 form {
     display: flex;
     flex-direction: column;
-    margin: 120px auto;
+    margin: 100px auto;
     width: 25%;
     padding: 20px;
     border-radius: 10px;
@@ -153,6 +153,7 @@ p {
 
 .input-container {
     position: relative;
+    margin-top: 25px;
 }
 
 .input-container input {
@@ -189,13 +190,19 @@ p {
 
 .submission {
     background-color: rgba(255, 255, 255, 0.39);
-    width: 500px;
+    width: 800px;
+    height: 280px;
     padding: 50px;
-    margin: 10px;
+    margin-top: 30px;
+}
+
+#upload-logo {
+    height: 160px;
+    width: auto;
 }
 
 #req-button {
-    margin-top: 40px;
+    margin-top: 30px;
     font-size: 20px;
     border: 0;
     width: 500px;
