@@ -1,0 +1,137 @@
+body{
+    margin: 0 auto;
+    padding: 0;
+    background-color: #ffffff;
+    background-image: url('../images/transparent.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+
+    color: white;
+}
+
+#navbar {
+    background-color: #ffffff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+#navigation {
+    background-color: #ffffff;
+    color: #F1F1F2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ograa-logo {
+    position: absolute;
+    height: 600px;
+    width: 600px;
+    margin-left: 10%;
+    margin-top: 7%;
+}
+
+@media screen and (max-width: 700px){
+    #ograa-logo{
+        display: flex;
+        width: 100%;
+    }
+}
+
+#unique-logo {
+    width: 50px;
+    height: auto;
+}
+
+#logo-title {
+    display: inline-flex;
+    margin-left: 10%;
+    margin-top: 10px;
+}
+
+#logo-title h1 {
+    font-size: 18px;
+    margin: 8px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#unique-logo {
+    margin-right: 5px; 
+}
+
+#navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-right: 3rem;
+}
+#navigation li {
+    display: inline;
+    margin-right: 40px;
+}
+#navigation a {
+    
+    font-size: 20px;
+    text-decoration: none;
+    color: #073066;
+}
+
+.n-events h1 {
+text-align: center;
+}
+
+.n-events img {
+    width: 300px;
+    height: auto;
+}
+
+#progress ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px; 
+    max-width: 800px;
+  }
+  
+  #progress ul:before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    background: white;
+    position: absolute;
+    left: 3px;
+    top: 5px;
+    height: calc(100% - 10px);
+  }
+  
+  #progress li {
+    position: relative;
+    padding-left: 50px;
+    margin-bottom: 20px; 
+  }
+  
+  #progress li:before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px; 
+    background: white;
+    position: absolute;
+    left: 0;
+    top: 4px;
+    border-radius: 50%;
+  }
+  
+  
+  
