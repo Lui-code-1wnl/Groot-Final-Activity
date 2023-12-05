@@ -41,10 +41,10 @@ h2 {
 
 #ograa-logo {
     position: absolute;
-    height: 600px;
-    width: 600px;
-    margin-left: 10%;
-    margin-top: 7%;
+    height: 650px;
+    width: 650px;
+    margin-left: 300px;
+    margin-top: 170px;
 }
 
 @media screen and (max-width: 700px){

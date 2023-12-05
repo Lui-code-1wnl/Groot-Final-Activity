@@ -22,12 +22,15 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#request">Request</a></li>
             <li><a href="#dashbard">Dashboard</a></li>
+            <img id="user-icon" src="../assets/script/public/images/user-icon.png" alt="Logo">
         </ul>
+       
       </div>
     </div>
 
     <form action='' method="POST">
 
+      <div class="row1">
         <div class = "input-container">
             <label for = "referringUnit">Referring person/Unit:</label>
             <input id = "referringUnit1" type="text" name='referringUnit1' required>
@@ -39,6 +42,7 @@
             <input id = "docTitle" type="text" name='docTitle' required>
         </div>
         <br>
+      </div>
         <br>
         <div class = "input-container">
             <label for = "noOfCopies">No. of Copies:</label>
@@ -53,8 +57,9 @@
         <br>
         <br>
 
-        <div class = "input-container">
+        <div class= "submission">
             <label for = "dragAndDrop">Drag and Drop Files Here</label>
+            <p>or</p>
             <button id ="browse-button" type="submit" name="Browse Files">Browse Files</button>
         </div>
 
