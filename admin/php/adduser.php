@@ -5,21 +5,15 @@
 
     if(isset($_POST['add'])){
         $id= $_POST["userID"];
-        $cat= $_POST['role'];
-        $desc= $_POST["description"];
-        $file_size = $_FILES['file']['size'];
-        $file = file_get_contents($_FILES['file']['tmp_name']);
+        $rol= $_POST['password'];
+        $firstN= $_POST["firstName"];
+        $lastN= $_POST["lastName"];
 
-        if($file_size > 655335) {
-            echo "<div class='err'>ERROR: The file that you have attached is larger than 65KB.</div>";
-        }else {
-
-            $stmt->execute();
-
-            $stmt->close();
+        $stmt->execute();
+        $stmt->close();
             header('Location: admin.php');
 
         }
-    }
+    
 
     ?>

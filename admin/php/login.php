@@ -3,8 +3,8 @@
     include "admin/php/dataclasses.php";
     session_start();
 
-    if (isset($_POST['userName'])){
-        $username=$_POST['userName'];
+    if (isset($_POST['userID'])){
+        $username=$_POST['userID'];
         $password=$_POST['password'];
         $st= $db->prepare("");
         $st->bind_param('ss', $username, $password);
@@ -12,7 +12,7 @@
         $result= $st-> get_result();
 
         if($result-> num_rows !=0){
-            $_SESSION['userName'] = $username;
+            $_SESSION['userID'] = $username;
         }
 
         $st->close();
