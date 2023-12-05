@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="../assets/script/public/css/req.css">  <!-- Css for index -->
   <link rel="icon" type="image/x-icon" href="../assets/script/public/images/ograa.png">  <!-- Favicon -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <title>OGRAA</title>
 </head>
 
@@ -27,41 +28,48 @@
        
       </div>
     </div>
-
+    <h1 id ="section-title">DOCUMENT REVIEW REQUEST FORM</h1>
     <form action='' method="POST">
-
+      <div class="row">
         <div class = "input-container">
-            <label for = "referringUnit">Referring person/Unit:</label>
-            <input id = "referringUnit1" type="text" name='referringUnit1' required>
+            <label for = "referring-unit">Referring Person/Unit:</label>
+            <input id ="referring-unit" type="text" name='referring-unit' required>
+            <span class="fa-input"><i class="fas fa-user"></i></span>
         </div>
         <br>
         <br>
         <div class = "input-container">
-            <label for = "docTitle">Document Title:</label>
-            <input id = "docTitle" type="text" name='docTitle' required>
+            <label for = "document-title">Document Title:</label>
+            <input id = "document-title" type="text" name='document-title' required>
+            <span class="fa-input"><i class="fas fa-newspaper"></i></span>
         </div>
         <br>
-        <br>
+      </div>
+      <div class ="row">
+          <div class = "input-container">
+              <label for = "document-type">Document Type:</label>
+              <input id = "document-type" type="text" name='document-type' required>
+              <span class="fa-input"><i class="fas fa-tag"></i></span>
+          </div>
+          <br>
+          <br>
+          <div class = "input-container">
+              <label for = "no-of-pages">No. of Pages:</label>
+              <input id = "no-of-pages" type="text" name='no-of-pages' required>
+              <span class="fa-input"><i class="fas fa-paperclip"></i></span>
+          </div>
+          <br>
+      </div>
         <div class = "input-container">
-            <label for = "noOfCopies">No. of Copies:</label>
-            <input id = "noOfCopies1" type="text" name='noOfCopies1' required>
+            <label for = "document-description">Document Description:</label>
+            <textarea id = "document-description" rows="4" cols="50" required></textarea>
         </div>
-        <br>
-        <br>
-        <div class = "input-container">
-            <label for = "noOfPages">No. of Pages per Copy:</label>
-            <input id = "noOfPages" type="text" name='noOfPages' required>
-        </div>
-        <br>
-        <br>
-
-        <div class= "submission">
-            <img id="upload-logo" src="../assets/script/public/images/upload-icon.png" alt="Logo">
-            <label for = "dragAndDrop">Drag and Drop Files Here</label>
+        <div id= "submission">
+            <span class="fa-input"><i class="fas fa-folder-open"></i></span>
+            <p>Drag and Drop Files Here</p>
             <p>or</p>
             <button id ="browse-button" type="submit" name="Browse Files">Browse Files</button>
         </div>
-
         <input id ="req-button" type="submit">
     </form>
 
