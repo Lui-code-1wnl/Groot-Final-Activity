@@ -110,6 +110,7 @@ hr {
 }
 
 #login-btn {
+    padding-left: 0;
     font-size: 20px;
     border: 0;
     width: 500px;

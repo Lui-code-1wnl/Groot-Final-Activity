@@ -163,3 +163,15 @@ app.get('/logout', (request, response) => {
         }
     });
 });
+
+app.get('/dashboard', (request, response) => {
+    var userData = request.session.userData;
+    response.render('dashboard', {userData: userData});
+});
+
+
+app.post('/dashboard', (request, response) => {
+    const userData = request.session.userData;
+    response.render('dashboard', {userData: userData});
+
+});

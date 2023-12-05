@@ -1,0 +1,71 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width")
+        link(rel='stylesheet', href='/css/req.css')
+        link(rel='icon', type='image/x-icon', href='/images/ograa.png')
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', rel="stylesheet")
+        title OGRAA
+
+    body
+        #navbar
+            #navigation
+                .logo-container
+                    #logo-title
+                        img#unique-logo(src='/images/slu-logo.png', alt='Logo')
+                        h1
+                            a(href='clients/welcome-page.html') Saint Louis University
+                ul
+                    li
+                        a(href="#home") Home
+                    li
+                        a(href="#request") Request
+                    li
+                        a(href="#dashbard") Dashboard
+                    img#user-icon(src="../assets/script/public/images/user-icon.png", alt="Logo")
+
+        h1#section-title DOCUMENT REVIEW REQUEST FORM
+        form(action="", method="POST")
+            .row
+                .input-container
+                    label(for="referring-unit") Referring Person/Unit:
+                    input#referring-unit(type="text", name="referring-unit", required)
+                    span.fa-input
+                        i.fas.fa-user
+                br
+                br
+                .input-container
+                    label(for="document-title") Document Title:
+                    input#document-title(type="text", name="document-title", required)
+                    span.fa-input
+                        i.fas.fa-newspaper
+                br
+
+            .row
+                .input-container
+                    label(for="document-type") Document Type:
+                    input#document-type(type="text", name="document-type", required)
+                    span.fa-input
+                        i.fas.fa-tag
+                br
+                br
+                .input-container
+                    label(for="no-of-pages") No. of Pages:
+                    input#no-of-pages(type="text", name="no-of-pages", required)
+                    span.fa-input
+                        i.fas.fa-paperclip
+                br
+
+            .input-container
+                label(for="document-description") Document Description:
+                textarea#document-description(rows="4", cols="50", required)
+
+            #submission
+                span.fa-input
+                    i.fas.fa-folder-open
+                p Drag and Drop Files Here
+                p or
+                button#browse-button(type="submit", name="Browse Files") Browse Files
+
+            input#req-button(type="submit")
