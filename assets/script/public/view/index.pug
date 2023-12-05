@@ -1,0 +1,32 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width")
+        link(rel='stylesheet', href='/css/style.css')
+        link(rel='icon', type="image/x-icon", href='/images/ograa.png')
+        title OGRAA
+
+    body
+        #navbar
+            #navigation
+                .logo-container
+                    #logo-title
+                        img#unique-logo(src='/images/slu-logo.png', alt="Logo")
+                        h1
+                            a(href="#home") Saint Louis University
+
+        #home
+            #main
+                img#ograa-logo(src='/images/ograa.png')
+                #title
+                    h1 Office of Global Relations
+                        br
+                        | and Alumni Affairs
+                    hr
+                    p Saint Louis University
+                    .button
+                        a.continueButton(href='/login')
+                            b Continue to Log In
+
+        include footer

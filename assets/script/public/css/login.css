@@ -103,6 +103,10 @@ hr {
     width: 150px;
 }
 
+#welcome {
+    text-align: center;
+}
+
 #login-btn {
     font-size: 20px;
     border: 0;

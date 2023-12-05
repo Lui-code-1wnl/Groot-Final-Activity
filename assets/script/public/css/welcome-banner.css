@@ -1,0 +1,89 @@
+#content-holder {
+    margin-top: 60px;
+    align-items: center;
+}
+
+#banner {
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+
+#title {
+    margin-right: 22%;
+    margin-left: 22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body{
+    margin: 0 auto;
+    padding: 0;
+    background-color: #ffffff;
+    background-image: url('../images/transparent.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+
+    color: white;
+}
+h1, h2 {
+    margin: 0;
+    text-align: center;
+}
+
+p{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.input-container label {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+#slu {
+    float: left;
+    width: 150px;
+}
+
+#ograa {
+    float: right;
+    width: 150px;
+}
+
+#welcome{
+    font-size: 100px;
+}
+
+#welcome-container{
+    margin-top: 50px;
+    text-align: center;
+}
+
+#continue-btn {
+    font-size: 20px;
+    border: 0;
+    width: 400px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #1985E5;
+    color: white;
+    cursor: pointer;
+}
+
+#logout-btn {
+    margin-top: 15px;
+    font-size: 20px;
+    border: 0;
+    width: 800px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: rgb(255,255,255,0.0);
+    color: white;
+    cursor: pointer;
+}

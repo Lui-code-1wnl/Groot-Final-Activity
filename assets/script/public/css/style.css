@@ -11,7 +11,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #ffffff;
-    background-image: url('imagesnt.png');
+    background-image: url('../images/transparent.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -43,8 +43,8 @@ h2 {
     position: absolute;
     height: 600px;
     width: 600px;
-    margin-left: 18%;
-    margin-top: 10%;
+    margin-left: 14%;
+    margin-top: 7%;
 }
 
 @media screen and (max-width: 700px){
@@ -139,7 +139,7 @@ text-align: center;
 .continueButton {
     position: absolute;
     margin-top: 32%;
-    left: 62%;
+    left: 67%;
     transform: translate(-50%, -50%);
     color: #ffffff;
     border: 2px solid #ffffff;
