@@ -11,7 +11,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #ffffff;
-    background-image: url('../images/Transparent.png');
+    background-image: url('imagesnt.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -189,7 +189,7 @@ text-align: center;
 #footer_backg {
     position: absolute;
     bottom: 0;
-    background-image: url('../images/triangles.png');
+    background-image: url('images.png');
     z-index: -1;
     width: 100%;
     border-top: 2px solid white;

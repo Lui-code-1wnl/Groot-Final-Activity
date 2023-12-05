@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>SLU Document Tracker</title>
-    <link rel="stylesheet" href="assets/css/login.css">  <!-- Css for index -->
-    <link rel="icon" type="image/x-icon" href="assets/images/ograa.png">  <!-- Favicon -->
+    <link rel="stylesheet" href="../assets/script/public/css/login.css">  <!-- Css for index -->
+    <link rel="icon" type="image/x-icon" href="../assets/script/public/images/ograa.png">  <!-- Favicon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -13,35 +13,35 @@
         <div id = "banner">
 
             <div id = "title">
-                <img id = "slu" src="assets/images/SLU%20Logo.png" alt="slu-logo">
+                <img id = "slu" src="../assets/script/public/images/SLU%20Logo.png" alt="slu-logo">
                 <div id="title-header">
                     <h1>Saint Louis University</h1>
                     <h2>Office of Global Relations and Alumni Affairs</h2>
                 </div>
-                <img id = "ograa" src="assets/images/ograa.png" alt="ograa-logo">
+                <img id = "ograa" src="../assets/script/public/images/ograa.png" alt="ograa-logo">
             </div>
 
             <div id = ograa-logo>
             </div>
         </div>
         <div>
-            <form action="login.php" method="POST">
+            <form action='/login' method="POST">
 
                 <div class = "input-container">
                     <label for = "username">Username</label>
-                    <input id = "username" type="text" name="userName" required>
+                    <input id = "username" type="text" name='username' required>
                     <span class="fa-input"><i class="fas fa-user"></i></span>
                 </div>
                 <br>
                 <br>
                 <div class = "input-container">
                     <label for = "password">Password</label>
-                    <input id = "password" type="password" name="password" required>
+                    <input id = "password" type="password" name='password' required>
                     <span class="fa-input"><i class="fas fa-lock"></i></span>
                 </div>
                 <br>
                 <br>
-                <button id = "login-btn"><b>Login</b></button>
+                <input id ="login-btn" type="submit">
             </form>
             <br>
             <hr>
