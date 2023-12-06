@@ -1,59 +1,33 @@
-<!DOCTYPE html>
-<html lang='en'>
-    <head>
-        <meta charset='UTF'>
-        <title> OGRAA </title>
-        <link rel='stylesheet1' href=''>
-    </head>
-
-    <body>
 <?php
-// not sure if all of this will work
-    include("includes/db.php");
-    include("includes/banner.html");
+include("includes/db.php");
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $newPassword = $_POST["new_password"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Assuming you have the update logic here, modify as needed
+    $username = $_POST["username"];
+    $password = $_POST["password"];
 
-        $query = "UPDATE users SET password = ? WHERE userID = ?";
-        $stmt = mysqli_stmt_init($db);
-        
-        if (mysqli_stmt_prepare($stmt, $query)) {
-            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-            mysqli_stmt_bind_param($stmt, "si", $hashedPassword, $id);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
+    // Your update logic goes here...
 
+    // Example: Updating the password
+    $query = "UPDATE users SET password = ? WHERE username = ?";
+    $stmt = mysqli_stmt_init($db);
+
+    if (mysqli_stmt_prepare($stmt, $query)) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        mysqli_stmt_bind_param($stmt, "ss", $hashedPassword, $username);
+
+        if (mysqli_stmt_execute($stmt)) {
             echo "Password updated successfully!";
         } else {
             echo "Error updating password: " . mysqli_error($db);
         }
-    }
 
-    $id = $_GET['id'];
-    $query = "SELECT password FROM users WHERE userID = ?";
-    $stmt = mysqli_stmt_init($db);
-
-    if (mysqli_stmt_prepare($stmt, $query)) {
-        mysqli_stmt_bind_param($stmt, "i", $id);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $currentPassword);
-        mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
+    } else {
+        echo "Error preparing update statement: " . mysqli_error($db);
     }
-    ?>
-    <!-- // <form method="post" action="">
-    //     <label for="new_password">New Password:</label>
-    //     <input type="password" name="new_password" required>
-    //     <input type="submit" value="Update Password">
-    // </form>
-     <?php
-// } else {
-//     echo "Error retrieving current password: " . mysqli_error($db);
-// }
+}
 
-// mysqli_close($db);
-?> -->
-
-
-        
+// Close the database connection
+mysqli_close($db);
+?>
