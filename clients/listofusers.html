@@ -1,58 +1,70 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <script src=""></script> <!-- JS for index-->
-  <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="../assets/script/public/css/listofusers.css">  <!-- Css for index -->
-  <link rel="icon" type="image/x-icon" href="../assets/script/public/images/ograa.png">  <!-- Favicon -->
-  <title>OGRAA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>OGRAA</title>
+    <link rel="stylesheet" href="../assets/script/public/css/listofusers.css"> <!-- Css for index -->
+    <link rel="icon" type="image/x-icon" href="../assets/script/public/images/ograa.png"> <!-- Favicon -->
+    <script src=""></script> <!-- JS for index-->
 </head>
 
 <body>
-<h1>List of Users</h1>
-<h1>Create a New Account </h1>
-<div class="row">
-    <form action="" method="POST">
-        <div class="row">
-            <div class="input-container">
-                <label for="username">Enter username</label>
-                <input id="username" type="text" name="username" required>
-                <span class="fa-input"><i class="fas fa-user"></i></span>
+<div id="navbar"> <!-- Navigation -->
+    <div id="navigation">
+        <div class="logo-container">
+            <div id="logo-title">
+                <img id="unique-logo" src="../assets/script/public/images/slu-logo.png" alt="Logo">
+                <h1><a href="clients/welcome-page.html">Saint Louis University</a></h1>
             </div>
         </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#users">Users</a></li>
+            <li><a href="#admin">Admin</a></li>
+        </ul>
+    </div>
+</div>
 
-        <div class="row">
-            <div class="input-container">
-                <label for="password">Enter Password</label>
-                <input id="password" type="text" name="password" required>
-                <span class="fa-input"><i class="fas fa-newspaper"></i></span>
-            </div>
-        </div>
+<div id ="title-container">
+    <h2 id ="title">LIST OF USERS</h2>
+</div>
 
-        <div class="row">
-            <div class="input-container">
-                <label for="first-name">First Name</label>
-                <input id="first-name" type="text" name="first-name" required>
-                <span class="fa-input"><i class="fas fa-tag"></i></span>
+<div class="container">
+    <div class="blue-box">
+        <h1>Create a New Account</h1>
+        <div class="form">
+            <div class="row">
+                <div class="input-container">
+                    <input id="username" type="text" name="username" placeholder="Enter username" required>
+                </div>
+                <div class="input-container">
+                    <input id="password" type="password" name="password" placeholder="Enter Password" required>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <button id="add-button" type="button">+ Add</button>
+            </div>
+            <div class="row">
+                <div class="input-container">
+                    <input id="first-name" type="text" name="first-name" placeholder="First Name" required>
+                </div>
+                <div class="input-container">
+                    <input id="last-name" type="text" name="last-name" placeholder="Last Name" required>
+                </div>
+            </div>
 
-        <div class="row">
-            <div class="input-container">
-                <label for="last-name">Last Name </label>
-                <input id="last-name" type="text" name="last-name" required>
-                <span class="fa-input"><i class="fas fa-paperclip"></i></span>
+        </div>
+    </div>
+</div>
+            <div class="row">
+                <div id="search-box">
+                    <input type="text" id="search-input" placeholder="Search">
+                    <button id="search-button" type="submit">Search</button>
+                </div>
             </div>
         </div>
-
-        <div class="row">
-            <div id="search-box">
-                <input type="text" id="search-input" placeholder="Search">
-                <button id="search-button" type="submit">Search</button>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
 </body>
 </html>
