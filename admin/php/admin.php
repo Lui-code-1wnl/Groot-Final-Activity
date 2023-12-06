@@ -4,7 +4,7 @@
         include("includes/banner.html");
         echo "<a href='adduser.php'><input type='button' class='btn1' name='update-btn' value='Add new user'/></a><br><br>";
 
-        $query ="SELECT * FROM users ORDER BY userID";
+        $query ="SELECT * FROM users ORDER BY username";
 
         $stmt = $db->stmt_init();
         $stmt->prepare($query);
@@ -20,6 +20,16 @@
                $users[] = $user; 
         }
         $stmt->close();
+
+        foreach ($users as $user) {
+                $userID = $user->get_userID();
+                $username = $user->get_userName();
+                $firstName = $user->get_firstName();
+                $lastName = $user->get_lastName();
+                $password = $user->get_password();
+                $userRole = $user->get_userRole();
+                $status = $user->get_status();
+        }
 ?>
 </body>     
 

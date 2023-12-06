@@ -3,14 +3,16 @@
 // objects for "users" table in db
 class User {
     private $userID;
+    private $username
     private $firstName;
     private $lastName;
     private $password;
     private $userRole;
     private $status;
 
-    public function __construct($userID, $firstName, $lastName, $password, $userRole, $status) {
+    public function __construct($userID, $username, $firstName, $lastName, $password, $userRole, $status) {
         $this->userID = $userID;
+        $this->username = $username
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->password = $password;
@@ -20,6 +22,10 @@ class User {
 
     public function get_userID() {
         return $this->userID;
+    }
+
+    public function get_userName() {
+        return $this->username;
     }
 
     public function get_firstName() {
