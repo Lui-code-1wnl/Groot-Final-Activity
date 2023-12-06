@@ -54,6 +54,30 @@ body{
     margin-top: 10px;
 }
 
+#table-container {
+    text-align: center;
+    width: 1300px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+table {
+    width: 1300px;
+    text-align: center;
+    color: #073066;
+
+}
+
+th {
+    font-family: "Century Gothic", SansSerif, serif;
+    border-bottom: solid #073066 1px;
+}
+
+td {
+    padding: 20px;
+    border-bottom: solid #073066 1px;
+}
+
 #logo-title h1 {
     font-size: 18px;
     margin: 8px 0 0;
@@ -81,6 +105,16 @@ body{
     font-size: 20px;
     text-decoration: none;
     color: white;
+}
+
+button {
+    padding: 6px 12px;
+    border: 1px solid #007BFF;
+    border-radius: 3px;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+
 }
 
 .n-events h1 {

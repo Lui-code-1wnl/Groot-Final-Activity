@@ -47,12 +47,25 @@ html(lang="en")
                 label(for="document-description") Document Description:
                 textarea#document-description(rows="4", cols="50", required)
 
+
+            p Approving Offices:
+            select
+                option(value='0') Select Approving Office/s
+                option(value='3') SLU Office for Global Relations and Alumni Affairs
+                option(value='4') SLU Unit
+                option(value='5') SLU Office of the Vice President for Academic Affairs
+                option(value='6') SLU Office of Vice President for Finance
+                option(value='7') SLU Office for Legal Affairs
+                option(value='8') SLU Office of the Vice President for Administration
+
             #submission
                 span.fa-input
                     i.fas.fa-folder-open
                 p Drag and Drop Files Here
                 p or
-                input#browse-button(type='file', name='Browse Files')
+                .upload-btn-wrapper
+                    button.btn Upload a file.
+                    input#browse-button(type='file', name='Browse Files')
 
             input#req-button(type="submit")
             button#cancel-button(name='Cancel Submission')

@@ -2,10 +2,10 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const dayjs = require('dayjs');
 const {request, response} = require("express");
 const portNumber = 10000;
 const hostIP = 'localhost'
-var path = require('path')
 var connection = mysql.createConnection({
     host: hostIP, user:'root', password: '', database: 'groot_final'
 });
@@ -129,6 +129,18 @@ app.get('/', (request, response) => {
 
 app.get('/welcome-page', (request, response) => {
     var userData = request.session.userData;
+    connection.query(
+        'UPDATE user SET status = ? WHERE username = ?',
+        ['online', userData.username],
+        (updateErr) => {
+            if (updateErr) {
+                console.error(updateErr);
+                response.redirect('/login');
+            } else {
+                console.log(`${userData.username} is online.`);
+            }
+        }
+    );
     response.render('welcome-page', {userData: userData});
 });
 
@@ -162,28 +174,36 @@ app.get('/logout', (request, response) => {
         }
     });
 });
-
-app.get('/dashboard', (request, response) => {
-    var userData = request.session.userData;
-    response.render('dashboard', {userData: userData});
+app.post("/", async function(request, response) {
+    const userData = request.session.userData;
+    const result = await getUserRequest(userData.userID);
+    response.send(result);
+    console.log(getUserRequest(userData.userID));
 });
 
+app.get("/dashboard", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        response.render('dashboard', {userData:userData, result: result });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
 
-app.post('/dashboard', (request, response) => {
-    const userData = request.session.userData;
-    response.render('dashboard', {userData: userData});
-    connection.query('SELECT d.* FROM request r JOIN document d ON r.documentID = d.documentID JOIN User u ON d.userID = u.userID WHERE u.userID = userData.userID',
-        [userData.userID], function (err, result, fields) {
+function getUserRequest(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT r.requestID, d.documentID, d.documentTitle, d.documentType, d.dateReviewed, d.numberOfPages, d.documentDescription, d.status FROM User u JOIN Document d ON u.userID = d.userID JOIN Request r ON d.documentID = r.documentID WHERE u.userID = ?';
+
+        connection.query(sql, [userID], (err, result) => {
             if (err) {
-                console.error(err);
-            }
-            if(result === null){
-                //indicate na wala talaga results here
+                reject(err);
             } else {
-                //display result
+                resolve(result);
             }
         });
-});
+    });
+}
 
 app.get('/request-form', (request, response) => {
     var userData = request.session.userData;
@@ -192,7 +212,6 @@ app.get('/request-form', (request, response) => {
 
 
 app.post('/request-form', (request, response) => {
-    const userData = request.session.userData;
-    response.render('request-form', {userData: userData});
+
 
 });
