@@ -121,3 +121,32 @@ hr {
     color: white;
     cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+    body {
+        background-size: auto;
+    }
+
+    form {
+        width: 80%;
+    }
+
+    input {
+        width: 100%;
+        padding-left: 20px;
+    }
+
+    #title {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #login-btn {
+        width: 100%;
+        padding-left: 20px;
+        margin: 10px auto; 
+        display: block; 
+    }
+}
