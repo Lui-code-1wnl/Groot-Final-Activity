@@ -1,0 +1,230 @@
+body{
+    margin: 0 auto;
+    padding: 0;
+    background-color: #ffffff;
+    background-image: url('../images/transparent.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+
+    color: white;
+}
+h1, h2 {
+    margin: 0;
+}
+
+#navbar {
+    background-color: rgba(8, 47, 99, 0.637);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+#navigation {
+    color: #F1F1F2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ograa-logo {
+    position: absolute;
+    height: 600px;
+    width: 600px;
+    margin-left: 10%;
+    margin-top: 7%;
+}
+
+@media screen and (max-width: 700px){
+    #ograa-logo{
+        display: flex;
+        width: 100%;
+    }
+}
+
+#unique-logo {
+    width: 50px;
+    height: auto;
+}
+
+#logo-title {
+    display: inline-flex;
+    margin-left: 10%;
+    margin-top: 10px;
+}
+
+#logo-title h1 {
+    font-size: 18px;
+    margin: 8px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#unique-logo {
+    margin-right: 5px; 
+}
+
+#navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-right: 3rem;
+}
+#navigation li {
+    display: inline;
+    margin-right: 40px;
+}
+#navigation a {
+    
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+
+.input-container label {
+    margin-bottom: 5px;
+    text-align: left;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 25%;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    align-items: center;
+}
+
+input {
+    font-size: 20px;
+    border: 0;
+    padding-left: 40px;
+    padding-top: 5px;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    color: white;
+    background-color: rgb(255,255,255,0.5);
+}
+
+p {
+    text-align: center
+}
+
+
+hr {
+    margin-top: 50px;
+    width: 70%;
+
+}
+
+#content-holder {
+    margin-top: 60px;
+    align-items: center;
+}
+
+#banner {
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+
+#title {
+    margin-right: 22%;
+    margin-left: 22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#input-section h1{
+    margin-top: 180px;
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.input-container {
+
+    position: relative;
+}
+
+.input-container input {
+    padding-left: 50px;
+}
+
+.input-container .fa-input {
+
+    position: absolute;
+    left: 20px;
+    top: 65%;
+    transform: translateY(-50%);
+}
+
+.input-container .fa-input i {
+    font-size: 16px;
+    color: white;
+}
+
+
+#slu {
+    float: left;
+    width: 150px;
+}
+
+#ograa {
+    float: right;
+    width: 150px;
+}
+
+#welcome {
+    text-align: center;
+}
+
+#login-btn {
+    padding-left: 0;
+    font-size: 20px;
+    border: 0;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #1985E5;
+    color: white;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        background-size: auto;
+    }
+
+    form {
+        width: 80%;
+    }
+
+    input {
+        width: 100%;
+        padding-left: 20px;
+    }
+
+    #title {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #login-btn {
+        width: 100%;
+        padding-left: 20px;
+        margin: 10px auto; 
+        display: block; 
+    }
+}

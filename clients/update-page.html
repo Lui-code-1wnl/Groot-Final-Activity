@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SLU Document Tracker</title>
+    <link rel="stylesheet" href="../assets/script/public/css/update-page.css">  <!-- Css for index -->
+    <link rel="icon" type="image/x-icon" href="../assets/script/public/images/ograa.png">  <!-- Favicon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id= "content-holder">
+
+        <div id="navbar">
+            <div id="navigation">
+              <div class="logo-container">
+                <div id="logo-title">
+                  <img id="unique-logo" src="../assets/script/public/images/slu-logo.png" alt="Logo">
+                  <h1><a href="clients/welcome-page.html">Saint Louis University</a></h1>
+                </div>
+              </div>
+              <ul>
+                  <li><a href="#home">Home</a></li>
+                  <li><a href="#users">Users</a></li>
+              </ul>
+            </div>
+          </div>
+
+        <div id = "input-section">
+            <form action='/login' method="POST">
+  
+                <h1>Update User</h1>
+
+                <div class = "input-container">
+                    <label for = "username">Username</label>
+                    <input id = "username" type="text" name='username' required>
+                    <span class="fa-input"><i class="fas fa-user"></i></span>
+                </div>
+                <br>
+                <br>
+                <div class = "input-container">
+                    <label for = "password">Password</label>
+                    <input id = "password" type="password" name='password' required>
+                    <span class="fa-input"><i class="fas fa-lock"></i></span>
+                </div>
+                <br>
+                <br>
+                <input id ="login-btn" type="submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
