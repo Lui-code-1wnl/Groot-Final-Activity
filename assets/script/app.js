@@ -56,9 +56,8 @@ app.post('/login', (request, response) => {
                 } else {
                     if (result.length > 0) {
                         const user = result[0];
-
+                        const userID = user.userID;
                         const firstName = user.firstName;
-
                         const role = user.userRole;
                         const lastName = user.lastName;
                         const status = user.status;
@@ -70,6 +69,7 @@ app.post('/login', (request, response) => {
                         }
 
                         let uData =  {
+                            userID: userID,
                             username: username,
                             role: role,
                             firstName: firstName,
@@ -79,7 +79,8 @@ app.post('/login', (request, response) => {
 
                         request.session.userData = uData;
 
-                        connection.query('SELECT status FROM user WHERE username = ?', [username], function(err, result, fields) {
+                        connection.query('SELECT status FROM user WHERE username = ?', [username],
+                            function(err, result, fields) {
                             if (err) {
                                 console.error(err);
                                 // Handle the error
@@ -105,16 +106,15 @@ app.post('/login', (request, response) => {
 
                     } else {
                         console.log("Login failed.");
-                        response.redirect('/login'); // Redirect if login fails
+                        response.redirect('/login');
                     }
                 }
             }
         );
     } else {
-        response.redirect('/login'); // Redirect if username/password not provided
+        response.redirect('/login');
     }
 });
-
 
 
 app.get('/', (request, response) => {
@@ -155,7 +155,6 @@ app.get('/logout', (request, response) => {
                         response.redirect('/login');
                     } else {
                         console.log(`${userData.username} is offline.`);
-                        // Continue with your session handling or redirects here
                     }
                 }
             );
@@ -173,5 +172,15 @@ app.get('/dashboard', (request, response) => {
 app.post('/dashboard', (request, response) => {
     const userData = request.session.userData;
     response.render('dashboard', {userData: userData});
-
+    connection.query('SELECT d.* FROM request r JOIN document d ON r.documentID = d.documentID JOIN User u ON d.userID = u.userID WHERE u.userID = userData.userID',
+        [userData.userID], function (err, result, fields) {
+            if (err) {
+                console.error(err);
+            }
+            if(result === null){
+                //indicate na wala talaga results here
+            } else {
+                //display result
+            }
+        });
 });
