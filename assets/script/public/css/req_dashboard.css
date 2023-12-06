@@ -92,6 +92,19 @@ text-align: center;
     height: auto;
 }
 
+#track {
+    margin-top: 160px;
+    margin-left: 240px;
+}
+
+#left-img img {
+    height: 650px;
+    width: auto;
+    padding: 10px;
+    margin-top: 5px;
+    margin-left: 240px;
+}
+
 #progress ul {
     list-style: none;
     margin: 0;
