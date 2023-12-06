@@ -184,3 +184,15 @@ app.post('/dashboard', (request, response) => {
             }
         });
 });
+
+app.get('/request-form', (request, response) => {
+    var userData = request.session.userData;
+    response.render('request-form', {userData: userData});
+});
+
+
+app.post('/request-form', (request, response) => {
+    const userData = request.session.userData;
+    response.render('request-form', {userData: userData});
+
+});

@@ -219,6 +219,7 @@ p {
     background-color: #1985E5;
     color: white;
     cursor: pointer;
+    font-weight: bold;
 }
 
 textarea {
@@ -242,5 +243,19 @@ textarea {
     text-align: center;
     background-color: white;
     color: #073066;
+    cursor: pointer;
+}
+
+#cancel-button{
+    text-align: center;
+    margin-top: 10px;
+    font-size: 20px;
+    border: 0;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    padding-left: 0;
+    background-color: rgba(255, 255, 255, 0.39);
+    color: white;
     cursor: pointer;
 }
