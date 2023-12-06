@@ -10,29 +10,49 @@
 </head>
 
 <body>
-    <div id="navbar"> <!-- Navigation -->
-      <div id="navigation">
-        <div class="logo-container">
-          <div id="logo-title">
-            <img id="unique-logo" src="../assets/script/public/images/slu-logo.png" alt="Logo">
-            <h1><a href="clients/welcome-page.html">Saint Louis University</a></h1>
-          </div>
+<h1>List of Users</h1>
+<h1>Create a New Account </h1>
+<div class="row">
+    <form action="" method="POST">
+        <div class="row">
+            <div class="input-container">
+                <label for="username">Enter username</label>
+                <input id="username" type="text" name="username" required>
+                <span class="fa-input"><i class="fas fa-user"></i></span>
+            </div>
         </div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#users">Users</a></li>
-        </ul>
-      </div>
-    </div>
 
-    <div id ="title-container">
-        <h1 id ="title">LIST OF USERS</h1>
-    </div>
+        <div class="row">
+            <div class="input-container">
+                <label for="password">Enter Password</label>
+                <input id="password" type="text" name="password" required>
+                <span class="fa-input"><i class="fas fa-newspaper"></i></span>
+            </div>
+        </div>
 
-    <div id="search-box">
-        <input type="text" id="search-input" placeholder="Search">
-        <button id="search-button">Search</button>
-    </div>
+        <div class="row">
+            <div class="input-container">
+                <label for="first-name">First Name</label>
+                <input id="first-name" type="text" name="first-name" required>
+                <span class="fa-input"><i class="fas fa-tag"></i></span>
+            </div>
+        </div>
 
-    </body>
-    </html>
+        <div class="row">
+            <div class="input-container">
+                <label for="last-name">Last Name </label>
+                <input id="last-name" type="text" name="last-name" required>
+                <span class="fa-input"><i class="fas fa-paperclip"></i></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="search-box">
+                <input type="text" id="search-input" placeholder="Search">
+                <button id="search-button" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
