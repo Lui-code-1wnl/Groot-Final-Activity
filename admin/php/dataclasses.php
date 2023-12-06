@@ -3,7 +3,7 @@
 // objects for "users" table in db
 class User {
     private $userID;
-    private $username
+    private $username;
     private $firstName;
     private $lastName;
     private $password;
@@ -12,7 +12,7 @@ class User {
 
     public function __construct($userID, $username, $firstName, $lastName, $password, $userRole, $status) {
         $this->userID = $userID;
-        $this->username = $username
+        $this->username = $username;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->password = $password;

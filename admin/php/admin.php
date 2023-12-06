@@ -9,14 +9,14 @@
         $stmt = $db->stmt_init();
         $stmt->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($userID, $firstName, $lastName, $password, $userRole, $status);
+        $stmt->bind_result($userID, $username, $firstName, $lastName, $password, $userRole, $status);
 
         include("includes/dataclasses.php");
 
         $users = [];
 
         while ($stmt->fetch()) {
-               $user = new User($userID, $firstName, $lastName, $password, $userRole, $status);
+               $user = new User($userID, $username, $firstName, $lastName, $password, $userRole, $status);
                $users[] = $user; 
         }
         $stmt->close();

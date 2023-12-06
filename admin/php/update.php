@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Your update logic goes here...
 
     // Example: Updating the password
-    $query = "UPDATE users SET password = ? WHERE username = ?";
+    $query = "UPDATE user SET password = ? WHERE username = ?";
     $stmt = mysqli_stmt_init($db);
 
     if (mysqli_stmt_prepare($stmt, $query)) {
