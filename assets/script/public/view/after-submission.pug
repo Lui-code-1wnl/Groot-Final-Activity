@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        title SLU Document Tracker
+        link(rel='stylesheet', href='/css/login.css')
+        link(rel='icon', type='image/x-icon', href='../images/ograa.png')
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', rel='stylesheet')
+    body
+        include client-white-header
+        #content-holder
+            #submission-notice
+                h2 DOCUMENT SUBMISSION SUCCESS
+                p Your document has been submitted to the offices and is pending for approval.
+
+                a(href='/dashboard')
+                    button#back-button
+                        b Go back to dashboard

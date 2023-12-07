@@ -15,15 +15,15 @@ html(lang="en")
         form(action="", method="POST")
             .row
                 .input-container
-                    label(for="referring-unit") Referring Person/Unit:
-                    input#referring-unit(type="text", name="referring-unit", required)
+                    label(for='referring-unit') Referring Person/Unit:
+                    input#referring-unit(type='text', name='entity', required)
                     span.fa-input
                         i.fas.fa-user
                 br
                 br
                 .input-container
-                    label(for="document-title") Document Title:
-                    input#document-title(type="text", name="document-title", required)
+                    label(for='document-title') Document Title:
+                    input#document-title(type='text', name="documentTitle", required)
                     span.fa-input
                         i.fas.fa-newspaper
                 br
@@ -31,32 +31,21 @@ html(lang="en")
             .row
                 .input-container
                     label(for="document-type") Document Type:
-                    input#document-type(type="text", name="document-type", required)
+                    input#document-type(type="text", name='documentType', required)
                     span.fa-input
                         i.fas.fa-tag
                 br
                 br
                 .input-container
                     label(for="no-of-pages") No. of Pages:
-                    input#no-of-pages(type="text", name="no-of-pages", required)
+                    input#no-of-pages(type="text", name='numOfPages', required)
                     span.fa-input
                         i.fas.fa-paperclip
                 br
 
             .input-container
                 label(for="document-description") Document Description:
-                textarea#document-description(rows="4", cols="50", required)
-
-
-            p Approving Offices:
-            select
-                option(value='0') Select Approving Office/s
-                option(value='3') SLU Office for Global Relations and Alumni Affairs
-                option(value='4') SLU Unit
-                option(value='5') SLU Office of the Vice President for Academic Affairs
-                option(value='6') SLU Office of Vice President for Finance
-                option(value='7') SLU Office for Legal Affairs
-                option(value='8') SLU Office of the Vice President for Administration
+                textarea#document-description(rows="4", cols="50", required name='desc')
 
             #submission
                 span.fa-input
@@ -65,7 +54,7 @@ html(lang="en")
                 p or
                 .upload-btn-wrapper
                     button.btn Upload a file.
-                    input#browse-button(type='file', name='Browse Files')
+                    input#browse-button(type='file', name='file')
 
             input#req-button(type="submit")
             button#cancel-button(name='Cancel Submission')

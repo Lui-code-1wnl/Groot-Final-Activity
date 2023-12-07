@@ -293,3 +293,8 @@ textarea {
 .upload-btn-wrapper .btn {
     cursor: pointer;
 }
+
+#approving-offices {
+    width:800px;
+    font-size: 15px;
+}

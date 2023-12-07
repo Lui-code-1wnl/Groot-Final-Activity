@@ -1,0 +1,85 @@
+body{
+    margin: 0 auto;
+    padding: 0;
+    background-color: #ffffff;
+    background-image: url('../images/transparent.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+
+    color: white;
+}
+h1, h2 {
+    margin: 0;
+}
+
+.input-container label {
+    margin-bottom: 5px;
+    text-align: left;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 25%;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    align-items: center;
+}
+
+input {
+    font-size: 20px;
+    border: 0;
+    padding-left: 40px;
+    padding-top: 5px;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    color: white;
+    background-color: rgb(255,255,255,0.5);
+}
+
+p {
+    text-align: center
+}
+
+
+hr {
+    margin-top: 50px;
+    width: 70%;
+
+}
+
+#content-holder {
+    margin-top: 60px;
+    align-items: center;
+}
+
+#submission-notice {
+    width: 500px;
+}
+
+#submission-notice h2{
+    font-size: 50px;
+}
+
+#submission-notice p{
+    font-size: 30px;
+}
+
+#back-button{
+    text-align: center;
+    margin-top: 10px;
+    font-size: 20px;
+    border: 0;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    padding-left: 0;
+    background-color: rgba(255, 255, 255, 0.39);
+    color: white;
+    cursor: pointer;
+}

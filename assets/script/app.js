@@ -151,7 +151,7 @@ app.post('/welcome-page', (request, response) => {
 
 });
 
-app.get('/logout', (request, response) => {
+app.get('/login', (request, response) => {
     const userData = request.session.userData;
     request.session.destroy((err) => {
         if (err) {
@@ -205,13 +205,108 @@ function getUserRequest(userID) {
     });
 }
 
+
+function getOffices() {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT * FROM `user` WHERE userRole = "office"';
+
+        connection.query(sql, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+
 app.get('/request-form', (request, response) => {
     var userData = request.session.userData;
     response.render('request-form', {userData: userData});
 });
 
+app.post('/request-form', async (request, response) => {
+    try {
+        let currentDateTime = dayjs();
+        const userData = request.session.userData;
+        const offices = await getOffices();
 
-app.post('/request-form', (request, response) => {
+        const entity = request.body.entity;
+        const documentTitle = request.body.documentTitle;
+        const documentType = request.body.documentType;
+        const numOfPages = request.body.numOfPages;
+        const description = request.body.desc;
+        let file = request.body.file;
 
 
+        connection.query('SELECT MAX(requestID) + 1 AS maxReqID FROM request', (err, reqResult) => {
+            if (err) {
+                console.error('Error retrieving maxReqID:', err);
+                return;
+            }
+
+            let maxReqID = reqResult[0].maxReqID || 1; // Ensure a default value if no requests exist
+            let formattedDateTime = dayjs(currentDateTime).format('YYYY-MM-DD HH:mm');
+
+            offices.forEach((office, index) => {
+                let date = formattedDateTime;
+                if (index > 0) {
+                    date = '';
+                    file = null;
+                }
+                const docData = [
+                    documentTitle,
+                    userData.userID,
+                    entity,
+                    documentType,
+                    numOfPages,
+                    file,
+                    description,
+                    date,
+                    '', // Assuming this is a placeholder for 'dateReviewed'
+                    'Pending'
+                ];
+
+                connection.query(
+                    'INSERT INTO document (documentTitle, userID, referringEntity, documentType, numberOfPages, document_file, documentDescription, dateReceived, dateReviewed, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    docData,
+                    (error, docResults) => {
+                        if (error) {
+                            console.error('Error inserting document:', error);
+                            return;
+                        }
+                        console.log('Document inserted successfully:', docResults);
+
+                        // Insert into the request table
+                        connection.query(
+                            'INSERT INTO request (requestID, documentID, officeID, dataSubmitted, overallStatus) VALUES (?, ?, ?, ?, ?)',
+                            [maxReqID, docResults.insertId, office.userID, formattedDateTime, 'Pending'], // Assuming docResults.insertId is the newly generated documentID
+                            (err, reqResults) => {
+                                if (err) {
+                                    console.error('Error inserting request:', err);
+                                    return;
+                                }
+                                console.log('Request inserted successfully:', reqResults);
+
+                                maxReqID++;
+
+                                if (index === offices.length - 1) {
+                                    response.redirect('/after-submission');
+                                }
+                            }
+                        );
+                    }
+                );
+            });
+        });
+
+
+    } catch (err) {
+        console.error('Error:', err);
+    }
+});
+
+app.get('/after-submission', (request, response) => {
+    response.render('after-submission');
 });
