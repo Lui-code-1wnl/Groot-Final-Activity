@@ -30,6 +30,11 @@ h1, h2 {
     align-items: center;
 }
 
+#user-icon {
+    width: auto;
+    height: 50px;
+}
+
 #ograa-logo {
     position: absolute;
     height: 600px;
