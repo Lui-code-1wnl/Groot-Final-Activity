@@ -1,5 +1,5 @@
 <?php
-include("includes/db.php");
+include("admin/php/db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];

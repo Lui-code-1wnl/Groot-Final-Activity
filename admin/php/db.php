@@ -1,5 +1,5 @@
 <?php
-$host = 'localhost'; // (jdbc:mysql://localhost:3306/groot_final) not sure if need all of this
+$host = 'localhost'; 
 $dbname = 'groot_final';
 $username = 'root';
 $password = '';

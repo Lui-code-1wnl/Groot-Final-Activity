@@ -1,4 +1,5 @@
 <?php
+    include("admin/php/db.php");
     session_start();
 
     // sets user to 'offline' status

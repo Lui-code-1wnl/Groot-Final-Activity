@@ -1,37 +1,36 @@
-<body>
 <?php
-        include("includes/db.php");
-        include("includes/banner.html");
-        echo "<a href='adduser.php'><input type='button' class='btn1' name='update-btn' value='Add new user'/></a><br><br>";
+include("admin/php/db.php");
 
-        $query ="SELECT * FROM users ORDER BY username";
+// query
+$query = "SELECT username, firstName, lastName, userRole, status FROM user";
+$result = $conn->query($query);
 
-        $stmt = $db->stmt_init();
-        $stmt->prepare($query);
-        $stmt->execute();
-        $stmt->bind_result($userID, $username, $firstName, $lastName, $password, $userRole, $status);
+// result set condition
+if ($result->num_rows > 0) {
+    // table header
+    echo "<table border='1'>
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>User Role</th>
+                <th>Status</th>
+            </tr>";
 
-        include("includes/dataclasses.php");
+    // row data
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>" . $row['username'] . "</td>
+                <td>" . $row['firstName'] . "</td>
+                <td>" . $row['lastName'] . "</td>
+                <td>" . $row['userRole'] . "</td>
+                <td>" . $row['status'] . "</td>
+            </tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No users found";
+}
 
-        $users = [];
-
-        while ($stmt->fetch()) {
-               $user = new User($userID, $username, $firstName, $lastName, $password, $userRole, $status);
-               $users[] = $user; 
-        }
-        $stmt->close();
-
-        foreach ($users as $user) {
-                $userID = $user->get_userID();
-                $username = $user->get_userName();
-                $firstName = $user->get_firstName();
-                $lastName = $user->get_lastName();
-                $password = $user->get_password();
-                $userRole = $user->get_userRole();
-                $status = $user->get_status();
-        }
+$conn->close();
 ?>
-</body>     
-
-
-        
