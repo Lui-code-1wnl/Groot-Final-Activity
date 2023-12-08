@@ -16,13 +16,14 @@ html(lang="en")
             button#search-button Search
 
         if !result || result.length === 0
-            p No requests have been made currently.
+            #no-table-message
+                h1 No requests have been made currently.
         else
             #table-container
                 table
                     thead
                         tr
-                            th Request ID
+                            th Request Number
                             th Document Title
                             th Date Submitted
                             th Current Status
@@ -32,7 +33,7 @@ html(lang="en")
                             tr
                                 td= item.requestID
                                 td= item.documentTitle
-                                td= item.dateReviewed
+                                td= item.dateSubmitted
                                 td= item.status
                                 td
                                     button(type='button', onclick=`handleClick(${item.id})`)

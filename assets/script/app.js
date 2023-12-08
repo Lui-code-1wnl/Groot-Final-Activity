@@ -193,13 +193,19 @@ app.get("/dashboard", async function(request, response) {
 
 function getUserRequest(userID) {
     return new Promise((resolve, reject) => {
-        let sql = 'SELECT r.requestID, d.documentID, d.documentTitle, d.documentType, d.dateReviewed, d.numberOfPages, d.documentDescription, d.status FROM User u JOIN Document d ON u.userID = d.userID JOIN Request r ON d.documentID = r.documentID WHERE u.userID = ?';
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? ORDER BY requestID DESC';
 
         connection.query(sql, [userID], (err, result) => {
             if (err) {
                 reject(err);
             } else {
-                resolve(result);
+                // Manipulating the requestIDs to display them in decreasing ordinal sequence
+                const reversedResult = result.map((row, index) => {
+                    row.requestID = result.length - index;
+                    return row;
+                });
+
+                resolve(reversedResult);
             }
         });
     });
@@ -231,77 +237,67 @@ app.post('/request-form', async (request, response) => {
         let currentDateTime = dayjs();
         const userData = request.session.userData;
         const offices = await getOffices();
-
+        const userID = userData.userID;
         const entity = request.body.entity;
         const documentTitle = request.body.documentTitle;
         const documentType = request.body.documentType;
         const numOfPages = request.body.numOfPages;
         const description = request.body.desc;
         let file = request.body.file;
+        let formattedDateTime = dayjs(currentDateTime).format('YYYY-MM-DD HH:mm');
+        let requestID = 0;
 
 
-        connection.query('SELECT MAX(requestID) + 1 AS maxReqID FROM request', (err, reqResult) => {
+        connection.query('INSERT INTO `request` (`userID`,`documentTitle`,`dateSubmitted`, `overallStatus`) VALUES (?, ?, ?, ?)', [userID, documentTitle, formattedDateTime, 'Pending approval'], (err, results) => {
             if (err) {
-                console.error('Error retrieving maxReqID:', err);
-                return;
+                console.log(err);
+                throw err;
             }
 
-            let maxReqID = reqResult[0].maxReqID || 1; // Ensure a default value if no requests exist
-            let formattedDateTime = dayjs(currentDateTime).format('YYYY-MM-DD HH:mm');
-
-            offices.forEach((office, index) => {
-                let date = formattedDateTime;
-                if (index > 0) {
-                    date = '';
-                    file = null;
+            connection.query('SELECT LAST_INSERT_ID() AS requestID', (error, rows) => {
+                if (error) {
+                    console.error('Error fetching requestID:', error);
+                    throw error;
                 }
-                const docData = [
-                    documentTitle,
-                    userData.userID,
-                    entity,
-                    documentType,
-                    numOfPages,
-                    file,
-                    description,
-                    date,
-                    '', // Assuming this is a placeholder for 'dateReviewed'
-                    'Pending'
-                ];
 
-                connection.query(
-                    'INSERT INTO document (documentTitle, userID, referringEntity, documentType, numberOfPages, document_file, documentDescription, dateReceived, dateReviewed, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                    docData,
-                    (error, docResults) => {
-                        if (error) {
-                            console.error('Error inserting document:', error);
-                            return;
-                        }
-                        console.log('Document inserted successfully:', docResults);
+                const requestID = rows[0].requestID;
+                console.log('Inserted requestID:', requestID);
 
-                        // Insert into the request table
-                        connection.query(
-                            'INSERT INTO request (requestID, documentID, officeID, dataSubmitted, overallStatus) VALUES (?, ?, ?, ?, ?)',
-                            [maxReqID, docResults.insertId, office.userID, formattedDateTime, 'Pending'], // Assuming docResults.insertId is the newly generated documentID
-                            (err, reqResults) => {
-                                if (err) {
-                                    console.error('Error inserting request:', err);
-                                    return;
-                                }
-                                console.log('Request inserted successfully:', reqResults);
-
-                                maxReqID++;
-
-                                if (index === offices.length - 1) {
-                                    response.redirect('/after-submission');
-                                }
-                            }
-                        );
+                offices.forEach((office,index) => {
+                    let date = formattedDateTime;
+                    if (index > 0) {
+                        date = '';
+                        file = null;
                     }
-                );
+
+                    const documentValues = [
+                        requestID,
+                        userData.userID,
+                        office.userID,
+                        documentTitle,
+                        entity,
+                        documentType,
+                        numOfPages,
+                        file,
+                        description,
+                        date,
+                        '',
+                        'Pending'
+                    ];
+
+                    connection.query('INSERT INTO document (requestID, userID, officeID, documentTitle, referringEntity, documentType, numberOfPages, document_file, documentDescription, dateReceived, dateReviewed, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', documentValues, (error, results, fields) => {
+                        if (error) {
+                            console.error('Error inserting data:', error);
+                            throw error;
+                        }
+                        console.log('Document data inserted successfully');
+                    });
+
+                });
             });
         });
 
-
+        response.redirect(`/after-submission`);
     } catch (err) {
         console.error('Error:', err);
     }
