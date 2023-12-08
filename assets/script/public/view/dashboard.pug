@@ -36,5 +36,6 @@ html(lang="en")
                                 td= item.dateSubmitted
                                 td= item.overallStatus
                                 td
-                                    button(type='button', onclick=`handleClick(${item.id})`)
-                                        b View Progress
+                                    a(href=`/document-progress/${item.requestID}`)
+                                        button(type='button')
+                                            b View Progress

@@ -199,13 +199,7 @@ function getUserRequest(userID) {
             if (err) {
                 reject(err);
             } else {
-                // Manipulating the requestIDs to display them in decreasing ordinal sequence
-                const reversedResult = result.map((row, index) => {
-                    row.requestID = result.length - index;
-                    return row;
-                });
-
-                resolve(reversedResult);
+                resolve(result); // Resolve the result as is, without modifying requestID
             }
         });
     });
@@ -306,3 +300,33 @@ app.post('/request-form', async (request, response) => {
 app.get('/after-submission', (request, response) => {
     response.render('after-submission');
 });
+
+app.get("/document-progress/:requestID", async function(request, response) {
+    const reqID = request.params.requestID;
+    console.log(`Request ID: ${reqID}`);
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const documentData = await getDocumentRequest(userData.userID, reqID);
+        const departmentData = await getOffices();
+        console.log(departmentData);
+        console.log(documentData);
+        response.render('document-progress', {userData:userData, result: result, documentData:documentData, departmentData:departmentData, reqID});
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+function getDocumentRequest(userID,requestID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT d.documentID, d.requestID, d.userID, d.officeID, d.documentTitle, d.referringEntity, d.documentType, d.numberOfPages, d.document_file, d.documentDescription, d.dateReceived, d.dateReviewed, d.status FROM document d JOIN request r ON d.requestID = r.requestID WHERE r.requestID = d.requestID AND r.userID = d.userID';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
