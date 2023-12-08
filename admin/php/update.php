@@ -2,13 +2,10 @@
 include("includes/db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Assuming you have the update logic here, modify as needed
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    // Your update logic goes here...
-
-    // Example: Updating the password
+    // update password for user
     $query = "UPDATE user SET password = ? WHERE username = ?";
     $stmt = mysqli_stmt_init($db);
 
@@ -26,8 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Error preparing update statement: " . mysqli_error($db);
     }
-}
 
-// Close the database connection
-mysqli_close($db);
+    mysqli_close($db);
+} else {
+    // if request method is not POST
+    echo "Invalid request method";
+}
 ?>
