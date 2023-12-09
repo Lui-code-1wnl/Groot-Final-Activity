@@ -7,7 +7,6 @@ body{
     background-attachment: fixed;
     background-position: center;
     font-family: Arial, sans-serif;
-
     color: white;
 }
 
@@ -31,69 +30,72 @@ ul.progress-bar {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    &::after {
-        content: "";
-        position: absolute;
-        top:0;
-        left:5px;
-        background: #777;
-        width: 5px;
-        height: 100vh;
-    }
-    & li {
-        background: #000;
-        border-radius: 100px;
-        width: 15px;
-        height: 15px;
-        z-index: 1;
-        position: relative;
-        &.stop ~ li {
-            background: #777;
-            &::after {
-                height: 0;
-            }
-        }
-        &::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 5px;
-            background: #000;
-            width: 5px;
-            height: 100vh;
-        }
-
-
-    }
 }
 
-#information ul{
-    height: 540px;
-    width: 500px;
-    list-style: none;
+ul.progress-bar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 5px;
+    background: #777;
+    width: 5px;
+    height: 100vh;
+}
+
+ul.progress-bar li {
+    background: #000;
+    border-radius: 100px;
+    width: 15px;
+    height: 15px;
+    z-index: 1;
+    position: relative;
+}
+
+ul.progress-bar li.stop ~ li {
+    background: #777;
+}
+
+ul.progress-bar li.stop ~ li::after {
+    height: 0;
+}
+
+ul.progress-bar li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    background: #000;
+    width: 5px;
+    height: 100vh;
+}
+
+ul.information {
+    height: 500px;
     margin: 0;
     padding: 0;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: hidden;
+
 }
 
-div#information ul li {
-    /* Set a fixed height */
-    height: 50px; /* Adjust the height as needed */
-    /* Other styles */
+ul.information li {
+    height: 15px;
+    list-style-type: none;
 }
 
-div#information ul li p {
-    /* Adjust paragraph styles */
-    margin-top: 5px; /* For spacing between bullet point and paragraph */
-    /* Other paragraph styles */
+
+ul.information li::marker {
+    display: none;
 }
 
-#flow-data{
+#flow-data {
+    padding: 30px;
+    margin: 20px;
     background-color: rgba(8, 47, 99, 0.637);
-    width: 50%;
+    width: 600px;
+    height: 800px;
     float: right;
+    overflow: auto;
 }

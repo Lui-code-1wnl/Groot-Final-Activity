@@ -16,17 +16,15 @@ html(lang="en")
 
         div#flow-data
             div#progress-block
-                each item in documentData
-                    if reqID === item.requestID
-                        ul.progress-bar
-                            if reqID === item.requestID
-                                if item.status === 'approved'
-                                    li.stop
-                                else
-                                    li
-
-                        ul#information
+                ul.progress-bar
+                    each item in documentData
+                        if item.status === 'Approved'
                             li
-                                b #{item.officeID}
-                                p Status: #{item.status}
-                                p File: #{item.file}
+                        else if item.status === 'Pending'
+                            li.stop
+
+            ul.information
+                each item in documentData
+                        li
+                            b= item.office
+                            p Status: #{item.status}
