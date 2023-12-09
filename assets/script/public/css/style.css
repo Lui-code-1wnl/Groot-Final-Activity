@@ -189,7 +189,7 @@ text-align: center;
 #footer_backg {
     position: absolute;
     bottom: 0;
-    /*background-image: url('images.png');*/
+    background-image: "../assets/script/public/images/SLU%20Logo.png";
     z-index: -1;
     width: 100%;
     border-top: 2px solid white;
