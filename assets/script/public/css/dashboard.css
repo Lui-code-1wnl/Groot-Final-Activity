@@ -28,19 +28,9 @@ body{
     align-items: center;
 }
 
-#ograa-logo {
-    position: absolute;
-    height: 600px;
-    width: 600px;
-    margin-left: 10%;
-    margin-top: 7%;
-}
-
-@media screen and (max-width: 700px){
-    #ograa-logo{
-        display: flex;
-        width: 100%;
-    }
+#user-icon {
+    width: auto;
+    height: 50px;
 }
 
 #unique-logo {
@@ -49,9 +39,16 @@ body{
 }
 
 #logo-title {
-    display: inline-flex;
+    display: flex;
     margin-left: 10%;
     margin-top: 10px;
+}
+@media screen and (max-width:700px) {
+    #logo-title {
+        display: flex;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
 }
 
 #table-container {
@@ -98,13 +95,23 @@ td {
 }
 #navigation li {
     display: inline;
-    margin-right: 40px;
+    margin-right: 10px;
 }
 #navigation a {
-    
     font-size: 20px;
     text-decoration: none;
     color: white;
+}
+@media screen and (max-width:700px) {
+    #navigation a {
+        font-size: 15px;
+    }
+    #navigation ul{
+        display: block;
+    }
+    #navigation li{
+        font-size: 100px;
+    }
 }
 
 button {
