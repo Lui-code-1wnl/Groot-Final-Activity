@@ -6,29 +6,32 @@ const dayjs = require('dayjs');
 const {request, response} = require("express");
 const portNumber = 10000;
 const hostIP = 'localhost'
+const path = require('path');
+const fileUpload = require('express-fileupload');
 var connection = mysql.createConnection({
     host: hostIP, user:'root', password: '', database: 'groot_final'
 });
-
+const fs = require('fs');
 const app = express();
 app.use(express.static('public'));
 app.set('views', `${__dirname}/public/view`);
 app.set('view engine', 'pug');
 app.use('/css', express.static(`${__dirname}/script/public/css`));
+app.use(fileUpload());
 
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 app.use(session({secret: 'somesecretkey', resave: true, saveUninitialized: true}));
-
+app.use(express.static('documents'));
 
 
 app.listen(portNumber, hostIP)
 console.log(`Server running on port number ${portNumber}`);
 
 app.get('/', (request, response) => {
-        response.render('index');
+    response.render('index');
 });
 
 app.get('/login', (request, response) => {
@@ -57,6 +60,7 @@ app.post('/login', (request, response) => {
                     if (result.length > 0) {
                         const user = result[0];
                         const userID = user.userID;
+                        const username = user.username;
                         const firstName = user.firstName;
                         const role = user.userRole;
                         const lastName = user.lastName;
@@ -81,28 +85,28 @@ app.post('/login', (request, response) => {
 
                         connection.query('SELECT status FROM user WHERE username = ?', [username],
                             function(err, result, fields) {
-                            if (err) {
-                                console.error(err);
-                                // Handle the error
-                            } else {
-                                if (result.length > 0) {
-                                    const userStatus = result[0].status;
-                                    if (userStatus === 'online') {
-                                        const error_msg = `${firstName} ${lastName} is currently online.`;
-                                        request.session.error_msg = error_msg;
-                                        response.redirect('/login'); // Redirect after successful login
-                                        console.log('User is online');
-                                    } else {
-                                        response.redirect('/welcome-page'); // Redirect after successful login
-                                        console.log('Logged in successfully.');
-                                        console.log('User is not online');
-                                    }
+                                if (err) {
+                                    console.error(err);
+                                    // Handle the error
                                 } else {
-                                    // No user found with the provided username
-                                    console.log('User not found');
+                                    if (result.length > 0) {
+                                        const userStatus = result[0].status;
+                                        if (userStatus === 'online') {
+                                            const error_msg = `${firstName} ${lastName} is currently online.`;
+                                            request.session.error_msg = error_msg;
+                                            response.redirect('/login'); // Redirect after successful login
+                                            console.log('User is online');
+                                        } else {
+                                            response.redirect('/welcome-page'); // Redirect after successful login
+                                            console.log('Logged in successfully.');
+                                            console.log('User is not online');
+                                        }
+                                    } else {
+                                        // No user found with the provided username
+                                        console.log('User not found');
+                                    }
                                 }
-                            }
-                        });
+                            });
 
                     } else {
                         console.log("Login failed.");
@@ -128,7 +132,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/welcome-page', (request, response) => {
-    var userData = request.session.userData;
+    const userData = request.session.userData;
     connection.query(
         'UPDATE user SET status = ? WHERE username = ?',
         ['online', userData.username],
@@ -237,10 +241,8 @@ app.post('/request-form', async (request, response) => {
         const documentType = request.body.documentType;
         const numOfPages = request.body.numOfPages;
         const description = request.body.desc;
-        let file = request.body.file;
         let formattedDateTime = dayjs(currentDateTime).format('YYYY-MM-DD HH:mm');
         let requestID = 0;
-
 
         connection.query('INSERT INTO `request` (`userID`,`documentTitle`,`dateSubmitted`, `overallStatus`) VALUES (?, ?, ?, ?)', [userID, documentTitle, formattedDateTime, 'Pending approval'], (err, results) => {
             if (err) {
@@ -254,16 +256,31 @@ app.post('/request-form', async (request, response) => {
                     throw error;
                 }
 
-                const requestID = rows[0].requestID;
-                console.log('Inserted requestID:', requestID);
+                if (index === 0) {
 
-                offices.forEach((office,index) => {
-                    let date = formattedDateTime;
-                    if (index > 0) {
-                        date = '';
-                        file = null;
+                    if (!request.files || !request.files.pdfFile) {
+                        console.log('No files were uploaded.');
                     }
 
+                    const pdfFile = request.files.pdfFile;
+
+
+                    pdfFile.mv(path.join(__dirname, `/public/documents/${userData.username}`, filename), (err) => {
+                        if (err) {
+                            console.log(err);
+                        }
+
+                        console.log('File uploaded successfully!');
+                    });
+                } else if (index > 0){
+                    filename = null;
+                }
+
+                const requestID = rows[0].requestID;
+                console.log('Inserted requestID:', requestID);
+                let filename = `${requestID}-${userData.userID}-${documentTitle}.pdf`;
+                offices.forEach((office,index) => {
+                    let date = formattedDateTime;
                     const documentValues = [
                         requestID,
                         userData.userID,
@@ -272,7 +289,7 @@ app.post('/request-form', async (request, response) => {
                         entity,
                         documentType,
                         numOfPages,
-                        file,
+                        filename,
                         description,
                         date,
                         '',
@@ -298,20 +315,25 @@ app.post('/request-form', async (request, response) => {
 });
 
 app.get('/after-submission', (request, response) => {
+    const userData = request.session.userData;
     response.render('after-submission');
+});
+
+app.get('/client-blue-header', (request, response) => {
+    const userData = request.session.userData;
+    response.render('client-blue-header');
 });
 
 app.get("/document-progress/:requestID", async function(request, response) {
     const reqID = request.params.requestID;
+    const userData = request.session.userData;
     console.log(`Request ID: ${reqID}`);
     try {
-        const userData = request.session.userData;
         const result = await getUserRequest(userData.userID);
         const documentData = await getViewRequest(userData.userID, reqID);
         const departmentData = await getOffices();
         console.log(departmentData);
         console.log(documentData);
-        console.log(reqID);
         response.render('document-progress', {userData:userData, result: result, documentData:documentData, departmentData:departmentData, reqID});
     } catch (error) {
         console.error('Error:', error);

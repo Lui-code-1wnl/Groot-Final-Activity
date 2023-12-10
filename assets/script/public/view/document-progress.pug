@@ -15,6 +15,17 @@ html(lang="en")
             h1 Track Document
 
         div#flow-data
+            - const indexToRetrieve = 0;
+            - const title = documentData[indexToRetrieve].documentTitle;
+            - const description = documentData[indexToRetrieve].documentDescription;
+            - const dateSubmitted = documentData[indexToRetrieve].dateReceived;
+            - const documentType = documentData[indexToRetrieve].documentType;
+            h2 #{title}
+            p Document Type: #{documentType}
+            p Document Description: #{description}
+            p Date Submitted: #{dateSubmitted}
+
+
             div#progress-block
                 ul.progress-bar
                     each item in documentData
@@ -28,3 +39,13 @@ html(lang="en")
                         li
                             b= item.office
                             p Status: #{item.status}
+        div#renderDocument
+            - let stopLoop = false
+                each item in documentData
+                    if !stopLoop
+                        if item.status === 'Pending'
+                            - const filepath = `/documents/${userData.username}/${item.document_file}`
+                                iframe(src=filepath, width="800px", height="825px")
+                                - stopLoop = true
+
+

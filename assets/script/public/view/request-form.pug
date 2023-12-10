@@ -12,7 +12,7 @@ html(lang="en")
         include client-white-header
 
         h1#section-title DOCUMENT REVIEW REQUEST FORM
-        form(action="", method="POST")
+        form(action="", method="POST" name="reqForm" enctype="multipart/form-data")
             .row
                 .input-container
                     label(for='referring-unit') Referring Person/Unit:
@@ -45,7 +45,7 @@ html(lang="en")
 
             .input-container
                 label(for="document-description") Document Description:
-                textarea#document-description(rows="4", cols="50", required name='desc')
+                textarea#document-description(rows="4", cols="50", required, name='desc')
 
             #submission
                 span.fa-input
@@ -54,7 +54,7 @@ html(lang="en")
                 p or
                 .upload-btn-wrapper
                     button.btn Upload a file.
-                    input#browse-button(type='file', name='file')
+                    input#browse-button(type='file', name="pdfFile" accept='.pdf', required)
 
             input#req-button(type="submit")
             button#cancel-button(name='Cancel Submission')

@@ -13,6 +13,7 @@ body{
 #track {
     margin-top: 120px;
     text-align: center;
+    color: rgba(8, 47, 99);
 }
 
 #progress-block{
@@ -91,11 +92,32 @@ ul.information li::marker {
 }
 
 #flow-data {
-    padding: 30px;
-    margin: 20px;
-    background-color: rgba(8, 47, 99, 0.637);
+    padding: 0 30px 30px;
+    margin: 0 20px 20px;
+
+    background-color: rgba(8, 47, 99, 0.8);
     width: 600px;
     height: 800px;
     float: right;
     overflow: auto;
+}
+
+#render-document {
+    padding: 0 30px 30px;
+    margin: 0 20px 20px;
+    background-color: rgba(8, 47, 99, 0.637);
+    width: 600px;
+    height: 800px;
+    float: left;
+    overflow: auto;
+}
+
+#render-document{
+    padding: 30px;
+    margin: 20px;
+}
+#render-document iframe {
+    padding: 30px;
+    margin: 20px;
+
 }
