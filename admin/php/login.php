@@ -1,47 +1,38 @@
 <?php
-    include("admin/php/db.php");
-    include "admin/php/dataclasses.php";
-    session_start();
+include("db.php"); 
 
-    if (isset($_POST['username']) && isset($_POST['password'])){
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-        $hashedPassword = md5($password);
-    
-        $st = $db->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
-        $st->bind_param('ss', $username, $hashedPassword);
-        $st->execute();
-        $result = $st->get_result();
-    
-        try {
-            if ($result->num_rows != 0) {
-                $userData = $result->fetch_assoc();
+    $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
 
-                // if user is an admin
-                if ($userData['userRole'] == 'admin') {
-                    // if user is already online
-                    if ($userData['status'] == 'online') {
-                        echo "Admin is already logged in.";
-                    } else {
-                        $_SESSION['username'] = $username;
-                        //$_SESSION['user'] = new User();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-                        // update status to "online"
-                        $updateStatus = $db->prepare("UPDATE user SET status = 'online' WHERE username = ?");
-                        $updateStatus->bind_param('s', $username);
-                        $updateStatus->execute();
-                        $updateStatus->close();
-                    }
-                } else {
-                    echo "You do not have the necessary privileges to log in.";
-                }
-            } else {
-                echo "Invalid username or password.";
-            }
-        } finally {
-            $st->close();
+    // user conditions
+    if ($user) {
+        // pang debug lang at makita kung nababasa ba yung input
+        echo "hatdog na user: $username<br>";
+        echo "Entered Password: $password<br>";
+        echo "Retrieved from db for user: {$user['password']}<br>";
+
+        if (password_verify($password, $user['password'])) {
+            // valid credentials punta siya dito
+            header("Location: ../clients/listofusers.html");
+            exit();
+            // error handlings below
+        } else {
+            // PROBLEM: dito nadidirect sa condition na ito after input ng credents kahit tama password ni user
+            echo "Invalid password";
         }
+    } else {
+        // this works fine 
+        echo "Invalid username";
     }
-    header('Location: listofusers.html');
+    $stmt->close();
+}
+$conn->close();
 ?>
