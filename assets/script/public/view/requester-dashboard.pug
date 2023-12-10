@@ -1,0 +1,33 @@
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        script(src="")
+        meta(name="viewport", content="width=device-width")
+        link(rel="stylesheet", href="/css/dashboard-white.css")
+        link(rel="icon", type="image/x-icon", href="/images/ograa.png")
+        title Document Progress
+    body
+        if !result || result.length === 0
+            #no-table-message
+                h1 No requests have been made currently.
+        else
+            #table-container
+                table
+                    thead
+                        tr
+                            th Request Number
+                            th Document Title
+                            th Date Submitted
+                            th Current Status
+                            th
+                    tbody
+                        each item in result
+                            tr
+                                td= item.requestID
+                                td= item.documentTitle
+                                td= item.dateSubmitted
+                                td= item.overallStatus
+                                td
+                                    a(href=`/document-progress/${item.requestID}`)
+                                        button(type='button')
+                                            b View Progress
