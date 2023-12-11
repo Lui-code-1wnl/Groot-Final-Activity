@@ -233,7 +233,7 @@ function getUserRequest(userID) {
 
 function getOfficeRequest(userID) {
     return new Promise((resolve, reject) => {
-        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? ORDER BY requestID DESC;';
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY requestID DESC';
 
         connection.query(sql, [userID], (err, result) => {
             if (err) {

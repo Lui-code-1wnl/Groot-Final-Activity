@@ -24,6 +24,7 @@ html(lang="en")
                     thead
                         tr
                             th Request Number
+                            th Requester
                             th Document Title
                             th Date Submitted
                             th Current Status
@@ -32,6 +33,7 @@ html(lang="en")
                         each item in departmentResult
                             tr
                                 td= item.requestID
+                                td= item.referringEntity
                                 td= item.documentTitle
                                 td= item.dateReceived
                                 td= item.status
