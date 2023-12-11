@@ -7,16 +7,15 @@ body{
     background-attachment: fixed;
     background-position: center;
     font-family: Arial, sans-serif;
-
     color: white;
 }
 
 #navbar {
-    background-color: #073066;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 100;
+
 }
 
 #navigation {
@@ -26,6 +25,25 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+@media screen and (max-width:700px){
+    #navigation{
+        background-color: #073066;
+        width: 100%;
+        height: 60px;
+        z-index: 100;
+    }
+    
+    #navigation li{
+        display: inline-block;
+        font-size: 1px;
+    }
+    #navigation a{
+        font-size: 200px;
+
+    }
+    
 }
 
 #user-icon {
@@ -39,7 +57,7 @@ body{
 }
 
 #logo-title {
-    display: flex;
+    display: inline-flex;
     margin-left: 10%;
     margin-top: 10px;
 }
@@ -105,12 +123,17 @@ td {
 @media screen and (max-width:700px) {
     #navigation a {
         font-size: 15px;
-    }
-    #navigation ul{
         display: block;
     }
+    #navigation ul{
+        font:10px;
+        display: block;
+        padding: 2rem;
+    }
+    
     #navigation li{
-        font-size: 100px;
+        
+        display: block;
     }
 }
 
@@ -143,6 +166,23 @@ text-align: center;
 #title-container{
     margin-top: 100px;
     text-align: left;
+}
+
+@media screen and (max-width:700px){
+
+ #title{
+    font-size: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #5b0766;
+    display: flex;
+}
+
+#title-container{
+    margin-top: 100px;
+    text-align: left;
+    
+}   
 }
 
 #search-box {

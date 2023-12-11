@@ -6,9 +6,7 @@
     position: absolute;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    height: 108px;
+    height: 111px;
     background-image:url('../images/triangles.png');
     width: 100%;
 }
@@ -16,21 +14,17 @@
 #footer-icon{
     height: 75px;
     width: 75px;
-    margin-right: 15px;
-    margin-left: 750px;
 }
 
 #contentFooter p{
     color: #fff;
-    font-size: 7px;
-    margin-top: 1px;
-    margin-right: 800px;
+    font-size: 8px;
 }
 
 #info{
     top: 0;
     position: absolute;
-    left: 44%;
+    left: 45%;
     color: #ffffff;
     opacity: 0.4;
     font-size: 11px;
