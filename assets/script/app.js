@@ -189,7 +189,29 @@ app.get("/dashboard", async function(request, response) {
     try {
         const userData = request.session.userData;
         const result = await getUserRequest(userData.userID);
-        response.render('dashboard', {userData:userData, result: result });
+        const departmentResult = await getOfficeRequest(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await getUserRequest(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard', {userData:userData, departmentResult: departmentResult });
+        }
+
     } catch (error) {
         console.error('Error:', error);
     }
@@ -198,6 +220,20 @@ app.get("/dashboard", async function(request, response) {
 function getUserRequest(userID) {
     return new Promise((resolve, reject) => {
         let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? ORDER BY requestID DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getOfficeRequest(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? ORDER BY requestID DESC;';
 
         connection.query(sql, [userID], (err, result) => {
             if (err) {
