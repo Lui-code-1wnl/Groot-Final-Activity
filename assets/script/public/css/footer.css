@@ -1,33 +1,39 @@
 /* footer */
-
-#footer{
+footer {
+    bottom: 0;
     border-top: 2px solid white;
-    top: 0;
-    position: absolute;
-    display: flex;
-    align-items: center;
     height: 111px;
-    background-image:url('../images/triangles.png');
+    background-image: url('../images/triangles.png');
     width: 100%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
 }
 
-#footer-icon{
+#wrap {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 18px;
+}
+
+#footer-icon {
     height: 75px;
     width: 75px;
 }
 
-#contentFooter p{
+#contentFooter {
     color: #fff;
     font-size: 8px;
+    margin-left: 10px; 
 }
 
-#info{
+#info {
     top: 0;
     position: absolute;
-    left: 45%;
+    left: 50%; 
+    transform: translateX(-50%); 
     color: #ffffff;
     opacity: 0.4;
     font-size: 11px;
-    margin-top: 80px;
+    margin-top: 90px;
 }
-

@@ -109,12 +109,14 @@ td {
     list-style: none;
     padding: 0;
     margin: 0;
-    padding-right: 3rem;
+    margin-left: auto; 
 }
+
 #navigation li {
-    display: inline;
-    margin-right: 10px;
+    display: inline-block; 
+    margin-right: 40px;
 }
+
 #navigation a {
     font-size: 20px;
     text-decoration: none;
@@ -132,7 +134,6 @@ td {
     }
     
     #navigation li{
-        
         display: block;
     }
 }

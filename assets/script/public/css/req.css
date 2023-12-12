@@ -51,6 +51,7 @@ body{
 #user-icon {
     width: auto;
     height: 50px;
+    margin-right: 10px;
 }
 
 #logo-title {
@@ -81,12 +82,14 @@ body{
     list-style: none;
     padding: 0;
     margin: 0;
-    padding-right: 2rem;
+    margin-left: auto; 
 }
+
 #navigation li {
-    display: inline;
+    display: inline-block; 
     margin-right: 40px;
 }
+
 #navigation a {
     font-size: 20px;
     text-decoration: none;
