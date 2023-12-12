@@ -45,6 +45,26 @@ app.get('/login', (request, response) => {
     }
 });
 
+
+/*
+ *const userData = request.session.userData;
+    if (userData) {
+        // Set user status to 'offline' when logging out
+        connection.query(
+            'UPDATE user SET status = ? WHERE username = ?',
+            ['offline', userData.username],
+            (updateErr) => {
+                if (updateErr) {
+                    console.error(updateErr);
+                    // Handle error if necessary
+                } else {
+                    console.log(`${userData.username} is offline.`);
+                    response.redirect('/login'); // Redirect to login page after logout
+                }
+            }
+        );
+    }
+ */
 app.post('/login', (request, response) => {
     var username = request.body.username;
     var password = request.body.password;
@@ -148,6 +168,29 @@ app.get('/welcome-page', (request, response) => {
     response.render('welcome-page', {userData: userData});
 });
 
+app.get('/logout', (request, response) => {
+    const userData = request.session.userData;
+    if (userData) {
+        // Set user status to 'offline' when logging out
+        connection.query(
+            'UPDATE user SET status = ? WHERE username = ?',
+            ['offline', userData.username],
+            (updateErr) => {
+                if (updateErr) {
+                    console.error(updateErr);
+                    // Handle error if necessary
+                } else {
+                    console.log(`${userData.username} is offline.`);
+                    request.session.destroy(); // Destroy session upon logout
+                    response.redirect('/login'); // Redirect to login page after logout
+                }
+            }
+        );
+    } else {
+        response.redirect('/login');
+    }
+});
+
 
 app.post('/welcome-page', (request, response) => {
     const userData = request.session.userData;
@@ -178,6 +221,7 @@ app.get('/login', (request, response) => {
         }
     });
 });
+
 app.post("/", async function(request, response) {
     const userData = request.session.userData;
     const result = await getUserRequest(userData.userID);
