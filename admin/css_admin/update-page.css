@@ -2,7 +2,7 @@ body{
     margin: 0 auto;
     padding: 0;
     background-color: #ffffff;
-    background-image: url('../images/transparent.png');
+    background-image: url('./imgs/transparent.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -15,7 +15,7 @@ h1, h2 {
 }
 
 #navbar {
-    background-color: rgba(8, 47, 99, 0.637);
+    background-color: #073066;
     position: fixed;
     width: 100%;
     top: 0;
@@ -192,6 +192,18 @@ hr {
     text-align: center;
 }
 
+#update-password-btn {
+    padding-left: 0;
+    font-size: 20px;
+    border: 0;
+    width: 500px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #1985E5;
+    color: white;
+    cursor: pointer;
+}
 
 @media screen and (max-width: 768px) {
     body {
@@ -214,7 +226,7 @@ hr {
 }
 
 @media screen and (max-width: 768px) {
-    #login-btn {
+    #update-password-btn {
         width: 100%;
         padding-left: 20px;
         margin: 10px auto; 

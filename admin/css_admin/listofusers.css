@@ -2,7 +2,7 @@ body{
     margin: 0 auto;
     padding: 0;
     background-color: #ffffff;
-    background-image: url('../images/whiteBG.png');
+    background-image: url('./imgs/whiteBG.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -226,7 +226,17 @@ text-align: center;
     align-items: center;
 }
 /*Select*/
-
+@media screen and (max-width:850px){
+    #add-button {
+        display: flex;
+        background-color: #122c41;
+        color: white;
+        border: 1px #073066;
+        margin-left: 1px;
+        cursor: pointer;
+    }
+    
+}
 .userlist{
     margin-top: 20px;
 }
