@@ -3,7 +3,7 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #ffffff;
-    background-image: url('../images/transparent.png');
+    background-image: url('./imgs/transparent.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -64,6 +64,14 @@ p {
 
 #main h1 {
     font-size: 80px;
+}
+@media screen and (max-width:700px) {
+    #main h1 {
+        font-size: 60px;
+        margin-bottom: 10px;
+        text-align: center;
+        padding: 20px;
+    }   
 }
 .button {
     display: flex;
