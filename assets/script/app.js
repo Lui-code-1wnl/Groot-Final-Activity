@@ -290,6 +290,7 @@ app.post('/request-form', async (request, response) => {
         const documentType = request.body.documentType;
         const numOfPages = request.body.numOfPages;
         const description = request.body.desc;
+        const message = request.body.mssg;
         let formattedDateTime = dayjs(currentDateTime).format('YYYY-MM-DD HH:mm');
         let requestID = 0;
 
@@ -340,12 +341,13 @@ app.post('/request-form', async (request, response) => {
                         numOfPages,
                         filename,
                         description,
+                        message,
                         date,
                         '',
                         'Pending'
                     ];
 
-                    connection.query('INSERT INTO document (requestID, userID, officeID, documentTitle, referringEntity, documentType, numberOfPages, document_file, documentDescription, dateReceived, dateReviewed, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', documentValues, (error, results, fields) => {
+                    connection.query('INSERT INTO document (requestID, userID, officeID, documentTitle, referringEntity, documentType, numberOfPages, document_file, documentDescription, message, dateReceived, dateReviewed, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', documentValues, (error, results, fields) => {
                         if (error) {
                             console.error('Error inserting data:', error);
                             throw error;

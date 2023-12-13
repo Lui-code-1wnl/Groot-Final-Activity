@@ -128,7 +128,7 @@ td {
         display: block;
     }
     #navigation ul{
-        font:10px;
+        font-size:10px;
         display: block;
         padding: 2rem;
     }

@@ -68,8 +68,12 @@ body{
     text-overflow: ellipsis;
 }
 
+#hello {
+    color: #073066;
+}
+
 #section-title {
-    margin-top: 100px;
+    margin-top: 140px;
     text-align: center;
     font-size: 40px;
 }
@@ -205,8 +209,8 @@ p {
 #submission {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.39);
-    width: 500px;
-    padding: 50px;
+    width: 400px;
+    padding: 20px;
     margin: 10px;
 }
 
@@ -233,7 +237,8 @@ textarea {
     font-size: 20px;
     font-family: Arial, sans-serif;
     color: white;
-    height: 100px;
+    margin: 10px;
+    height: 80px;
 }
 
 #browse-button {

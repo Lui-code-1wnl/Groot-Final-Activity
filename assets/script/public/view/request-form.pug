@@ -43,15 +43,18 @@ html(lang="en")
                         i.fas.fa-paperclip
                 br
 
-            .input-container
-                label(for="document-description") Document Description:
-                textarea#document-description(rows="4", cols="50", required, name='desc')
+            .row
+                .input-container
+                    label(for="document-description") Document Description:
+                    textarea#document-description(rows="4", cols="50", required, name='desc')
+                .input-container
+                    label(for="document-message") Document Message:
+                    textarea#document-message(rows="4", cols="50", required, name='mssg')
 
             #submission
                 span.fa-input
                     i.fas.fa-folder-open
-                p Drag and Drop Files Here
-                p or
+                p Upload files here
                 .upload-btn-wrapper
                     button.btn Upload a file.
                     input#browse-button(type='file', name="pdfFile" accept='.pdf', required)

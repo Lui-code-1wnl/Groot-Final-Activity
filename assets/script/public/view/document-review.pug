@@ -20,10 +20,12 @@ html(lang="en")
                     p Document Title:
                     p Document Type:
                     p Number of Pages:
-                    p Document
-                    p Description:
+                    p Document Description:
+                    p Document Message:
 
-                div#button-holder
+                div.side-holder
+                    label(for="document-message") Document Message:
+                    textarea#document-message(rows="4", cols="30", required, name='mssg')
                     button#approve
                         b Approve
                     button#return
