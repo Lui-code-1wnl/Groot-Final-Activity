@@ -22,14 +22,14 @@ html(lang="en")
                             th Current Status
                             th
                     tbody
-                        each item in result
+                        each item in documentData
                             tr
                                 td= item.requestID
                                 td= item.documentTitle
                                 td= item.dateSubmitted
                                 td= item.overallStatus
+                                td= item.status
                                 td
-                                td
-                                    a(href=`/document-progress/${item.requestID}`)
+                                    a(href=`/document-review/${item.requestID}`)
                                         button(type='button')
                                             b View Request

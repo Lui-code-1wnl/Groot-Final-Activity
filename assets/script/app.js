@@ -122,7 +122,6 @@ app.post('/login', (request, response) => {
                                             console.log('User is not online');
                                         }
                                     } else {
-                                        // No user found with the provided username
                                         console.log('User not found');
                                     }
                                 }
@@ -275,36 +274,6 @@ function getUserRequest(userID) {
     });
 }
 
-function getOfficeRequest(userID) {
-    return new Promise((resolve, reject) => {
-        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY requestID DESC';
-
-        connection.query(sql, [userID], (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
-    });
-}
-
-
-function getOffices() {
-    return new Promise((resolve, reject) => {
-        let sql = 'SELECT * FROM `user` WHERE userRole = "office"';
-
-        connection.query(sql, (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
-    });
-}
-
-
 app.get('/request-form', (request, response) => {
     var userData = request.session.userData;
     response.render('request-form', {userData: userData});
@@ -420,18 +389,21 @@ app.get("/document-progress/:requestID", async function(request, response) {
     }
 });
 
-function getDocumentRequest(userID,requestID) {
-    return new Promise((resolve, reject) => {
-        let sql = 'SELECT d.documentID, d.requestID, d.userID, d.officeID, d.documentTitle, d.referringEntity, d.documentType, d.numberOfPages, d.document_file, d.documentDescription, d.dateReceived, d.dateReviewed, d.status, u.userID AS user_ID, u.firstName, u.userRole, u.officeID AS user_office FROM document d JOIN request r ON d.requestID = r.requestID JOIN users u ON d.userID = u.userID WHERE r.requestID = d.requestID AND r.userID = d.userID';
-        connection.query(sql, [userID, requestID], (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
-    });
-}
+app.get("/document-review/:requestID", async function(request, response) {
+    const reqID = request.params.requestID;
+    const userData = request.session.userData;
+    console.log(`Request ID: ${reqID}`);
+    try {
+        const result = await getUserRequest(userData.userID);
+        const documentData = await getToBeReviewed(userData.userID, reqID);
+        const departmentData = await getOffices();
+        console.log(departmentData);
+        console.log(documentData);
+        response.render('document-review', {userData:userData, result: result, documentData:documentData, departmentData:departmentData, reqID});
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
 
 function getViewRequest(userID,reqID) {
     return new Promise((resolve, reject) => {
@@ -445,3 +417,46 @@ function getViewRequest(userID,reqID) {
         });
     });
 }
+
+function getOfficeRequest(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY requestID DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+
+function getOffices() {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT * FROM `user` WHERE userRole = "office"';
+
+        connection.query(sql, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getToBeReviewed(userID,reqID) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT d.documentID, d.requestID, d.userID, d.officeID, d.documentTitle, d.referringEntity, d.documentType, d.numberOfPages, d.document_file, d.documentDescription, d.dateReceived, d.dateReviewed, d.status, u.userID AS officeUserID, u.username AS officeUsername, u.firstName AS office FROM document d JOIN request r ON d.requestID = r.requestID JOIN user u ON u.userID = d.officeID AND u.userRole = 'office' WHERE r.requestID = ${reqID} AND r.userID = ${userID} AND d.status = 'pending'`;
+        connection.query(sql, [userID, reqID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+

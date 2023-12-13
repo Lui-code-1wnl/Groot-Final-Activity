@@ -9,4 +9,24 @@ html(lang="en")
         title Document Progress
 
     body
-        include client-blue-header
+        include client-white-header
+
+        div#content-container
+            h1 View Document
+            div#inside-container
+
+                div#document-info
+                    p Referring Entity: #{documentData.referring}
+                    p Document Title:
+                    p Document Type:
+                    p Number of Pages:
+                    p Document
+                    p Description:
+
+                div#button-holder
+                    button#approve
+                        b Approve
+                    button#return
+                        b Return
+
+            div#document-render
