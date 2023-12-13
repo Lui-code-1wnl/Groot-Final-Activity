@@ -3,11 +3,11 @@ html(lang="en")
         meta(charset="utf-8")
         script(src="")
         meta(name="viewport", content="width=device-width")
-        link(rel="stylesheet", href="/css/dashboard-white.css")
+        link(rel="stylesheet", href="/css/dashboard.css")
         link(rel="icon", type="image/x-icon", href="/images/ograa.png")
         title Document Progress
     body
-        
+        include client-blue-header
         if !result || result.length === 0
             #no-table-message
                 h1 No requests have been made currently.

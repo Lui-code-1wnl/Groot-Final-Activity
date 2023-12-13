@@ -2,7 +2,7 @@ html
     head
         meta(charset="utf-8")
         meta(name="viewport", content="width=device-width")
-        link(rel="stylesheet", href="/css/req.css")
+        link(rel="stylesheet", href="/css/dashboard.css")
         link(rel="icon", type="image/x-icon", href="/images/ograa.png")
         title OGRAA
 
@@ -15,11 +15,11 @@ html
                         h1
                             a(href="/welcome-page") Saint Louis University
                 ul
-                    p#hello Hello, #{userData.firstName}
+                    p Hello, #{userData.firstName}
                     li
                         a(href='/welcome-page') Home
                     if userData.role === 'user'
                         li
                             a(href='/request-form') Request
                     li
-                        a(href='/office-dashboard') Dashboard
+                        a(href='/dashboard') Dashboard
