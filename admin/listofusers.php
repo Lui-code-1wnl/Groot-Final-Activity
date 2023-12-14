@@ -162,6 +162,7 @@ $result = $conn->query($query);
 
     <?php
     ob_start();
+    
     if (isset($_GET['search'])){
         $_SESSION['search_term'] = htmlspecialchars($_GET['search']);
     }

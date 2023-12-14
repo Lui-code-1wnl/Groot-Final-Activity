@@ -32,7 +32,7 @@ if (isset($_POST['update-password'])) {
             if ($stmtUpdate->execute()) {
                 // Password updated successfully
                 $_SESSION['success'] = "Password updated successfully.";
-                header('Location: listofusers.php');
+                echo '<script>window.location.href = ".php";</script>';
                 exit();
             } else {
                 // Display error message
@@ -51,7 +51,7 @@ if (isset($_POST['update-password'])) {
     }
 
     // Redirect to update.php after updating password (whether success or error)
-    header('Location: update.php');
+    header('Location: listofusers.php');
     exit();
 }
 ?>
