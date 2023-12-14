@@ -153,8 +153,9 @@ $result = $conn->query($query);
         </div>
     </div>
     <div class="row" id="button-row">
-        <button id="update-account-button" type="button">Update an Account</button>
-        <button id="delete-account-button" type="button">Delete an Account</button>
+    <a href="update.php"><button id="update-account-button" type="button">Update an Account</button></a>
+    <a href="delete.php"><button id="delete-account-button" type="button">Delete an Account</button></a>
+</div>
     </div>
 
     <?php
