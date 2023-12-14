@@ -5,7 +5,12 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: index.php"); // Redirect to login page or home page
     exit();
+    
 }
+$db = new DB();
+$conn = $db->getConnection();
+$query = "SELECT * FROM request";
+$result = $conn->query($query);
 ?>
 
 <!DOCTYPE HTML>
@@ -56,6 +61,44 @@ if (!isset($_SESSION['user'])) {
                         <button id="search-button" type="submit" name="add-button">Search</button>
                     </div>
                 </div>
+
+    <?php
+    // Check if there are logs
+    if ($result->num_rows > 0) {
+        // Display request table
+        echo '<div class="row">';
+        echo '<table class="transparent-table smaller-table" border="1">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th style="color: #073066;">Request ID</th>';
+        echo '<th style="color: #073066;">User ID</th>';
+        echo '<th style="color: #073066;">Document Title</th>';
+        echo '<th style="color: #073066;">Date Submitted</th>';
+        echo '<th style="color: #073066;">Overall Status</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        // Loop through the result set
+        while ($row = $result->fetch_assoc()) {
+            echo '<tr>';
+            echo '<td style="color: #073066;">' . $row['requestID'] . '</td>';
+            echo '<td style="color: #073066;">' . $row['userID'] . '</td>';
+            echo '<td style="color: #073066;">' . $row['documentTitle'] . '</td>';
+            echo '<td style="color: #073066;">' . $row['dateSubmitted'] . '</td>';
+            echo '<td style="color: #073066;">' . $row['overallStatus'] . '</td>';
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
+    } else {
+            echo 'No logs found.';
+        }
+        $result->close();
+      $conn->close();
+    
+    ?>
             </div>
         </form>
     </div>
