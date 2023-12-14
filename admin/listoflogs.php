@@ -20,10 +20,10 @@
             </div>
         </div>
         <ul id="navigation-links">
-            <li><a href="#home">HOME</a></li>
-            <li><a href="#users">USERS</a></li>
-            <li><a href="#logs">LOGS</a></li>
-            <li><a href="#admin">ADMIN</a></li>
+                <li><a href="index.php">HOME</a></li>
+                <li><a href="listofusers.php">USERS</a></li>
+                <li><a href="listoflogs.php">LOGS</a></li>
+                <li><a href="admin.php">ADMIN</a></li>
         </ul>
         <div id="logout-container">
             <form id="logout-form" action="logout.php" method="post">
