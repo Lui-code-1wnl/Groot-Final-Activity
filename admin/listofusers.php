@@ -148,8 +148,10 @@ $result = $conn->query($query);
 
     <div class="row">
         <div id="search-box">
-            <input type="text" id="search-input" placeholder="Search">
-            <button id="search-button" type="submit">Search</button>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
+            <input type="text" id="search-input" name="search" placeholder="Search">
+            <input type="submit" name="submit" value="Search">
+        </form>
         </div>
     </div>
     <div class="row" id="button-row">
@@ -159,40 +161,60 @@ $result = $conn->query($query);
     </div>
 
     <?php
+    ob_start();
+    if (isset($_GET['search'])){
+        $_SESSION['search_term'] = htmlspecialchars($_GET['search']);
+    }
+    if (empty($_GET['search']) && isset($_SESSION['search_term'])){
+       unset($_SESSION['search_term']); 
+       session_destroy();
+    }
+    echo '<script>';
+    echo 'if (performance.navigation.type == 1) {';
+    echo '    window.location.href = "listofusers.php";'; // Redirect to the same page without search parameters
+    echo '}';
+    echo '</script>';
+    if (isset($_SESSION['search_term'])) {
+        include 'search.php';
+    } else {
     // Check if there are users
- if ($result->num_rows > 0) {
-     // Display user table
-     echo '<div class="row">';
-     echo '<table class="transparent-table smaller-table" border="1">';
-     echo '<thead>';
-     echo '<tr>';
-     echo '<th style="color: #073066;">Username</th>';
-     echo '<th style="color: #073066;">First Name</th>';
-     echo '<th style="color: #073066;">Last Name</th>';
-     echo '<th style="color: #073066;">User Role</th>';
-     echo '<th style="color: #073066;">Status</th>';
-     echo '</tr>';
-     echo '</thead>';
-     echo '<tbody>';
+    if ($result->num_rows > 0) {
+        // Display user table
+        echo '<div class="row">';
+        echo '<table class="transparent-table smaller-table" border="1">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th style="color: #073066;">Username</th>';
+        echo '<th style="color: #073066;">First Name</th>';
+        echo '<th style="color: #073066;">Last Name</th>';
+        echo '<th style="color: #073066;">User Role</th>';
+        echo '<th style="color: #073066;">Status</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
 
-     // Loop through the result set
-     while ($row = $result->fetch_assoc()) {
-         echo '<tr>';
-         echo '<td style="color: #073066;">' . $row['username'] . '</td>';
-         echo '<td style="color: #073066;">' . $row['firstName'] . '</td>';
-         echo '<td style="color: #073066;">' . $row['lastName'] . '</td>';
-         echo '<td style="color: #073066;">' . $row['userRole'] . '</td>';
-         echo '<td style="color: #073066;">' . $row['status'] . '</td>';
-         echo '</tr>';
-     }
-     echo '</tbody>';
-     echo '</table>';
-     echo '</div>';
- } else {
-     echo 'No users found.';
- }
-    $result->close();
-    $conn->close();
+        // Loop through the result set
+        while ($row = $result->fetch_assoc()) {
+            echo '<tr>';
+            echo '<td style="color: #073066;">' . $row['username'] . '</td>';
+            echo '<td style="color: #073066;">' . $row['firstName'] . '</td>';
+            echo '<td style="color: #073066;">' . $row['lastName'] . '</td>';
+            echo '<td style="color: #073066;">' . $row['userRole'] . '</td>';
+            echo '<td style="color: #073066;">' . $row['status'] . '</td>';
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
+    } else {
+            echo 'No users found.';
+        }
+    
+    
+        $result->close();
+        $conn->close();
+    }
+    ob_end_flush();
     ?>
 </body>
 
