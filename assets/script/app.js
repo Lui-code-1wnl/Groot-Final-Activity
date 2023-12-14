@@ -671,6 +671,33 @@ app.get("/document-review/:requestID", async function(request, response) {
     }
 });
 
+app.get("/file/:filename", function(request, response) {
+
+    response.status(200).sendFile(path.join(__dirname, `documents/${request.params.filename}`));
+
+});
+
+app.get("/render:filepath", async function(request, response) {
+
+    const reqID = request.params.requestID;
+    const userData = request.session.userData;
+    console.log(`Request ID: ${reqID}`);
+    try {
+        const result = await getUserRequest(userData.userID);
+        const documentData = await getToBeReviewed(userData.userID, reqID);
+        const departmentData = await getOffices();
+        console.log(departmentData);
+        console.log(documentData);
+
+
+        response.render('render:filepath', {userData:userData, result: result, documentData:documentData, departmentData:departmentData, reqID});
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+
+
 
 
 

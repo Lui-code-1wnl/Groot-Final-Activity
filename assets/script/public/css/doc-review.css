@@ -30,13 +30,22 @@ body{
 h1 {
     color: #183350;
 }
-
 #document-render {
+    display: block;
     margin-top: 50px;
-    height: 200px;
+    height: 900px;
     margin-left: 50px;
     margin-right: 50px;
-    width: 900px;
+    width: 1220px;
+}
+
+#viewer {
+    display: block;
+    margin-top: 50px;
+    height: 900px;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 1220px;
 }
 
 .side-holder {

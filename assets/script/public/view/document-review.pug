@@ -5,7 +5,7 @@ html(lang="en")
         script(src="")
         meta(name="viewport", content="width=device-width")
         link(rel="stylesheet", href="/css/doc-review.css")
-        link(rel="script", href="/lib/webviewer.min.js")
+        script(src='/lib/webviewer.min.js')
         link(rel="icon", type="image/x-icon", href="/images/ograa.png")
         title Document Progress
 
@@ -28,8 +28,15 @@ html(lang="en")
                     label(for="document-message") Document Message:
                     textarea#document-message(rows="4", cols="30", required, name='mssg')
                     button#approve
-                        b Approve
+                        - const path = `/render`;
+                        a(href='/render')
+                            b Approve
+
                     button#return
                         b Return
+        br
+        br
+        div#documentRender
+            div#viewer
+            script(src="/lib/index.js")
 
-            div#documentRender(style='width: 80%; height: 100%')
