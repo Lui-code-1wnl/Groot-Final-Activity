@@ -19,19 +19,20 @@ html(lang="en")
         if !result || result.length === 0
             #no-table-message
                 h1 No requests have been made currently.
+                a(href='/dashboard') Go back to dashboard
         else
             #table-container
                 table
                     thead
                         tr
                             th
-                                a(href='/dashboard-reqID-asc') Request Number
+                                a(href='/dashboard-reqID-desc') Request Number (Asc)
                             th
                                 a(href='/dashboard-title-asc') Document Title
                             th
                                 a(href='/dashboard-date-asc') Date Submitted
                             th
-                                a(href= '/dashboard-pending') Current Status
+                                a(href= '/dashboard') Current Status
                             th
                     tbody
                         each item in result

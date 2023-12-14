@@ -20,19 +20,18 @@ html(lang="en")
             #no-table-message
                 h1 No requests have been made currently.
         else
-            #table-container
-                table
-                    thead
-                        tr
-                            th
-                                a(href='/dashboard-reqID-asc') Request Number
-                            th
-                                a(href='/dashboard-title-asc') Document Title
-                            th
-                                a(href='/dashboard-date-asc') Date Submitted
-                            th
-                                a(href= '/dashboard-pending') Current Status
-                            th
+            table
+                thead
+                    tr
+                        th
+                            a(href='/dashboard-reqID-asc') Request Number
+                        th
+                            a(href='/dashboard-title-asc') Document Title
+                        th
+                            a(href='/dashboard-date-asc') Date Submitted (Desc)
+                        th
+                            a(href= '/dashboard-pending') Current Status
+                        th
                     tbody
                         each item in result
                             tr

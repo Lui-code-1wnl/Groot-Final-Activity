@@ -224,6 +224,96 @@ app.get("/dashboard", async function(request, response) {
     }
 });
 
+app.get("/dashboard-date-asc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await sortUserDateAsc(userData.userID);
+        response.render('dashboard-date-asc', {userData:userData, result: result });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/dashboard-date-desc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await sortUserDateAsc(userData.userID);
+        response.render('dashboard-date-desc', {userData:userData, result: result });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/dashboard-title-asc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await sortUserDateAsc(userData.userID);
+        response.render('dashboard-title-asc', {userData:userData, result: result });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/dashboard-title-desc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await sortUserTitleDesc(userData.userID);
+        response.render('dashboard-title-desc', {userData:userData, result: result });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/dashboard-reqID-asc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await sortUserReqIDAsc(userData.userID);
+        response.render('dashboard-reqID-asc', {userData:userData, result: result });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/dashboard-reqID-desc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await sortUserReqIDDesc(userData.userID);
+        response.render('dashboard-reqID-desc', {userData:userData, result: result });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/dashboard-pending", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await sortUserPending(userData.userID);
+        response.render('dashboard-pending', {userData:userData, result: result });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/dashboard-approved", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await sortUserApproved(userData.userID);
+        response.render('dashboard-approved', {userData:userData, result: result });
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+
+
 app.get("/office-dashboard", async function(request, response) {
     try {
         const userData = request.session.userData;
@@ -784,6 +874,118 @@ function getReturned(userID) {
         let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND status = ? AND document_file IS NOT NULL ORDER BY requestID ASC';
 
         connection.query(sql, [userID, 'Returned'], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortUserReqIDDesc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? ORDER BY requestID DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortUserReqIDAsc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? ORDER BY requestID ASC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortUserTitleDesc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? ORDER BY documentTitle DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortUserTitleAsc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? ORDER BY documentTitle ASC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortUserDateDesc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? ORDER BY dateSubmitted DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortUserDateAsc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? ORDER BY dateSubmitted ASC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortUserPending(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? AND overallStatus = ? ORDER BY overa DESC';
+
+        connection.query(sql, [userID, 'Pending Approval'], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortUserApproved(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? AND overallStatus = ? ORDER BY dateSubmitted DESC';
+
+        connection.query(sql, [userID, 'Approved'], (err, result) => {
             if (err) {
                 reject(err);
             } else {
