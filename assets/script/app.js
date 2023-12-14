@@ -238,7 +238,7 @@ app.get("/dashboard-date-asc", async function(request, response) {
 app.get("/dashboard-date-desc", async function(request, response) {
     try {
         const userData = request.session.userData;
-        const result = await sortUserDateAsc(userData.userID);
+        const result = await sortUserDateDesc(userData.userID);
         response.render('dashboard-date-desc', {userData:userData, result: result });
 
     } catch (error) {
@@ -249,7 +249,7 @@ app.get("/dashboard-date-desc", async function(request, response) {
 app.get("/dashboard-title-asc", async function(request, response) {
     try {
         const userData = request.session.userData;
-        const result = await sortUserDateAsc(userData.userID);
+        const result = await sortUserTitleAsc(userData.userID);
         response.render('dashboard-title-asc', {userData:userData, result: result });
 
     } catch (error) {
@@ -271,7 +271,7 @@ app.get("/dashboard-title-desc", async function(request, response) {
 app.get("/dashboard-reqID-asc", async function(request, response) {
     try {
         const userData = request.session.userData;
-        const result = await sortUserReqIDAsc(userData.userID);
+        const result = await sortUserTitleAsc(userData.userID);
         response.render('dashboard-reqID-asc', {userData:userData, result: result });
 
     } catch (error) {
@@ -969,9 +969,9 @@ function sortUserDateAsc(userID) {
 
 function sortUserPending(userID) {
     return new Promise((resolve, reject) => {
-        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? AND overallStatus = ? ORDER BY overa DESC';
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? AND overallStatus = ? ORDER BY requestID DESC';
 
-        connection.query(sql, [userID, 'Pending Approval'], (err, result) => {
+        connection.query(sql, [userID, 'Pending approval'], (err, result) => {
             if (err) {
                 reject(err);
             } else {
@@ -983,7 +983,7 @@ function sortUserPending(userID) {
 
 function sortUserApproved(userID) {
     return new Promise((resolve, reject) => {
-        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? AND overallStatus = ? ORDER BY dateSubmitted DESC';
+        let sql = 'SELECT requestID, userID, documentTitle, dateSubmitted, overallStatus FROM request WHERE userID = ? AND overallStatus = ? ORDER BY requestID DESC';
 
         connection.query(sql, [userID, 'Approved'], (err, result) => {
             if (err) {
