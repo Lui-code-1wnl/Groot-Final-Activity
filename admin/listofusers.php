@@ -7,7 +7,6 @@ if (!isset($_SESSION['user'])) {
     header("Location: index.php");
     exit();
 }
-
 // Create a database connection
 $db = new DB();
 $conn = $db->getConnection();
@@ -65,7 +64,6 @@ if (isset($_POST['add-button'])) {
     header('Location: index.php');
     exit();
 }
-
 // Fetch user data from the database for displaying the user table
 $query = "SELECT * FROM user";
 $result = $conn->query($query);
@@ -92,18 +90,20 @@ $result = $conn->query($query);
                     <h1><a href="clients/welcome-page.html">Saint Louis University</a></h1>
                 </div>
             </div>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#users">Users</a></li>
-            </ul>
-            <img id="user-icon" src="../assets/script/public/images/user-icon-white.png" alt="Logo">
-        </div>
-        <div id="logout-container">
-            <form action="logout.php" method="post">
-                <button id="logout-button" type="submit" name="logout">Logout</button>
-            </form>
-        </div>
-    </div>
+             <ul id="navigation-links">
+                            <li><a href="#home">HOME</a></li>
+                            <li><a href="#users">USERS</a></li>
+                            <li><a href="#logs">LOGS</a></li>
+                            <li><a href="#admin">ADMIN</a></li>
+                            <div id="logout-container">
+                                  <form id="logout-form" action="logout.php" method="post">
+                                        <button id="logout-button" type="submit" name="logout">Logout</button>
+                                </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
 
     <div id="title-container">
         <h2 id="title">LIST OF USERS</h2>
@@ -152,46 +152,47 @@ $result = $conn->query($query);
             <button id="search-button" type="submit">Search</button>
         </div>
     </div>
+    <div class="row" id="button-row">
+        <button id="update-account-button" type="button">Update an Account</button>
+        <button id="delete-account-button" type="button">Delete an Account</button>
+    </div>
 
     <?php
     // Check if there are users
-    if ($result->num_rows > 0) {
-        // Display user table
-        echo '<div class="row">';
-        echo '<table border="1">';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th>Username</th>';
-        echo '<th>First Name</th>';
-        echo '<th>Last Name</th>';
-        echo '<th>User Role</th>';
-        echo '<th>Status</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo '<tbody>';
+ if ($result->num_rows > 0) {
+     // Display user table
+     echo '<div class="row">';
+     echo '<table class="transparent-table smaller-table" border="1">';
+     echo '<thead>';
+     echo '<tr>';
+     echo '<th style="color: #073066;">Username</th>';
+     echo '<th style="color: #073066;">First Name</th>';
+     echo '<th style="color: #073066;">Last Name</th>';
+     echo '<th style="color: #073066;">User Role</th>';
+     echo '<th style="color: #073066;">Status</th>';
+     echo '</tr>';
+     echo '</thead>';
+     echo '<tbody>';
 
-        // Loop through the result set
-        while ($row = $result->fetch_assoc()) {
-            echo '<tr>';
-            echo '<td>' . $row['username'] . '</td>';
-            echo '<td>' . $row['firstName'] . '</td>';
-            echo '<td>' . $row['lastName'] . '</td>';
-            echo '<td>' . $row['userRole'] . '</td>';
-            echo '<td>' . $row['status'] . '</td>';
-            echo '</tr>';
-        }
-
-        echo '</tbody>';
-        echo '</table>';
-        echo '</div>';
-    } else {
-        echo 'No users found.';
-    }
-
+     // Loop through the result set
+     while ($row = $result->fetch_assoc()) {
+         echo '<tr>';
+         echo '<td style="color: #073066;">' . $row['username'] . '</td>';
+         echo '<td style="color: #073066;">' . $row['firstName'] . '</td>';
+         echo '<td style="color: #073066;">' . $row['lastName'] . '</td>';
+         echo '<td style="color: #073066;">' . $row['userRole'] . '</td>';
+         echo '<td style="color: #073066;">' . $row['status'] . '</td>';
+         echo '</tr>';
+     }
+     echo '</tbody>';
+     echo '</table>';
+     echo '</div>';
+ } else {
+     echo 'No users found.';
+ }
     $result->close();
     $conn->close();
     ?>
-
 </body>
 
 </html>
