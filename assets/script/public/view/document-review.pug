@@ -5,6 +5,7 @@ html(lang="en")
         script(src="")
         meta(name="viewport", content="width=device-width")
         link(rel="stylesheet", href="/css/doc-review.css")
+        link(rel="script", href="/lib/webviewer.min.js")
         link(rel="icon", type="image/x-icon", href="/images/ograa.png")
         title Document Progress
 
@@ -16,12 +17,12 @@ html(lang="en")
             div#inside-container
 
                 div#document-info
-                    p Referring Entity: #{documentData.referring}
-                    p Document Title:
-                    p Document Type:
-                    p Number of Pages:
-                    p Document Description:
-                    p Document Message:
+                        p Referring Entity: #{documentData[0].referringEntity}
+                        p Document Title: #{documentData[0].documentTitle}
+                        p Document Type: #{documentData[0].documentType}
+                        p Number of Pages: #{documentData[0].numberOfPages}
+                        p Document Description: #{documentData[0].documentDescription}
+                        p Document Message: #{documentData[0].message}
 
                 div.side-holder
                     label(for="document-message") Document Message:
@@ -31,4 +32,4 @@ html(lang="en")
                     button#return
                         b Return
 
-            div#document-render
+            div#documentRender(style='width: 80%; height: 100%')

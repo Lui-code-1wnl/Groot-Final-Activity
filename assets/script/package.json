@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@pdftron/pdfjs-express-viewer": "^8.7.4",
     "body-parser": "^1.20.2",
     "day": "^0.0.2",
     "dayjs": "^1.11.10",
@@ -19,8 +20,10 @@
     "express-session": "^1.17.3",
     "file-share": "^1.0.0",
     "file-upload": "^0.0.0",
+    "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "nodemon": "^3.0.2",
+    "opn": "^6.0.0",
     "pub": "^0.2.0",
     "pug": "^3.0.2"
   }

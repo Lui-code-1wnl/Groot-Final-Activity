@@ -11,6 +11,7 @@ const fileUpload = require('express-fileupload');
 var connection = mysql.createConnection({
     host: hostIP, user:'root', password: '', database: 'groot_final'
 });
+
 const fs = require('fs');
 const app = express();
 app.use(express.static('public'));
@@ -18,15 +19,13 @@ app.set('views', `${__dirname}/public/view`);
 app.set('view engine', 'pug');
 app.use('/css', express.static(`${__dirname}/script/public/css`));
 app.use(fileUpload());
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 app.use(session({secret: 'somesecretkey', resave: true, saveUninitialized: true}));
 app.use(express.static('documents'));
-
-
+app.use(express.static('sort'));
 app.listen(portNumber, hostIP)
 console.log(`Server running on port number ${portNumber}`);
 
@@ -46,25 +45,6 @@ app.get('/login', (request, response) => {
 });
 
 
-/*
- *const userData = request.session.userData;
-    if (userData) {
-        // Set user status to 'offline' when logging out
-        connection.query(
-            'UPDATE user SET status = ? WHERE username = ?',
-            ['offline', userData.username],
-            (updateErr) => {
-                if (updateErr) {
-                    console.error(updateErr);
-                    // Handle error if necessary
-                } else {
-                    console.log(`${userData.username} is offline.`);
-                    response.redirect('/login'); // Redirect to login page after logout
-                }
-            }
-        );
-    }
- */
 app.post('/login', (request, response) => {
     var username = request.body.username;
     var password = request.body.password;
@@ -249,6 +229,20 @@ app.get("/office-dashboard", async function(request, response) {
         const userData = request.session.userData;
         const result = await getUserRequest(userData.userID);
         const departmentResult = await getUserRequest(userData.userID);
+
+
+        const sortOption = request.query.sort;
+
+        // Sort the departmentResult based on the sortOption
+        if (sortOption === 'id') {
+            departmentResult.sort((a, b) => a.referringEntity.localeCompare(b.name));
+        } else if (sortOption === 'name') {
+            departmentResult.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortOption === 'date') {
+            departmentResult.sort((a, b) => new Date(a.date) - new Date(b.date));
+        }
+
+
         if (userData.role === 'user') {
             response.render('dashboard', {userData:userData, result: result });
         } else if (userData.role === 'office') {
@@ -259,6 +253,184 @@ app.get("/office-dashboard", async function(request, response) {
         console.error('Error:', error);
     }
 });
+
+
+app.get("/office-dashboard-entity-asc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await sortEntityAsc(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-entity-asc', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-entity-desc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await sortEntityDesc(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-entity-desc', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-reqNo-desc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await sortReqNoDesc(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-reqNo-desc', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-reqNo-asc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await sortReqNoAsc(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-reqNo-asc', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-date-desc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await sortDateDesc(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-date-desc', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-date-asc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await sortDateAsc(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-date-asc', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-title-desc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await sortTitleDesc(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-title-desc', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-title-asc", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await sortTitleAsc(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-title-asc', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-pending", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await getPending(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-pending', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-approved", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await getApproved(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-approved', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+app.get("/office-dashboard-returned", async function(request, response) {
+    try {
+        const userData = request.session.userData;
+        const result = await getUserRequest(userData.userID);
+        const departmentResult = await getReturned(userData.userID);
+        if (userData.role === 'user') {
+            response.render('dashboard', {userData:userData, result: result });
+        } else if (userData.role === 'office') {
+            response.render('office-dashboard-returned', {userData:userData, departmentResult: departmentResult });
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
 
 function getUserRequest(userID) {
     return new Promise((resolve, reject) => {
@@ -294,7 +466,7 @@ app.post('/request-form', async (request, response) => {
         let formattedDateTime = dayjs(currentDateTime).format('YYYY-MM-DD HH:mm');
         let requestID = 0;
 
-        connection.query('INSERT INTO `request` (`userID`,`documentTitle`,`dateSubmitted`, `overallStatus`) VALUES (?, ?, ?, ?)', [userID, documentTitle, formattedDateTime, 'Pending approval'], (err, results) => {
+        connection.query('INSERT INTO `request` (`userID`,`documentTitle`,`dateSubmitted`, `overallStatus`) VALUES (?, ?, ?, ?)', [userID, documentTitle, formattedDateTime, 'Pending'], (err, results) => {
             if (err) {
                 console.log(err);
                 throw err;
@@ -401,11 +573,16 @@ app.get("/document-review/:requestID", async function(request, response) {
         const departmentData = await getOffices();
         console.log(departmentData);
         console.log(documentData);
+
+
         response.render('document-review', {userData:userData, result: result, documentData:documentData, departmentData:departmentData, reqID});
     } catch (error) {
         console.error('Error:', error);
     }
 });
+
+
+
 
 function getViewRequest(userID,reqID) {
     return new Promise((resolve, reject) => {
@@ -451,7 +628,7 @@ function getOffices() {
 
 function getToBeReviewed(userID,reqID) {
     return new Promise((resolve, reject) => {
-        let sql = `SELECT d.documentID, d.requestID, d.userID, d.officeID, d.documentTitle, d.referringEntity, d.documentType, d.numberOfPages, d.document_file, d.documentDescription, d.dateReceived, d.dateReviewed, d.status, u.userID AS officeUserID, u.username AS officeUsername, u.firstName AS office FROM document d JOIN request r ON d.requestID = r.requestID JOIN user u ON u.userID = d.officeID AND u.userRole = 'office' WHERE r.requestID = ${reqID} AND r.userID = ${userID} AND d.status = 'pending'`;
+        let sql = `SELECT * FROM document WHERE officeID = ? AND requestID = ?`;
         connection.query(sql, [userID, reqID], (err, result) => {
             if (err) {
                 reject(err);
@@ -462,3 +639,156 @@ function getToBeReviewed(userID,reqID) {
     });
 }
 
+function sortEntityDesc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY referringEntity DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortEntityAsc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY referringEntity ASC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortTitleDesc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY documentTitle DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortTitleAsc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY documentTitle ASC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortDateDesc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY dateReceived DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortDateAsc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY dateReceived ASC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortReqNoDesc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY requestID DESC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function sortReqNoAsc(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY requestID ASC';
+
+        connection.query(sql, [userID], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getPending(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND status = ? AND document_file IS NOT NULL ORDER BY requestID DESC';
+
+        connection.query(sql, [userID, 'Pending'], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getApproved(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND status = ? AND document_file IS NOT NULL ORDER BY requestID ASC';
+
+        connection.query(sql, [userID, 'Approved'], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getReturned(userID) {
+    return new Promise((resolve, reject) => {
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND status = ? AND document_file IS NOT NULL ORDER BY requestID ASC';
+
+        connection.query(sql, [userID, 'Returned'], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}

@@ -8,7 +8,6 @@ html(lang="en")
 
     body
         include client-white-header
-
         #title-container
             h1#title DASHBOARD
 
@@ -31,9 +30,8 @@ html(lang="en")
                             th
                                 a(href="/office-dashboard-title-asc") Document Title
                             th
-                                a(href="/office-dashboard-date-asc") Requester
-                            th
-                                a(href="/office-dashboard-pending") Current Status
+                                a(href="/office-dashboard-date-asc") Date Submitted (Desc)
+                            th Current Status
                             th
                     tbody
                         each item in departmentResult
