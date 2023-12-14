@@ -1,11 +1,20 @@
 <?php
-require('includes/db.php');
+require "db.php";
 session_start();
 
 if (isset($_POST['update-password'])) {
-    $username = $_POST['username'];
+    $username = trim($_POST['username']);
     $password = $_POST['password'];
 
+    // Validate if the username contains only alphanumeric characters and underscores
+    if (!preg_match('/^\w+$/', $username)) {
+        $_SESSION['error'] = "Invalid username format. Please enter a valid username.";
+        header('Location: includes/error.php');
+        exit();
+    }
+
+    $db = new DB();
+    $conn = $db->getConnection();
     // Check if the username exists
     $stmtCheck = $conn->prepare("SELECT * FROM user WHERE username = ?");
     $stmtCheck->bind_param("s", $username);
