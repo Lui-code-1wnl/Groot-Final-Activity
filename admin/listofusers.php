@@ -168,7 +168,6 @@ $result = $conn->query($query);
     }
     if (empty($_GET['search']) && isset($_SESSION['search_term'])){
        unset($_SESSION['search_term']); 
-       session_destroy();
     }
     echo '<script>';
     echo 'if (performance.navigation.type == 1) {';
