@@ -1,3 +1,13 @@
+<?php
+include "db.php";
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: index.php"); // Redirect to login page or home page
+    exit();
+}
+?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 
