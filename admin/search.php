@@ -32,7 +32,7 @@
         }
         echo "</table>";
     } else {
-        echo "No such user exists";
+        echo '<div style="color: #073066; font-weight: bold;">No such user exists</div>';
         
     }
     }

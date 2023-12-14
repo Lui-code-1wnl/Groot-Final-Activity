@@ -63,7 +63,7 @@ if (isset($_POST['update-password'])) {
     }
 
     // Redirect to update.php after updating password (whether success or error)
-    header('Location: update.php');
+    header('Location: listofusers.php');
     exit();
 }
 ?>
