@@ -2,6 +2,18 @@
 require "db.php";
 session_start();
 
+//Fetch list of users
+$db = new DB();
+$conn = $db->getConnection();
+$stmtUsers = $conn->prepare("SELECT username FROM user");
+$stmtUsers->execute();
+$resultUsers = $stmtUsers->get_result();
+
+$userList = [];
+while ($row = $resultUsers->fetch_assoc()) {
+    $userList[] = $row['username'];
+}
+
 // Redirect to listofusers.php if not logged in
 if (!isset($_SESSION['user'])) {
     header("Location: listofusers.php");
@@ -32,7 +44,7 @@ if (isset($_POST['update-password'])) {
             if ($stmtUpdate->execute()) {
                 // Password updated successfully
                 $_SESSION['success'] = "Password updated successfully.";
-                echo '<script>window.location.href = ".php";</script>';
+                header('Location: listofusers.php');
                 exit();
             } else {
                 // Display error message
@@ -51,7 +63,7 @@ if (isset($_POST['update-password'])) {
     }
 
     // Redirect to update.php after updating password (whether success or error)
-    header('Location: listofusers.php');
+    header('Location: update.php');
     exit();
 }
 ?>
@@ -96,14 +108,18 @@ if (isset($_POST['update-password'])) {
                 <h1><pre>Update User</pre></h1>
 
                 <div class = "input-container">
-                    <label for = "username">Username</label>
-                    <input id = "username" type="text" name='username' required>
-                    <span class="fa-input"><i class="fas fa-user"></i></span>
+                <label for="username">Select User</label>
+    <select id="username" name="username" required>
+        <?php foreach ($userList as $user) : ?>
+            <option value="<?php echo $user; ?>"><?php echo $user; ?></option>
+        <?php endforeach; ?>
+    </select>
+    <span class="fa-input"><i class="fas fa-user"></i></span>
                 </div>
                 <br>
                 <br>
                 <div class = "input-container">
-                    <label for = "password">Password</label>
+                    <label for = "password">New Password</label>
                     <input id = "password" type="password" name='password' required>
                     <span class="fa-input"><i class="fas fa-lock"></i></span>
                 </div>
@@ -115,3 +131,4 @@ if (isset($_POST['update-password'])) {
     </div>
 </body>
 </html>
+

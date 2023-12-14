@@ -174,6 +174,7 @@ $result = $conn->query($query);
     echo '    window.location.href = "listofusers.php";'; // Redirect to the same page without search parameters
     echo '}';
     echo '</script>';
+    
     if (isset($_SESSION['search_term'])) {
         include 'search.php';
     } else {
