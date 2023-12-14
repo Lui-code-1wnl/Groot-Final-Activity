@@ -1,0 +1,229 @@
+body {
+    margin: 0 auto;
+    padding: 0;
+    background-color: #ffffff;
+    background-image: url('./imgs/whiteBG.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+#navbar {
+    background-color: #073066;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+#logout-button {
+    background-color: #1989E5;
+    color: white;
+    border: 1px solid #073066;
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+@media screen and (max-width:768px) {
+    #logout-button {
+        background-color: #1989E5;
+        color: white;
+        border: 1px solid #073066;
+        padding: 5px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+
+#navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #073066;
+    color: #F1F1F2;
+}
+
+#ograa-logo {
+    position: absolute;
+    height: 600px;
+    width: 600px;
+    margin-left: 10%;
+    margin-top: 7%;
+}
+
+@media screen and (max-width: 700px){
+    #ograa-logo{
+        display: flex;
+        width: 100%;
+    }
+}
+
+#unique-logo {
+    width: 50px;
+    height: auto;
+}
+
+#logo-title {
+    display: flex;
+    align-items: center;
+}
+
+#logo-title h1 {
+    font-size: 18px;
+    margin: 8px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+#unique-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 5px;
+}
+
+#navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+#navigation li {
+    margin-right: 20px;
+}
+#navigation-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+#navigation a {
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
+.n-events h1 {
+    text-align: center;
+}
+
+.n-events img {
+    width: 300px;
+    height: auto;
+}
+
+#title{
+    font-size: 28px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 80px;
+    color: #073066;
+}
+#search-box {
+    margin-top: 80px;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#search-input {
+    flex: 1;
+    padding: 6px;
+    margin-right: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+#search-button {
+    padding: 6px 12px;
+    border: 1px solid #1989E5;
+    border-radius: 3px;
+    background-color: #1989E5;
+    color: #fff;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    #search-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #search-input {
+        margin-bottom: 8px;
+        margin-right: 0;
+    }
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+.blue-box {
+    background-color: #073066;
+    padding: 10px;
+    border-radius: 50px;
+    color: white;
+    width: 100%;
+    margin-top: 50px;
+    font-size: 16px;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 80%;
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    align-items: center;
+}
+.input-container input {
+    width: 800px; /* Adjust width as needed */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-indent: 5px;
+    margin-right: 10px; /* Add some space between input and button */
+
+}
+.input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.input-container label {
+    margin-bottom: 30px;
+}
+#search-button {
+    background-color: #1989E5;
+    color: white;
+    border: 1px #073066;
+    padding: 8px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+@media screen and (max-width:850px){
+    #add-button {
+        background-color: #122c41;
+        color: white;
+        border: 1px #073066;
+        margin-left: 1px;
+        cursor: pointer;
+    }
+}
