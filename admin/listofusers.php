@@ -91,10 +91,10 @@ $result = $conn->query($query);
                 </div>
             </div>
              <ul id="navigation-links">
-                            <li><a href="index.php">HOME</a></li>
+                            <li><a href="admin.php">HOME</a></li>
                             <li><a href="listofusers.php">USERS</a></li>
                             <li><a href="listoflogs.php">LOGS</a></li>
-                            <li><a href="admin.php">ADMIN</a></li>
+                            <li><a href="">ADMIN</a></li>
                             <div id="logout-container">
                                   <form id="logout-form" action="logout.php" method="post">
                                         <button id="logout-button" type="submit" name="logout">Logout</button>

@@ -57,7 +57,7 @@ if(isset($_POST['login'])) {
                 $updateStmt->close();
                 
                 // Redirect to the dashboard or any other page as needed
-                header("Location: listofusers.php");
+                header("Location: admin.php");
                 exit();
             }
         } else {
