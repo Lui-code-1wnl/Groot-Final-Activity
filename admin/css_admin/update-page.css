@@ -135,6 +135,29 @@ h1, h2 {
     display: flex;
     align-items: center;
 }
+#navigation-links > li {
+    margin-right: 20px;
+}
+#navigation-links > div {
+    margin-right: 20px;
+}
+#admin-display {
+    font-size: 20px;
+    color: white;
+    cursor: default;
+    font-weight: bold;
+}
+#navigation-links a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+#navigation-links a:hover {
+    color: #1989E5;
+}
+#navigation-links a.active {
+    color: #1989E5;
+}
 form {
     display: flex;
     flex-direction: column;

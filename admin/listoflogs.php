@@ -38,7 +38,7 @@ $result = $conn->query($query);
                 <li><a href="admin.php">HOME</a></li>
                 <li><a href="listofusers.php">USERS</a></li>
                 <li><a href="listoflogs.php">LOGS</a></li>
-                <li><a href="">ADMIN</a></li>
+                <div id="admin-display">ADMIN</div>
         </ul>
         <div id="logout-container">
             <form id="logout-form" action="logout.php" method="post">

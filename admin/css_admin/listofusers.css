@@ -104,10 +104,44 @@ body {
     display: flex;
     align-items: center;
 }
+#navigation-links > li {
+    margin-right: 20px;
+}
+
+#navigation-links > div {
+    margin-right: 20px;
+}
+
+#admin-display {
+    font-size: 20px;
+    color: white;
+    cursor: default;
+    font-weight: bold;
+}
+#navigation-links a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+#navigation-links a:hover {
+    color: #1989E5;
+}
+
 #navigation a {
     font-size: 20px;
     text-decoration: none;
     color: white;
+}
+#admin-display {
+    font-size: 20px;
+    color: white;
+    margin-right: 20px;
+    cursor: default;
+    font-weight: bold;
+}
+#navigation-links a.active {
+    color: #1989E5;
 }
 .n-events h1 {
 text-align: center;

@@ -108,6 +108,23 @@ body {
     text-decoration: none;
     color: white;
 }
+#navigation-links a.active {
+    color: #1989E5;
+}
+#navigation-links a:hover {
+    color: #1989E5;
+}
+#navigation-links a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+#navigation-links > div {
+    margin-right: 20px;
+}
+#navigation-links > li {
+    margin-right: 20px;
+}
 .n-events h1 {
     text-align: center;
 }
@@ -193,12 +210,12 @@ body {
     align-items: center;
 }
 .input-container input {
-    width: 800px; /* Adjust width as needed */
+    width: 800px;
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #ccc;
     text-indent: 5px;
-    margin-right: 10px; /* Add some space between input and button */
+    margin-right: 10px;
 
 }
 .input-container {
@@ -252,4 +269,11 @@ table th {
     width: 80%;
     margin: 0 auto;
     font-size: 14px;
+}
+#admin-display {
+    font-size: 20px; /* Adjust the font size as needed */
+    color: white;
+    margin-right: 20px; /* Add margin or adjust spacing */
+    cursor: default; /* Disable cursor for the display */
+    font-weight: bold;
 }

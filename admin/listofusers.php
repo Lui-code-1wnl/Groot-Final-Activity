@@ -90,15 +90,16 @@ $result = $conn->query($query);
                     <h1><a href="clients/welcome-page.html">Saint Louis University</a></h1>
                 </div>
             </div>
-             <ul id="navigation-links">
+                        <ul id="navigation-links">
                             <li><a href="admin.php">HOME</a></li>
                             <li><a href="listofusers.php">USERS</a></li>
                             <li><a href="listoflogs.php">LOGS</a></li>
-                            <li><a href="">ADMIN</a></li>
+                            <div id="admin-display">ADMIN</div> <!-- Replace <li> with <div> or <span> -->
                             <div id="logout-container">
-                                  <form id="logout-form" action="logout.php" method="post">
-                                        <button id="logout-button" type="submit" name="logout">Logout</button>
+                                <form id="logout-form" action="logout.php" method="post">
+                                    <button id="logout-button" type="submit" name="logout">Logout</button>
                                 </form>
+                            </div>
                         </ul>
                     </div>
                 </div>
