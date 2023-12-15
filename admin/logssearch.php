@@ -5,7 +5,7 @@
         
     //query to retrieve the document with the matching title
     $stmt = $conn->prepare("SELECT * FROM request WHERE requestID LIKE ? OR documentTitle LIKE ?");
-    $stmt->bind_param("s", $search);
+    $stmt->bind_param("ss", $search, $search);
     $stmt->execute();
 
     $result = $stmt->get_result();
@@ -25,7 +25,6 @@
             echo '<td style="color: #073066;">' . $row['requestID'] . '</td>';
             echo '<td style="color: #073066;">' . $row['documentTitle'] . '</td>';
             echo '<td style="color: #073066;">' . $row['dateSubmitted'] . '</td>';
-            echo '<td style="color: #073066;">' . $row['status'] . '</td>';
             echo "</tr>";
         }
         echo "</table>";

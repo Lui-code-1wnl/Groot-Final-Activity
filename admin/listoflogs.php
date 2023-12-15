@@ -57,7 +57,7 @@ $result = $conn->query($query);
                 <div class="row">
                     <div class="input-container">
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
-                        <input id="requestid" type="text" name="requestid" placeholder="Please Enter Request ID or DocumentTitle" required>
+                        <input id="requestid" type="text" name="search" placeholder="Please Enter Request ID or DocumentTitle" required>
                         <input type="submit" name="submit" value="Search">
                     </form>
                     </div>
