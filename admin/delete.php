@@ -39,8 +39,6 @@ if (isset($_POST['delete-username'])) {
     exit();
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,9 +49,8 @@ if (isset($_POST['delete-username'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<div id= "content-holder">
-
-    <div id="navbar">
+<body>
+    <div id="navbar"> <!-- Navigation -->
         <div id="navigation">
             <div class="logo-container">
                 <div id="logo-title">
@@ -61,13 +58,19 @@ if (isset($_POST['delete-username'])) {
                     <h1><a href="clients/welcome-page.html">Saint Louis University</a></h1>
                 </div>
             </div>
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="listofusers.php">Users</a></li>
-            </ul>
-            <img id="user-icon" src="../assets/script/public/images/user-icon-white.png" alt="Logo">
-        </div>
-    </div>
+             <ul id="navigation-links">
+                            <li><a href="admin.php">HOME</a></li>
+                            <li><a href="listofusers.php">USERS</a></li>
+                            <li><a href="listoflogs.php">LOGS</a></li>
+                            <li><a href="">ADMIN</a></li>
+                            <div id="logout-container">
+                                  <form id="logout-form" action="logout.php" method="post">
+                                        <button id="logout-button" type="submit" name="logout">Logout</button>
+                                </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
     <div id = "input-section">
         <form action='' method="post">

@@ -7,7 +7,6 @@ body{
     background-attachment: fixed;
     background-position: center;
     font-family: Arial, sans-serif;
-
     color: white;
 }
 h1, h2 {
@@ -29,13 +28,14 @@ h1, h2 {
     justify-content: space-between;
     align-items: center;
 }
-
-#user-icon {
-    width: auto;
-    height: 50px;
-    margin-right: 30px;
+#logout-button {
+    background-color: #1989E5;
+    color: white;
+    border: 1px solid #073066;
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
-
 #ograa-logo {
     position: absolute;
     height: 600px;
@@ -43,12 +43,23 @@ h1, h2 {
     margin-left: 10%;
     margin-top: 7%;
 }
-
-@media screen and (max-width: 700px){
-    #ograa-logo{
-        display: flex;
-        width: 100%;
+@media screen and (max-width:768px) {
+    #logout-button {
+        background-color: #1989E5;
+        color: white;
+        border: 1px solid #073066;
+        padding: 5px 20px;
+        border-radius: 5px;
+        cursor: pointer;
     }
+}
+#navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #073066;
+    color: #F1F1F2;
 }
 
 #unique-logo {
@@ -77,12 +88,21 @@ h1, h2 {
 #navigation ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
     margin-left: auto;
 }
 
 #navigation li {
-    display: inline;
-    margin-right: 40px;
+    margin-right: 20px;
+}
+#navigation-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
 }
 #navigation a {
 
@@ -131,9 +151,7 @@ hr {
 
 }
 
-#content-holder {
-    align-items: center;
-}
+
 
 #banner {
     margin: 0 auto;
@@ -187,21 +205,23 @@ hr {
     width: 150px;
 }
 
+
 #welcome {
     text-align: center;
 }
 
-#update-password-btn {
+#delete-username-btn {
     padding-left: 0;
     font-size: 20px;
     border: 0;
     width: 500px;
-    height: 40px;
+    height: 30px;
     border-radius: 20px;
     text-align: center;
-    background-color: #1985E5;
+    background-color: #1985E5; /* Changed color to #1985E5 */
     color: white;
     cursor: pointer;
+    margin-top: 20px
 }
 
 @media screen and (max-width: 768px) {
