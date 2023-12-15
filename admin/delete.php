@@ -3,6 +3,17 @@ include 'db.php';
 
 session_start();
 
+$db = new DB();
+$conn = $db->getConnection();
+$stmtUsers = $conn->prepare("SELECT username FROM user WHERE userRole <> 'admin'");
+$stmtUsers->execute();
+$resultUsers = $stmtUsers->get_result();
+
+$userList = [];
+while ($row = $resultUsers->fetch_assoc()) {
+    $userList[] = $row['username'];
+}
+
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
     exit();
@@ -78,11 +89,17 @@ if (isset($_POST['delete-username'])) {
 
             <h1><pre>Delete User</pre></h1>
 
-            <div class = "input-container">
-                <label for = "username">Username</label>
-                <input id = "username" type="text" name='username' required>
+            <div class="input-container">
+            <label for="username">Select User</label>
+            <div class="select-container">
+                <select id="username" name="username" required>
+                    <?php foreach ($userList as $user) : ?>
+                        <option value="<?php echo $user; ?>"><?php echo $user; ?></option>
+                    <?php endforeach; ?>
+                </select>
                 <span class="fa-input"><i class="fas fa-user"></i></span>
             </div>
+        </div>
             <br>
             <br>
 
