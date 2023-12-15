@@ -27,6 +27,7 @@ h1, h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #073066;
 }
 #logout-button {
     background-color: #1989E5;
@@ -53,14 +54,7 @@ h1, h2 {
         cursor: pointer;
     }
 }
-#navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #073066;
-    color: #F1F1F2;
-}
+
 
 #unique-logo {
     width: 50px;
@@ -218,7 +212,7 @@ hr {
     height: 30px;
     border-radius: 20px;
     text-align: center;
-    background-color: #1985E5; /* Changed color to #1985E5 */
+    background-color: #1985E5;
     color: white;
     cursor: pointer;
     margin-top: 20px

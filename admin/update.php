@@ -102,32 +102,32 @@ if (isset($_POST['update-password'])) {
                 </div>
             </div>
 
-        <div id = "input-section">
-            <form action='' method="post">
+<div id="input-section">
+    <form action='' method="post">
 
-                <h1><pre>Update User</pre></h1>
+        <h1><pre>Update User</pre></h1>
 
-                <div class = "input-container">
-                <label for="username">Select User</label>
-    <select id="username" name="username" required>
-        <?php foreach ($userList as $user) : ?>
-            <option value="<?php echo $user; ?>"><?php echo $user; ?></option>
-        <?php endforeach; ?>
-    </select>
-    <span class="fa-input"><i class="fas fa-user"></i></span>
-                </div>
-                <br>
-                <br>
-                <div class = "input-container">
-                    <label for = "password">New Password</label>
-                    <input id = "password" type="password" name='password' required>
-                    <span class="fa-input"><i class="fas fa-lock"></i></span>
-                </div>
-                <br>
-                <br>
-                <input id="update-password-btn" type="submit" name="update-password" value="Update Password">
-            </form>
+        <div class="input-container">
+            <label for="username">Select User</label>
+            <div class="select-container">
+                <select id="username" name="username" required>
+                    <?php foreach ($userList as $user) : ?>
+                        <option value="<?php echo $user; ?>"><?php echo $user; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="fa-input"><i class="fas fa-user"></i></span>
+            </div>
         </div>
+
+        <div class="input-container">
+            <label for="password">New Password</label>
+            <input id="password" type="password" name='password' required>
+            <span class="fa-input"><i class="fas fa-lock"></i></span>
+        </div>
+
+        <input id="update-password-btn" type="submit" name="update-password" value="Update Password">
+    </form>
+</div>
     </div>
 </body>
 </html>
