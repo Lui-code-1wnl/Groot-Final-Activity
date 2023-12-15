@@ -52,17 +52,43 @@ $result = $conn->query($query);
 </div>
 <div class="container">
     <div class="blue-box">
-        <form action="" method="post">
             <h1>Search for Logs</h1>
             <div class="form">
                 <div class="row">
                     <div class="input-container">
-                        <input id="username" type="text" name="username" placeholder="Enter username" required>
-                        <button id="search-button" type="submit" name="add-button">Search</button>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
+                        <input id="requestid" type="text" name="requestid" placeholder="Please Enter Request ID or DocumentTitle" required>
+                        <input type="submit" name="submit" value="Search">
+                    </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    <div class="table">
+    <br>
+    </div>    
+    </div>
+<?php
 
-    <?php
+
+ob_start();
+
+ if (isset($_GET['search'])){
+    $_SESSION['search_term'] = htmlspecialchars($_GET['search']);
+}
+if (empty($_GET['search']) && isset($_SESSION['search_term'])){
+   unset($_SESSION['search_term']); 
+}
+    echo '<script>';
+    echo 'if (performance.navigation.type == 1) {';
+    echo '    window.location.href = "listoflogs.php";'; // Redirect to the same page without search parameters
+    echo '}';
+    echo '</script>';
+    
+
+    if (isset($_SESSION['search_term'])) {
+        include 'logssearch.php';
+    } else  {
     // Check if there are logs
     if ($result->num_rows > 0) {
         // Display request table
@@ -70,11 +96,10 @@ $result = $conn->query($query);
         echo '<table class="transparent-table smaller-table" border="1">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th style="color: #073066;">Request ID</th>';
-        echo '<th style="color: #073066;">User ID</th>';
-        echo '<th style="color: #073066;">Document Title</th>';
-        echo '<th style="color: #073066;">Date Submitted</th>';
-        echo '<th style="color: #073066;">Overall Status</th>';
+        echo '<th style="color: #fff;">Request ID</th>';
+        echo '<th style="color: #fff;">Document Title</th>';
+        echo '<th style="color: #fff;">Date Submitted</th>';
+        echo '<th style="color: #fff;">Overall Status</th>';
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
@@ -82,11 +107,10 @@ $result = $conn->query($query);
         // Loop through the result set
         while ($row = $result->fetch_assoc()) {
             echo '<tr>';
-            echo '<td style="color: #073066;">' . $row['requestID'] . '</td>';
-            echo '<td style="color: #073066;">' . $row['userID'] . '</td>';
-            echo '<td style="color: #073066;">' . $row['documentTitle'] . '</td>';
-            echo '<td style="color: #073066;">' . $row['dateSubmitted'] . '</td>';
-            echo '<td style="color: #073066;">' . $row['overallStatus'] . '</td>';
+            echo '<td style="color: #fff;">' . $row['requestID'] . '</td>';
+            echo '<td style="color: #fff;">' . $row['documentTitle'] . '</td>';
+            echo '<td style="color: #fff;">' . $row['dateSubmitted'] . '</td>';
+            echo '<td style="color: #fff;">' . $row['overallStatus'] . '</td>';
             echo '</tr>';
         }
         echo '</tbody>';
@@ -97,11 +121,9 @@ $result = $conn->query($query);
         }
         $result->close();
       $conn->close();
-    
+    }
+    ob_end_flush();
     ?>
-            </div>
-        </form>
-    </div>
-</div>
+
 </body>
 </html>
