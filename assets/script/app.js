@@ -15,6 +15,7 @@ var connection = mysql.createConnection({
 const fs = require('fs');
 const app = express();
 app.use(express.static('public'));
+app.use(express.static('assets'));
 app.set('views', `${__dirname}/public/view`);
 app.set('view engine', 'pug');
 app.use('/css', express.static(`${__dirname}/script/public/css`));
@@ -28,7 +29,8 @@ app.use(express.static('documents'));
 app.use(express.static('sort'));
 app.listen(portNumber, hostIP)
 console.log(`Server running on port number ${portNumber}`);
-
+const annotationHandler = require('./public/lib/annotationHandler');
+app.use('/lib/annotationHandler.js', annotationHandler)
 app.get('/', (request, response) => {
     response.render('index');
 });
@@ -123,6 +125,7 @@ app.post('/login', (request, response) => {
 app.get('/', (request, response) => {
     const error_msg = request.session.error_msg;
     var username = request.session.username;
+    const userData = request.session.userData;
     if(error_msg === null) {
         response.render('login', {error_msg});
     } else {
@@ -144,6 +147,7 @@ app.get('/welcome-page', (request, response) => {
             }
         }
     );
+
     response.render('welcome-page', {userData: userData});
 });
 
@@ -210,9 +214,19 @@ app.post("/", async function(request, response) {
 
 app.get("/dashboard", async function(request, response) {
     try {
+
         const userData = request.session.userData;
         const result = await getUserRequest(userData.userID);
         const departmentResult = await getOfficeRequest(userData.userID);
+
+        const dir = path.join(__dirname, `public/documents/${userData.username}`);
+
+        // Create the directory if it doesn't exist
+        if (!fs.existsSync(dir) && userData.role === 'user') {
+            fs.mkdirSync(dir, { recursive: true });
+            console.log(`Folder created for: ${userData.username}`);
+        }
+
         if (userData.role === 'user') {
             response.render('dashboard', {userData:userData, result: result });
         } else if (userData.role === 'office') {
@@ -552,11 +566,11 @@ app.post('/request-form', async (request, response) => {
         const documentType = request.body.documentType;
         const numOfPages = request.body.numOfPages;
         const description = request.body.desc;
-        const message = request.body.mssg;
+        let message = request.body.mssg;
         let formattedDateTime = dayjs(currentDateTime).format('YYYY-MM-DD HH:mm');
         let requestID = 0;
 
-        connection.query('INSERT INTO `request` (`userID`,`documentTitle`,`dateSubmitted`, `overallStatus`) VALUES (?, ?, ?, ?)', [userID, documentTitle, formattedDateTime, 'Pending'], (err, results) => {
+        connection.query('INSERT INTO `request` (`userID`,`documentTitle`,`dateSubmitted`, `overallStatus`) VALUES (?, ?, ?, ?)', [userID, documentTitle, formattedDateTime, 'Pending approval'], (err, results) => {
             if (err) {
                 console.log(err);
                 throw err;
@@ -568,31 +582,21 @@ app.post('/request-form', async (request, response) => {
                     throw error;
                 }
 
-                if (index === 0) {
-
-                    if (!request.files || !request.files.pdfFile) {
-                        console.log('No files were uploaded.');
-                    }
-
-                    const pdfFile = request.files.pdfFile;
-
-
-                    pdfFile.mv(path.join(__dirname, `/public/documents/${userData.username}`, filename), (err) => {
-                        if (err) {
-                            console.log(err);
-                        }
-
-                        console.log('File uploaded successfully!');
-                    });
-                } else if (index > 0){
-                    filename = null;
-                }
 
                 const requestID = rows[0].requestID;
                 console.log('Inserted requestID:', requestID);
-                let filename = `${requestID}-${userData.userID}-${documentTitle}.pdf`;
-                offices.forEach((office,index) => {
+
+                offices.forEach((office, index) => {
+
+                    let filename = `${requestID}-${userData.userID}-${documentTitle}.pdf`;
                     let date = formattedDateTime;
+                    let docStat = (index === 0) ? 'Pending' : 'Waiting'; // Set initial status accordingly
+
+                    if (index !== 0) {
+                        // For subsequent indexes, modify specific elements of the array
+                        filename = ''; // Set filename to null for subsequent indexes
+                        message = ''; // Set message to null for subsequent indexes
+                    }
                     const documentValues = [
                         requestID,
                         userData.userID,
@@ -606,22 +610,42 @@ app.post('/request-form', async (request, response) => {
                         message,
                         date,
                         '',
-                        'Pending'
+                        docStat // Assign the status
                     ];
 
-                    connection.query('INSERT INTO document (requestID, userID, officeID, documentTitle, referringEntity, documentType, numberOfPages, document_file, documentDescription, message, dateReceived, dateReviewed, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', documentValues, (error, results, fields) => {
+
+
+                    if (index === 0) {
+                        documentValues[13] = 'Pending';
+                        if (!request.files || !request.files.pdfFile) {
+                            console.log('No files were uploaded.');
+                        } else {
+                            const pdfFile = request.files.pdfFile;
+
+                            pdfFile.mv(path.join(__dirname, `/public/documents/${userData.username}`, filename), (err) => {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                console.log('File uploaded successfully!');
+                            });
+                        }
+                    } else {
+                        // Modify specific elements of the array for subsequent indexes
+                        documentValues[7] = ''; // Set filename to null for subsequent indexes
+                        documentValues[9] = ''; // Set message to null for subsequent indexes
+                    }
+
+                    connection.query('INSERT INTO document (requestID, userID, officeID, documentTitle, referringEntity, documentType, numberOfPages, document_file, documentDescription, message, dateReceived, dateReviewed, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', documentValues, (error, results, fields) => {
                         if (error) {
                             console.error('Error inserting data:', error);
                             throw error;
                         }
                         console.log('Document data inserted successfully');
                     });
-
                 });
             });
+            response.redirect(`/after-submission`);
         });
-
-        response.redirect(`/after-submission`);
     } catch (err) {
         console.error('Error:', err);
     }
@@ -629,12 +653,12 @@ app.post('/request-form', async (request, response) => {
 
 app.get('/after-submission', (request, response) => {
     const userData = request.session.userData;
-    response.render('after-submission');
+    response.render('after-submission', {userData:userData});
 });
 
 app.get('/client-blue-header', (request, response) => {
     const userData = request.session.userData;
-    response.render('client-blue-header');
+    response.render('client-blue-header', {userData:userData});
 });
 
 app.get("/document-progress/:requestID", async function(request, response) {
@@ -653,6 +677,52 @@ app.get("/document-progress/:requestID", async function(request, response) {
     }
 });
 
+app.post("/document-progress/:requestID", async function(request, response) {
+    const reqID = request.params.requestID;
+    const userData = request.session.userData;
+    console.log(`Request ID: ${reqID}`);
+
+    try {
+        const result = await getUserRequest(userData.userID);
+        const documentData = await getViewRequest(userData.userID, reqID);
+        const departmentData = await getOffices();
+        console.log(departmentData);
+        console.log(documentData);
+
+        let filename = `${reqID}-${userData.userID}-${documentData[0].documentTitle}.pdf`;
+        const dateOfRev = dayjs();
+        let formattedDateTime = dayjs(dateOfRev).format('YYYY-MM-DD HH:mm');
+        const buttonAction = request.body.actionTaken;
+
+
+        if (buttonAction === 'reupload') {
+            const pdfFile = request.files.pdfFile;
+
+            pdfFile.mv(path.join(__dirname, `/public/documents/${userData.username}`, filename), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('File uploaded successfully!');
+            });
+            connection.query(
+                'UPDATE document SET document_file = ?, message = ?, dateReceived = ? WHERE requestID = ? AND userID = ? AND officeID = ?',
+                [filename, request.body.mssg,formattedDateTime, reqID, userData.userID, documentData[0].officeID],
+                (updateErr) => {
+                    if (updateErr) {
+                        console.error(updateErr);
+
+                    } else {
+                        console.log(`Successfully reuploaded.`);
+                    }
+                });
+        }
+
+        response.render('after-submission', {userData:userData, result: result, documentData:documentData, departmentData:departmentData, reqID});
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
 app.get("/document-review/:requestID", async function(request, response) {
     const reqID = request.params.requestID;
     const userData = request.session.userData;
@@ -663,6 +733,7 @@ app.get("/document-review/:requestID", async function(request, response) {
         const departmentData = await getOffices();
         console.log(departmentData);
         console.log(documentData);
+
 
 
         response.render('document-review', {userData:userData, result: result, documentData:documentData, departmentData:departmentData, reqID});
@@ -697,13 +768,106 @@ app.get("/render:filepath", async function(request, response) {
 });
 
 
+app.post('/document-review/:requestID', async (request, response) => {
+    const userData = request.session.userData;
+    const reqID = request.params.requestID;
+    const buttonAction = request.body.actionTaken;
+    const message = request.body.mssg;
+    const dateOfRev = dayjs();
+    let formattedDateTime = dayjs(dateOfRev).format('YYYY-MM-DD HH:mm');
+    try {
+        const documentData = await getToBeReviewed(userData.userID, reqID);
 
+
+        if (buttonAction === 'Approve') {
+            connection.query(
+                'UPDATE document SET status = ?, document_file = ?, message = ?, dateReviewed = ? WHERE documentID = ? AND requestID = ? AND officeID = ?',
+                ['Approved', documentData[0].document_file, message, formattedDateTime, documentData[0].documentID, reqID, documentData[0].officeID],
+                (updateErr) => {
+                    if (updateErr) {
+                        console.error(updateErr);
+                    } else {
+                        console.log("Document status updated.");
+                        console.log(documentData[0].document_file);
+                        let officeMove = documentData[0].officeID + 1;
+                        let documentMove = documentData[0].documentID +1;
+                        console.log(officeMove);
+                        console.log(documentData[0].documentID +1);
+                        console.log(reqID);
+                        // Execute the second query inside the callback of the first query
+                        if (documentData && documentData.length > 0) {
+                            if (documentData[0].officeID < 8) {
+                                connection.query(
+                                    'UPDATE document SET status = ?, document_file = ?, message = ?, dateReceived = ? WHERE documentID = ? AND requestID = ? AND officeID = ?',
+                                    ['Pending', documentData[0].document_file, message, formattedDateTime, documentMove, reqID, officeMove],
+                                    (secondUpdateErr) => {
+                                        if (secondUpdateErr) {
+                                            console.error(secondUpdateErr);
+                                        } else {
+                                            console.log("Second document status updated.");
+                                            // Further actions after the update
+                                        }
+                                    }
+                                );
+                            } else if (documentData[0].officeID === 8) {
+                                connection.query(
+                                    'UPDATE request SET overallStatus = ? WHERE requestID = ? AND userID = ?',
+                                    ['Approved', reqID, documentData[0].userID],
+                                    (secondUpdateErr) => {
+                                        if (secondUpdateErr) {
+                                            console.error(secondUpdateErr);
+                                        } else {
+                                            console.log("Request status updated.");
+                                            // Further actions after the update
+                                        }
+                                    }
+                                );
+                            } else {
+                                console.log('No update criteria matched.');
+                            }
+                        } else {
+                            console.log('No data found for the given criteria.');
+                        }
+
+                    }
+
+                }
+            );
+
+
+        } else if (buttonAction === 'Return') {
+            connection.query(
+                'UPDATE document SET status = ?, document_file = ?, message = ?, dateReviewed = ? WHERE documentID = ? AND requestID = ? AND officeID = ?',
+                ['Returned', documentData[0].document_file, message, formattedDateTime, documentData[0].documentID, reqID, documentData[0].officeID],
+                (updateErr) => {
+                    if (updateErr) {
+                        console.error(updateErr);
+
+                    } else {
+                        console.log("Document status updated.");
+                    }
+                }
+            );
+
+        }
+
+        response.render('reviewer-after-submit', {userData: userData});
+    } catch(err) {
+        console.log(err);
+    }
+
+});
+
+app.get('/reviewer-after-submit', (request, response) => {
+    const userData = request.session.userData;
+    response.render('reviewer-after-submit', {userData:userData});
+});
 
 
 
 function getViewRequest(userID,reqID) {
     return new Promise((resolve, reject) => {
-        let sql = `SELECT d.documentID, d.requestID, d.userID, d.officeID, d.documentTitle, d.referringEntity, d.documentType, d.numberOfPages, d.document_file, d.documentDescription, d.dateReceived, d.dateReviewed, d.status, u.userID AS officeUserID, u.username AS officeUsername, u.firstName AS office FROM document d JOIN request r ON d.requestID = r.requestID JOIN user u ON u.userID = d.officeID AND u.userRole = 'office' WHERE r.requestID = ${reqID} AND r.userID = ${userID}`;
+        let sql = `SELECT d.documentID, d.requestID, d.userID, d.officeID, d.documentTitle, d.referringEntity, d.documentType, d.numberOfPages, d.document_file, d.documentDescription, d.message, d.dateReceived, d.dateReviewed, d.status, u.userID AS officeUserID, u.username AS officeUsername, u.firstName AS office FROM document d JOIN request r ON d.requestID = r.requestID JOIN user u ON u.userID = d.officeID AND u.userRole = 'office' WHERE r.requestID = ${reqID} AND r.userID = ${userID}`;
         connection.query(sql, [userID, reqID], (err, result) => {
             if (err) {
                 reject(err);

@@ -312,3 +312,13 @@ textarea {
     width:800px;
     font-size: 15px;
 }
+
+#reupload{
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: rgb(24, 51, 80, 0.70);
+    width: 1000px;
+    height: 600px;
+    display: inline-block;
+    align-content: center;
+}

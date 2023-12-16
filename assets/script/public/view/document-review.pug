@@ -25,18 +25,16 @@ html(lang="en")
                         p Document Message: #{documentData[0].message}
 
                 div.side-holder
-                    label(for="document-message") Document Message:
-                    textarea#document-message(rows="4", cols="30", required, name='mssg')
-                    button#approve
-                        - const path = `/render`;
-                        a(href='/render')
-                            b Approve
+                    form(id="form-action", action="", method="POST", name="actionform", enctype="multipart/form-data")
+                        label(for="document-message") Document Message:
+                        textarea#document-message(rows="4", cols="30", required, name='mssg')
 
-                    button#return
-                        b Return
+
+                        input#approve(type="submit", name="actionTaken", value="Approve")
+                        input#return(type="submit", name="actionTaken", value="Return")
+
         br
         br
         div#documentRender
             div#viewer
-            script(src="/lib/index.js")
-
+            script(src='/lib/index.js')
