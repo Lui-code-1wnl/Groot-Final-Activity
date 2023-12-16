@@ -32,14 +32,19 @@ if (isset($_POST['add-button'])) {
     }
 
     // Check if the username already exists
-    $stmtCheck = $conn->prepare("SELECT * FROM user WHERE username=?");
-    $stmtCheck->bind_param("s", $username);
+    $stmtCheck = $conn->prepare("SELECT * FROM user WHERE username=? AND userRole = ? AND password=? ");
+    $stmtCheck->bind_param("sss", $username, $password, $userRole);
     $stmtCheck->execute();
     $resultCheck = $stmtCheck->get_result();
 
     if ($resultCheck->num_rows > 0) {
-        // Username already exists, display error message
-        $_SESSION['error'] = "Username already exists.";
+        // User already exists, display error message
+        $_SESSION['error'] = "User already exists.";
+        echo "<script>
+                alert('User already exists.');
+                window.location.href = 'listofusers.php';
+                </script>";
+                exit();
     } else {
         // Username is unique, proceed with adding the new user
         $stmtAdd = $conn->prepare("INSERT INTO user (username, password, firstName, lastName, userRole, status) VALUES (?, ?, ?, ?, ?, 'offline')");
@@ -48,17 +53,25 @@ if (isset($_POST['add-button'])) {
         if ($stmtAdd->execute()) {
             // Display success message
             $_SESSION['success'] = "User added successfully.";
-        } else {
+            echo "<script>
+                alert('User added successfully.');
+                window.location.href = 'listofusers.php';
+                </script>"; 
+        }
+        $stmtAdd->close();
+
+        if($stmtAdd->execute()){
             // Display error message
             $_SESSION['error'] = "Error adding user. Please try again.";
+            echo "<script>
+                alert('Error adding user. Please try again.');
+                window.location.href = 'listofusers.php';
+                </script>";
+            exit();
         }
-
         // Close the statement for adding a user
         $stmtAdd->close();
     }
-
-    // Close the statement for checking existing username
-    $stmtCheck->close();
 
     // Redirect to the index.php page
     header('Location: index.php');
