@@ -24,12 +24,16 @@ if (isset($_POST['add-button'])) {
     $lastName = trim($_POST['last-name']);
     $userRole = $_POST['list-of-user'];
 
-    // Validate if the username and first name contain only alphanumeric characters and underscores
-    if (!preg_match('/^\w+$/', $username) || !preg_match('/^\w+$/', $firstName)) {
-        $_SESSION['error'] = "Invalid username or first name format. Please enter valid values.";
-        header('Location: index.php');
-        exit();
-    }
+    // Whitespace validation
+    if (!preg_match('/^\w+$/', $username) || 
+    !preg_match('/^\w+$/', $firstName) || 
+    !preg_match('/^\w+$/', $lastName) ||
+    !preg_match('/^\w+$/', $password)) {
+    
+    $_SESSION['error'] = "Invalid input format. Please enter valid values for all fields.";
+    header('Location: index.php');
+    exit();
+}
 
     // Check if the username already exists
     $stmtCheck = $conn->prepare("SELECT * FROM user WHERE username=? AND userRole = ? AND password=? ");
