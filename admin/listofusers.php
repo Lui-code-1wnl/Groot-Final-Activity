@@ -31,8 +31,11 @@ if (isset($_POST['add-button'])) {
     !preg_match('/^\w+$/', $password)) {
     
     $_SESSION['error'] = "Invalid input format. Please enter valid values for all fields.";
-    header('Location: index.php');
-    exit();
+    echo "<script>
+                alert('Invalid input format. Please enter valid values for all fields.');
+                window.location.href = 'listofusers.php';
+                </script>";
+                exit();
 }
 
     // Check if the username already exists
