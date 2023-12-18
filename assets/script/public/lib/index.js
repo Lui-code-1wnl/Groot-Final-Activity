@@ -1,8 +1,9 @@
-var viewerElement = document.getElementById('content-container');
-const documentData = JSON.parse(viewerElement.dataset.info);
+
+var viewerElement = document.getElementById('viewer');
+
 WebViewer({
   path: '/lib',
-  initialDoc: `/documents/${documentData.username}/${documentData.requestID}-${documentData.userID}-${documentData.documentTitle}.pdf`,
+  initialDoc: '/documents/adumlao/39-1-Organization%20Assembly.pdf',
 }, viewerElement).then(instance => {
   const {documentViewer, annotationManager} = instance.Core;
   // Add a save button on header
@@ -13,7 +14,7 @@ WebViewer({
       onClick: function() {
         console.log("annotate plss");
         // Update the document when button is clicked
-        saveDocument(`${documentData.requestID}-${documentData.userID}-${documentData.documentTitle}.pdf`).then(function() {
+        saveDocument('39-1-Organization%20Assembly.pdf').then(function() {
           console.log("Test Log");
           alert('Annotations saved to the document.');
         });
@@ -26,33 +27,24 @@ WebViewer({
     return new Promise(function(resolve, reject) {
       annotationManager.exportAnnotations().then(function(xfdfString) {
         documentViewer.getDocument().getFileData({ xfdfString }).then(function(data) {
-          console.log(data);
           var arr = new Uint8Array(data);
-          console.log(`Array: ${arr}`);
-          var blob = new Blob([arr], { type: 'multipart/form-data' });
-          console.log(`Blob: ${blob.toString()}`);
-          // Create FormData and append the file with the key 'file'
+          var blob = new Blob([ arr ], { type: 'application/pdf' });
+          // FormData is used to send blob data through fetch
           var formData = new FormData();
-          formData.append('file', blob); // 'file' is the key used in the server code
-          console.log(`Form: ${formData.toString()}`);
-
-          // Make a POST request with FormData containing the file
+          formData.append('blob', blob);
           fetch(`/lib/annotationHandler.js?filename=${filename}`, {
             method: 'POST',
             body: formData,
-          })
-              .then(function (res) {
-                if (res.status === 200) {
-                  resolve();
-                  console.log("Test");
-                }
-              })
-              .catch(function (error) {
-                console.error('Error:', error);
-              });
+          }).then(function (res) {
+            if (res.status === 200) {
+              resolve();
+              console.log("Test");
+            }
+          }).catch(function (error) {
+            console.error('Error:', error);
+          });
         });
       });
     });
   };
-
 });

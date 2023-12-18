@@ -29,23 +29,35 @@ html(lang="en")
             div#progress-block
                 ul.progress-bar
                     each item in documentData
-                        if item.status === 'Approved'
+                        if item.status === 'Approved' || item.status === 'Waiting'
                             li
-                        else if item.status === 'Pending'
+                        else if item.status === 'Pending' || item.status === 'Returned'
                             li.stop
 
             ul.information
                 each item in documentData
-                        li
-                            b= item.office
-                            p Status: #{item.status}
+                    li
+                        b= item.office
+                        p Status: #{item.status}
+
         div#renderDocument
             - let stopLoop = false
                 each item in documentData
                     if !stopLoop
-                        if item.status === 'Pending'
+                        if item.status === 'Pending' || item.status === 'Returned'
                             - const filepath = `/documents/${userData.username}/${item.document_file}`
                                 iframe(src=filepath, width="800px", height="825px")
                                 - stopLoop = true
 
 
+
+        div#submission
+            span.fa-input
+                i.fas.fa-folder-open
+            p Upload files here
+            .upload-btn-wrapper
+                button.btn Upload a file.
+                input#browse-button(type='file', name="pdfFile" accept='.pdf', required)
+
+        button#req-button(type="submit", name="actionTaken", value= "reupload")
+            b Reupload
