@@ -30,13 +30,23 @@ body{
 h1 {
     color: #183350;
 }
-#document-render {
+
+label[for="document-message"] {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#webviewer-1 {
     display: block;
     margin-top: 50px;
-    height: 100%;
-    margin-left: 50px;
-    margin-right: 50px;
+    height: 900px;
     width: 1220px;
+    position: relative;
+    left: 46%;
+    transform: translateX(-50%);
 }
 
 #viewer {
