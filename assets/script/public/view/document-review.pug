@@ -12,10 +12,10 @@ html(lang="en")
     body
         include client-white-header
 
-        div#content-container
+        div#content-container(data-info=JSON.stringify(documentData[0]))
             h1 View Document
             div#inside-container
-            
+
                 div#document-info
                         p Referring Entity: #{documentData[0].referringEntity}
                         p Document Title: #{documentData[0].documentTitle}
@@ -25,16 +25,18 @@ html(lang="en")
                         p Document Message: #{documentData[0].message}
 
                 div.side-holder
-                    form(id="form-action", action="", method="POST", name="actionform", enctype="multipart/form-data")
-                        label(for="document-message") Document Message:
-                        textarea#document-message(rows="4", cols="30", required, name='mssg')
+                    label(for="document-message") Document Message:
+                    textarea#document-message(rows="4", cols="30", required, name='mssg')
 
+                    a(href ="/reviewer-after-submit")
+                        button#approve
+                            b Approve
 
-                        input#approve(type="submit", name="actionTaken", value="Approve")
-                        input#return(type="submit", name="actionTaken", value="Return")
-
+                    button#return
+                        b Return
         br
         br
-        div#documentRender
-            div#viewer
-            script(src='/lib/index.js')
+        div#documentRender(style="height: 70vh")
+            div#viewer(style="height: 70vh")
+            script(src="/lib/index.js")
+

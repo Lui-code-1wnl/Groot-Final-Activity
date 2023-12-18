@@ -30,7 +30,7 @@ app.use(express.static('sort'));
 app.listen(portNumber, hostIP)
 console.log(`Server running on port number ${portNumber}`);
 const annotationHandler = require('./public/lib/annotationHandler');
-app.use('/lib/annotationHandler.js', annotationHandler)
+app.use('/lib/annotationHandler.js', annotationHandler);
 app.get('/', (request, response) => {
     response.render('index');
 });
@@ -734,8 +734,6 @@ app.get("/document-review/:requestID", async function(request, response) {
         console.log(departmentData);
         console.log(documentData);
 
-
-
         response.render('document-review', {userData:userData, result: result, documentData:documentData, departmentData:departmentData, reqID});
     } catch (error) {
         console.error('Error:', error);
@@ -880,7 +878,7 @@ function getViewRequest(userID,reqID) {
 
 function getOfficeRequest(userID) {
     return new Promise((resolve, reject) => {
-        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND document_file IS NOT NULL ORDER BY requestID DESC';
+        let sql = 'SELECT `documentID`, `requestID`, `userID`, `officeID`, `documentTitle`, `referringEntity`, `documentType`, `numberOfPages`, `document_file`, `documentDescription`, `dateReceived`, `dateReviewed`, `status` FROM `document` WHERE officeID = ? AND status != "Waiting" AND document_file IS NOT NULL ORDER BY requestID DESC';
 
         connection.query(sql, [userID], (err, result) => {
             if (err) {
@@ -909,8 +907,8 @@ function getOffices() {
 
 function getToBeReviewed(userID,reqID) {
     return new Promise((resolve, reject) => {
-        let sql = `SELECT * FROM document WHERE officeID = ? AND requestID = ?`;
-        connection.query(sql, [userID, reqID], (err, result) => {
+        let sql = `SELECT document.*, user.* FROM document JOIN user ON document.userID=user.userID WHERE document.requestID =? AND document.officeID = ?`;
+        connection.query(sql, [reqID,userID], (err, result) => {
             if (err) {
                 reject(err);
             } else {

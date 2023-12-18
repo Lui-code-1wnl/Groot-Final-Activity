@@ -5,7 +5,6 @@ html(lang="en")
         script(src="")
         meta(name="viewport", content="width=device-width")
         link(rel="stylesheet", href="/css/req_dashboard.css")
-
         link(rel="icon", type="image/x-icon", href="/images/ograa.png")
         title Document Progress
 
@@ -30,9 +29,9 @@ html(lang="en")
             div#progress-block
                 ul.progress-bar
                     each item in documentData
-                        if item.status === 'Approved' || item.status === 'Waiting'
+                        if item.status === 'Approved'
                             li
-                        else if item.status === 'Pending' || item.status === 'Returned'
+                        else if item.status === 'Pending'
                             li.stop
 
             ul.information
@@ -46,28 +45,7 @@ html(lang="en")
                     if !stopLoop
                         if item.status === 'Pending'
                             - const filepath = `/documents/${userData.username}/${item.document_file}`
-                                iframe(src=filepath, width="900px", height="825px")
+                                iframe(src=filepath, width="800px", height="825px")
                                 - stopLoop = true
-        br
-        br
-        each item in documentData
-            if item.status === 'Returned'
-                div#reupload
-                    form(action="", method="POST" name="reqForm" enctype="multipart/form-data")
-
-                        .input-container
-                            label(for="document-message") Document Message:
-                            textarea#document-message(rows="4", cols="50", required, name='mssg')
-
-                        #submission
-                            span.fa-input
-                                i.fas.fa-folder-open
-                            p Upload files here
-                            .upload-btn-wrapper
-                                button.btn Upload a file.
-                                input#browse-button(type='file', name="pdfFile" accept='.pdf', required)
-
-                        button#req-button(type="submit", name="actionTaken", value= "reupload")
-                            b Reupload
 
 

@@ -78,11 +78,9 @@ a {
 #table-container {
     text-align: center;
     width: 1300px;
-    margin: 0 auto; /* Use margin: 0 auto; to center horizontally */
-    margin-top: 50px; /* Adjust the top margin as needed */
-    margin-bottom: 50px; /* Adjust the bottom margin as needed */
+    margin-left: 50px;
+    margin-right: 50px;
 }
-
 
 table {
     width: 1300px;
@@ -117,19 +115,12 @@ td {
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-left: auto;
-    display: flex; 
-    align-items: center; 
+    margin-left: auto; 
 }
 
 #navigation li {
+    display: inline-block; 
     margin-right: 40px;
-    white-space: nowrap;
-}
-
-#navigation p {
-    margin-right: 35px;
-    font-weight: bold;
 }
 
 #navigation a {

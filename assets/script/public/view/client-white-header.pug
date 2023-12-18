@@ -15,8 +15,7 @@ html
                         h1
                             a(href="/welcome-page") Saint Louis University
                 ul
-                    li
-                        p Hello, #{userData.firstName}
+                    p Hello, #{userData.firstName}
                     li
                         a(href='/welcome-page') Home
                     if userData.role === 'user'
