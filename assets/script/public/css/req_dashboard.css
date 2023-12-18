@@ -218,3 +218,35 @@ ul.information li::marker {
     padding: 30px;
     margin: 20px;
 }
+
+/* #submission {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.39);
+    width: 400px;
+    padding: 20px;
+    margin: 10px auto;
+    border: 3px dashed white;
+    line-height: 1;
+}
+
+#submission p {
+    color: #073066;
+}
+
+#submission > * {
+    margin: 10px 0; 
+}
+
+.upload-btn-wrapper {
+    text-align: center;
+}
+
+#browse-button {
+    margin-left: 55px;
+    margin-top: 10px;
+    color: #073066;
+}
+
+button#req-button {
+    margin-top: 15px;
+} */

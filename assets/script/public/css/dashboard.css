@@ -81,15 +81,15 @@ a {
 #table-container {
     text-align: center;
     width: 1300px;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin: 0 auto;
+    margin-top: 50px; 
+    margin-bottom: 50px; 
 }
 
 table {
     width: 1300px;
     text-align: center;
     color: #073066;
-
 }
 
 th {
@@ -119,11 +119,18 @@ td {
     padding: 0;
     margin: 0;
     margin-left: auto; 
+    display: flex;
+    align-items: center;
 }
 
 #navigation li {
-    display: inline-block; 
     margin-right: 40px;
+    white-space: nowrap;
+}
+
+#navigation p {
+    margin-right: 35px;
+    font-weight: bold;
 }
 
 #navigation a {
