@@ -96,10 +96,10 @@ if (empty($_GET['search']) && isset($_SESSION['search_term'])){
         echo '<table class="transparent-table smaller-table" border="1">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th style="color: #073066;">Request ID</th>';
-        echo '<th style="color: #073066;">Document Title</th>';
-        echo '<th style="color: #073066;">Date Submitted</th>';
-        echo '<th style="color: #073066;">Overall Status</th>';
+        echo '<th style="color: #fff;">Request ID</th>';
+        echo '<th style="color: #fff;">Document Title</th>';
+        echo '<th style="color: #fff;">Date Submitted</th>';
+        echo '<th style="color: #fff;">Overall Status</th>';
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
@@ -107,10 +107,10 @@ if (empty($_GET['search']) && isset($_SESSION['search_term'])){
         // Loop through the result set
         while ($row = $result->fetch_assoc()) {
             echo '<tr>';
-            echo '<td style="color: #073066;">' . $row['requestID'] . '</td>';
-            echo '<td style="color: #073066;">' . $row['documentTitle'] . '</td>';
-            echo '<td style="color: #073066;">' . $row['dateSubmitted'] . '</td>';
-            echo '<td style="color: #073066;">' . $row['overallStatus'] . '</td>';
+            echo '<td style="color: #fff;">' . $row['requestID'] . '</td>';
+            echo '<td style="color: #fff;">' . $row['documentTitle'] . '</td>';
+            echo '<td style="color: #fff;">' . $row['dateSubmitted'] . '</td>';
+            echo '<td style="color: #fff;">' . $row['overallStatus'] . '</td>';
             echo '</tr>';
         }
         echo '</tbody>';

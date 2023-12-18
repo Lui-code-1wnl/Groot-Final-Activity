@@ -51,6 +51,9 @@ a {
     }
     
 }
+#track h1{
+    color: #073066;
+}
 
 #user-icon {
     width: auto;
@@ -208,7 +211,7 @@ text-align: center;
     border: 1px solid #ccc;
     border-radius: 3px;
     font-size: 14px;
-  }
+}
   
   #search-button {
     padding: 6px 12px;
