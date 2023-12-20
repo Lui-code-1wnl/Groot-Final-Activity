@@ -794,7 +794,7 @@ app.post('/document-review/:requestID', async (request, response) => {
                         console.log(reqID);
                         // Execute the second query inside the callback of the first query
                         if (documentData && documentData.length > 0) {
-                            if (documentData[0].officeID < 8) {
+                            if (documentData[0].officeID < 7) {
                                 connection.query(
                                     'UPDATE document SET status = ?, document_file = ?, message = ?, dateReceived = ? WHERE documentID = ? AND requestID = ? AND officeID = ?',
                                     ['Pending', documentData[0].document_file, message, formattedDateTime, documentMove, reqID, officeMove],
