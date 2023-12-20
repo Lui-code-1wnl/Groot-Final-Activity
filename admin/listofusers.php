@@ -26,8 +26,8 @@ if (isset($_POST['add-button'])) {
 
     // Whitespace validation
     if (!preg_match('/^\w+$/', $username) || 
-    !preg_match('/^\w+$/', $firstName) || 
-    !preg_match('/^\w+$/', $lastName) ||
+    !preg_match('/^[A-Za-z\s]+$/', $firstName) || 
+    !preg_match('/^[A-Za-z\s]+$/', $lastName) ||
     !preg_match('/^\w+$/', $password)) {
     
     $_SESSION['error'] = "Invalid input format. Please enter valid values for all fields.";
@@ -36,11 +36,11 @@ if (isset($_POST['add-button'])) {
                 window.location.href = 'listofusers.php';
                 </script>";
                 exit();
-}
+            }
 
     // Check if the username already exists
     $stmtCheck = $conn->prepare("SELECT * FROM user WHERE username=? AND userRole = ? AND password=? ");
-    $stmtCheck->bind_param("sss", $username, $password, $userRole);
+    $stmtCheck->bind_param("sss", $username, $userRole, $password);
     $stmtCheck->execute();
     $resultCheck = $stmtCheck->get_result();
 
@@ -52,37 +52,38 @@ if (isset($_POST['add-button'])) {
                 window.location.href = 'listofusers.php';
                 </script>";
                 exit();
-    } else {
-        // Username is unique, proceed with adding the new user
-        $stmtAdd = $conn->prepare("INSERT INTO user (username, password, firstName, lastName, userRole, status) VALUES (?, ?, ?, ?, ?, 'offline')");
-        $stmtAdd->bind_param('sssss', $username, $password, $firstName, $lastName, $userRole);
+                
+        } else {
+            // Username is unique, proceed with adding the new user
+            $stmtAdd = $conn->prepare("INSERT INTO user (username, password, firstName, lastName, userRole, status) VALUES (?, ?, ?, ?, ?, 'offline')");
+            $stmtAdd->bind_param('sssss', $username, $password, $firstName, $lastName, $userRole);
 
-        if ($stmtAdd->execute()) {
-            // Display success message
-            $_SESSION['success'] = "User added successfully.";
-            echo "<script>
-                alert('User added successfully.');
-                window.location.href = 'listofusers.php';
-                </script>"; 
+            if ($stmtAdd->execute()) {
+                // Display success message
+                $_SESSION['success'] = "User added successfully.";
+                echo "<script>
+                    alert('User added successfully.');
+                    window.location.href = 'listofusers.php';
+                    </script>"; 
+                    exit();
+            }
+
+            if($stmtAdd->execute()){
+                // Display error message
+                $_SESSION['error'] = "Error adding user. Please try again.";
+                echo "<script>
+                    alert('Error adding user. Please try again.');
+                    window.location.href = 'listofusers.php';
+                    </script>";
+                exit();
+            }
+            // Close the statement for adding a user
+            $stmtAdd->close();
         }
-        $stmtAdd->close();
 
-        if($stmtAdd->execute()){
-            // Display error message
-            $_SESSION['error'] = "Error adding user. Please try again.";
-            echo "<script>
-                alert('Error adding user. Please try again.');
-                window.location.href = 'listofusers.php';
-                </script>";
-            exit();
-        }
-        // Close the statement for adding a user
-        $stmtAdd->close();
-    }
-
-    // Redirect to the index.php page
-    header('Location: index.php');
-    exit();
+        // Redirect to the index.php page
+        header('Location: index.php');
+        exit();
 }
 // Fetch user data from the database for displaying the user table
 $query = "SELECT * FROM user";
