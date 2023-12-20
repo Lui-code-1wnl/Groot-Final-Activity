@@ -39,8 +39,8 @@ if (isset($_POST['add-button'])) {
             }
 
     // Check if the username already exists
-    $stmtCheck = $conn->prepare("SELECT * FROM user WHERE username=? AND userRole = ? AND password=? ");
-    $stmtCheck->bind_param("sss", $username, $userRole, $password);
+    $stmtCheck = $conn->prepare("SELECT * FROM user WHERE username=? AND userRole = ?");
+    $stmtCheck->bind_param("ss", $username, $userRole);
     $stmtCheck->execute();
     $resultCheck = $stmtCheck->get_result();
 
